@@ -1,0 +1,34 @@
+{
+  "items": [
+    {
+      "id": "puzzle_apple_4",
+      "title": "苹果",
+      "category": "水果",
+      "image": "img:fruit_apple",
+      "difficulty": "easy",
+      "piece_count": 4,
+      "source_nature_item_id": "fruit_apple",
+      "sort_order": 1
+    },
+    {
+      "id": "puzzle_panda_9",
+      "title": "熊猫",
+      "category": "动物",
+      "image": "img:animal_panda",
+      "difficulty": "medium",
+      "piece_count": 9,
+      "source_nature_item_id": "animal_panda",
+      "sort_order": 1
+    },
+    {
+      "id": "puzzle_sunflower_16",
+      "title": "向日葵",
+      "category": "植物",
+      "image": "img:plant_sunflower",
+      "difficulty": "hard",
+      "piece_count": 16,
+      "source_nature_item_id": "plant_sunflower",
+      "sort_order": 1
+    }
+  ]
+}

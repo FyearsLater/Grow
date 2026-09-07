@@ -46,6 +46,10 @@ struct NatureItem: Codable, Identifiable, Equatable {
     /// 插画类型（程序化插画标识）
     let illustration: String
     var sortOrder: Int
+    /// JSON 可选：内容适用年龄档（ContentItem，缺省回退）
+    let ageLevelRaw: String?
+    /// JSON 可选：关联内容 id（ContentItem，缺省由 Repository 派生）
+    let relatedIDs: [String]?
 
     enum CodingKeys: String, CodingKey {
         case id, category, illustration
@@ -57,7 +61,19 @@ struct NatureItem: Codable, Identifiable, Equatable {
         case cantoneseAudio = "cantonese_audio"
         case englishAudio = "english_audio"
         case sortOrder = "sort_order"
+        case ageLevelRaw = "age_level"
+        case relatedIDs = "related_content_ids"
     }
+}
+
+// MARK: - ContentItem 协议实现（§21）
+
+extension NatureItem: ContentItem {
+    var kind: ContentKind { .nature }
+    var displayTitle: String { nameZh }
+    var illustrationID: String { illustration }
+    var storedAgeLevel: AgeLevel? { ageLevelRaw.flatMap(AgeLevel.init(rawValue:)) }
+    var storedRelatedIDs: [String]? { relatedIDs }
 }
 
 // MARK: - 古诗
@@ -158,11 +174,17 @@ struct Poem: Codable, Identifiable, Equatable {
     /// 👀 小朋友可以这样理解
     let kidSummary: String
     var sortOrder: Int
+    /// JSON 可选：内容适用年龄档（ContentItem，缺省回退）
+    let ageLevelRaw: String?
+    /// JSON 可选：关联内容 id（ContentItem，缺省由 Repository 派生）
+    let relatedIDs: [String]?
 
     enum CodingKeys: String, CodingKey {
         case id, title, author, dynasty, categories, illustration, lines, annotations
         case kidSummary = "kid_summary"
         case sortOrder = "sort_order"
+        case ageLevelRaw = "age_level"
+        case relatedIDs = "related_content_ids"
     }
 
     init(from decoder: Decoder) throws {
@@ -176,6 +198,8 @@ struct Poem: Codable, Identifiable, Equatable {
         annotations = try c.decode([Annotation].self, forKey: .annotations)
         kidSummary = try c.decode(String.self, forKey: .kidSummary)
         sortOrder = try c.decode(Int.self, forKey: .sortOrder)
+        ageLevelRaw = try c.decodeIfPresent(String.self, forKey: .ageLevelRaw)
+        relatedIDs = try c.decodeIfPresent([String].self, forKey: .relatedIDs)
         // 分类容错：遇到未知分类（如以后新增）只跳过该项，不让整首诗/整个文件解码失败
         let rawCategories = try c.decode([String].self, forKey: .categories)
         categories = rawCategories.compactMap(PoemCategory.init(rawValue:))
@@ -193,10 +217,22 @@ struct Poem: Codable, Identifiable, Equatable {
         self.annotations = annotations
         self.kidSummary = kidSummary
         self.sortOrder = sortOrder
+        self.ageLevelRaw = nil
+        self.relatedIDs = nil
     }
 
     /// 整首正文（用于整首朗读的 range 映射）
     var fullText: String { lines.map(\.text).joined(separator: "\n") }
+}
+
+// MARK: - ContentItem 协议实现（§21）
+
+extension Poem: ContentItem {
+    var kind: ContentKind { .poem }
+    var displayTitle: String { title }
+    var illustrationID: String { illustration }
+    var storedAgeLevel: AgeLevel? { ageLevelRaw.flatMap(AgeLevel.init(rawValue:)) }
+    var storedRelatedIDs: [String]? { relatedIDs }
 }
 
 // MARK: - 内容包

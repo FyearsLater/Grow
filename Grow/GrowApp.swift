@@ -7,6 +7,9 @@ struct GrowApp: App {
     @StateObject private var audio = AudioManager.shared
     @StateObject private var content = ContentRepository.shared
     @StateObject private var router = Router()
+    @StateObject private var learning = LearningRepository.shared
+    @StateObject private var puzzles = PuzzleRepository.shared
+    @StateObject private var progress = ProgressManager.shared
 
     var body: some Scene {
         WindowGroup {
@@ -16,6 +19,9 @@ struct GrowApp: App {
                 .environmentObject(audio)
                 .environmentObject(content)
                 .environmentObject(router)
+                .environmentObject(learning)
+                .environmentObject(puzzles)
+                .environmentObject(progress)
                 .tint(Theme.ink)
                 // 儿童应用固定浅色：保证液态玻璃与整体奶白设计一致
                 .preferredColorScheme(.light)
@@ -23,7 +29,7 @@ struct GrowApp: App {
     }
 }
 
-/// 底部导航：首页 / 自然 / 古诗 / 收藏
+/// 底部导航：首页 / 探索 / 游戏 / 收藏（设置放在右上角 ⚙️，§8）
 /// iOS 26 液态玻璃风格：悬浮胶囊、毛玻璃底、选中高亮。
 struct RootTabView: View {
     @EnvironmentObject var router: Router
@@ -31,8 +37,8 @@ struct RootTabView: View {
 
     private let items: [(tab: Router.Tab, title: String, icon: String)] = [
         (.home, "首页", "house.fill"),
-        (.nature, "自然", "leaf.fill"),
-        (.poem, "古诗", "book.fill"),
+        (.explore, "探索", "safari.fill"),
+        (.games, "游戏", "puzzlepiece.extension.fill"),
         (.favorites, "收藏", "heart.fill")
     ]
 
@@ -41,10 +47,10 @@ struct RootTabView: View {
             TabView(selection: $router.tab) {
                 HomeView()
                     .tag(Router.Tab.home)
-                NatureTabRoot()
-                    .tag(Router.Tab.nature)
-                PoemTabRoot()
-                    .tag(Router.Tab.poem)
+                ExploreTabRoot()
+                    .tag(Router.Tab.explore)
+                GameTabRoot()
+                    .tag(Router.Tab.games)
                 FavoritesTabRoot()
                     .tag(Router.Tab.favorites)
             }
@@ -175,6 +181,24 @@ struct FavoritesTabRoot: View {
     var body: some View {
         NavigationStack {
             FavoritesView()
+        }
+    }
+}
+
+/// 探索：自然世界 / 古诗小世界 / 看图识字（§9，未来可继续加入英语、汉字等）
+struct ExploreTabRoot: View {
+    var body: some View {
+        NavigationStack {
+            ExploreRootView()
+        }
+    }
+}
+
+/// 游戏：趣味拼图（§10，未来可继续加入找一找、配一配等）
+struct GameTabRoot: View {
+    var body: some View {
+        NavigationStack {
+            PuzzleHomeView()
         }
     }
 }

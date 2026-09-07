@@ -51,18 +51,14 @@ struct CategoryCard: View {
             }
             Text(category.displayName)
                 .font(.system(size: Theme.scaled(20, settings: settings), weight: .bold, design: .rounded))
-                .foregroundStyle(Theme.ink)
+                .foregroundStyle(Theme.textPrimary)
             Text("\(count) 个")
                 .font(.system(size: Theme.scaled(13, settings: settings), weight: .medium))
-                .foregroundStyle(Theme.inkSoft)
+                .foregroundStyle(Theme.textSecondary)
         }
         .frame(maxWidth: .infinity)
         .frame(height: 180 * settings.pageScaleFactor)
-        .background(
-            RoundedRectangle(cornerRadius: 28, style: .continuous)
-                .fill(Theme.categoryColor(category).opacity(0.28))
-        )
-        .shadow(color: Theme.categoryColor(category).opacity(0.2), radius: 10, y: 6)
+        .glassCard(tint: Theme.categoryColor(category), tintOpacity: 0.18)
     }
 }
 
@@ -176,7 +172,7 @@ struct NatureCardFace: View {
         }
         .frame(width: UIScreen.main.bounds.width * 0.78)
         .frame(height: UIScreen.main.bounds.height * 0.52)
-        .growCard()
+        .glassCard()
         .overlay(alignment: .topTrailing) {
             FavoriteButton(kind: .nature, id: item.id)
                 .padding(10)

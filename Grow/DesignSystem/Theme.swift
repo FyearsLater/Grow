@@ -24,6 +24,17 @@ enum Theme {
     // 功能色
     static let heart = Color(red: 0.92, green: 0.45, blue: 0.45)        // 收藏红
 
+    // MARK: - 语义颜色（§20：新代码统一使用语义名，旧色名保留兼容）
+
+    static let background = cream                                          // 页面背景
+    static let surface = Color.white.opacity(0.7)                          // 卡片面
+    static let textPrimary = ink                                           // 主文字
+    static let textSecondary = inkSoft                                     // 次级文字
+    static let success = vegetable                                         // 成功 / 辅助提示
+    static let destructive = heart                                         // 破坏性 / 取消收藏
+    static let glassHighlight = Color.white.opacity(0.55)                  // 玻璃高光描边
+    static let glassTint = Color.white.opacity(0.4)                        // 玻璃顶部高光
+
     static func categoryColor(_ c: NatureCategory) -> Color {
         switch c {
         case .fruit: return fruit

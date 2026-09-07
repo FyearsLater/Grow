@@ -20,6 +20,18 @@
 | 设置 | 页面缩放 / 字体 / 按钮（小·标准·大·超大）、年龄模式（2-3 岁 / 4-6 岁）、家长长按 3 秒验证（默认语言 / 朗读速度 0.75x-1.25x / 音效 / 动画开关） |
 | 音频 | 三语发音按钮（国语 / 粤语 / English）+ 系统 TTS：zh-CN / zh-HK / en-US，架构支持替换预置音频 |
 
+### Phase 2 新增
+
+| 模块 | 内容 |
+|---|---|
+| 首页 | 改为 2×2 四入口：自然世界 / 古诗小世界 / 看图识字 / 趣味拼图 |
+| 底部导航 | 首页 / 探索 / 游戏 / 收藏（设置移到右上角 ⚙️） |
+| 看图识字 · 数字 | 0–9：数量 → 阿拉伯数字 → 中文数字 → 发音，左右滑动 |
+| 看图识字 · 拼音 | 23 个声母 + 24 个韵母：图片 → 示例词 → 拼音 → 发音 |
+| 趣味拼图 | 4 / 9 / 16 块三档，逐级解锁，拖拽 + 自动吸附，运行时切片 |
+| 拼图联动 | 完成后显示中英文 + 三语发音，「认识一下」跳回自然认知详情 |
+| 设置 | 新增「拼图辅助」开关（2–3 岁默认开启，4–6 岁默认关闭） |
+
 ## 如何运行
 
 ```bash
@@ -139,3 +151,90 @@ Grow/
 3. 个别水墨插图可按需重生成替换（对应 Images/poem_*.jpg）
 4. iPad 大屏布局（非简单放大）
 5. 交互测试：快速点击/连续滑动/声音叠加等儿童异常操作场景
+
+---
+
+## 如何添加内容（Phase 2）
+
+所有内容都是**数据驱动**的：加内容只需改 JSON + 放图片/音频，**不需要改 SwiftUI 页面**。
+
+### 图片标准
+
+- **统一 720 × 720 px**、1:1，优先 JPEG / HEIF
+- 放在 `Grow/Resources/Images/`，命名用有意义的英文（`apple` / `panda` / `sunflower`），**不要** `img001`、`final2`
+- 只有需要透明背景的 UI 元素才用 PNG，内容图片不要全用 PNG
+- 项目已启用 Xcode 文件系统同步，新文件会被自动打包，**无需手动改 pbxproj**
+- ⚠️ 不要为了「高清」把内容图升级到 1024² / 2048²，这会显著增加包体积
+
+### 添加数字（0–9）
+
+编辑 `Grow/Resources/Content/numbers.json`：
+
+```json
+{
+  "id": "number_10", "number": 10, "chinese_name": "十",
+  "image_items": ["🍎"], "audio": null, "sort_order": 10
+}
+```
+
+`image_items` 填展示「数量」用的 emoji，UI 会按 `number` 重复展示。
+
+### 添加声母 / 韵母
+
+编辑 `Grow/Resources/Content/pinyin.json`：
+
+```json
+{
+  "id": "pinyin_initial_b", "type": "initial", "symbol": "b",
+  "example_word": "斑马", "example_word_pinyin": "bān mǎ",
+  "image": "img:animal_zebra", "speak_text": "玻", "audio": null, "sort_order": 1
+}
+```
+
+- `type`：`initial` 声母 / `final` 韵母（`tone` 为未来声调预留，暂不使用）
+- `image`：复用插画标识，`img:图片名` 或 `emoji:🐚`
+- **`speak_text` 必填且要准确**：系统 TTS 念不出裸拼音符号（念 `b` 会变成英文字母），
+  因此填该拼音的**呼读音汉字**（b→玻、a→啊、ao→熬、eng→鞥）
+- 示例词的**首字**必须真的对应该声母/韵母；宁可只展示符号 + 发音，也不要用错示例
+
+### 添加拼图
+
+编辑 `Grow/Resources/Content/puzzles.json`：
+
+```json
+{
+  "id": "puzzle_apple_9", "title": "苹果", "category": "水果",
+  "image": "img:fruit_apple", "difficulty": "medium",
+  "piece_count": 9, "source_nature_item_id": "fruit_apple", "sort_order": 1
+}
+```
+
+- `difficulty`：`easy` 4 块 / `medium` 9 块 / `hard` 16 块
+- **只需要一张 720×720 原图**，切片由 `PuzzleEngine` 在运行时计算；
+  **禁止**预先保存 `apple_9_1` 这类切片图
+- `source_nature_item_id` 填自然认知条目 id，完成后即可「认识一下」跳回详情
+
+### 修改解锁规则
+
+`Grow/Core/ProgressManager.swift` → `isUnlocked(_:repo:)`。
+默认规则：**完成前一难度的任意一张**即解锁下一难度。
+
+### 修改默认设置
+
+`Grow/Core/SettingsManager.swift` → `init()` 中的 fallback 值
+（年龄模式、拼图辅助、字号、按钮大小、朗读速度等）。
+
+### 替换音频
+
+- 数字 / 拼音 / 拼图发音统一走 `AudioManager.speak(name:language:key:)`，
+  **不要每个页面自己建音频管理器**；播放前会自动 stop，天然避免声音叠加
+- 想换成预录音频：把文件放进 Bundle，在模型 `audio` 字段填文件名，
+  再让 `AudioManager` 优先播放 `audio`（当前为空时回退系统 TTS）
+- 拼图音效在 `Grow/Core/SoundEffects.swift`；**错误放置刻意不发声**
+
+### 新增分类
+
+1. 在 `Grow/Models/` 对应枚举里加 case（`NatureCategory` / `PinyinType` / `PuzzleDifficulty`）
+2. 补上 `displayName` / `symbol` 等展示属性
+3. 在 JSON 里使用新 case 的 rawValue
+4. 页面会自动出现新分类，无需改 View

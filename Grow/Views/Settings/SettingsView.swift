@@ -120,6 +120,8 @@ struct SettingsView: View {
                     .tint(Theme.vegetable)
                 Toggle("减少动画", isOn: $settings.reduceMotion)
                     .tint(Theme.vegetable)
+                Toggle("拼图辅助", isOn: $settings.puzzleAssist)
+                    .tint(Theme.vegetable)
 
                 // 开发日志入口
                 NavigationLink {

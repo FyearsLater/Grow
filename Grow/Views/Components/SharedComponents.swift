@@ -114,3 +114,61 @@ struct FavoriteButton: View {
         .accessibilityLabel(isFav ? "取消收藏" : "收藏")
     }
 }
+
+// MARK: - 普通话专用发音按钮（数字 / 拼音 / 拼图完成页复用）
+
+/// 只使用标准普通话：数字、拼音都属于普通话学习体系（§24 / §66）。
+struct SpeakButton: View {
+    @ObservedObject var audio = AudioManager.shared
+    @ObservedObject var settings = SettingsManager.shared
+
+    let text: String
+    let key: String
+    /// 按钮上的文字（nil 时只显示喇叭）
+    var title: String? = nil
+    var style: Style = .compact
+
+    enum Style { case compact, prominent }
+
+    private var isPlaying: Bool { audio.playingKey == key }
+    private var isAvailable: Bool { audio.availableLanguages.contains(.mandarin) }
+
+    var body: some View {
+        Button {
+            guard isAvailable else { return }
+            audio.speak(name: text, language: .mandarin, key: key)
+        } label: {
+            HStack(spacing: 8) {
+                if isPlaying {
+                    WaveIndicator(active: true, color: style == .prominent ? .white : Theme.ink)
+                } else {
+                    Image(systemName: "speaker.wave.2.fill")
+                        .font(.system(size: style == .prominent ? 22 : 15, weight: .semibold))
+                }
+                if let title {
+                    Text(title)
+                        .font(.system(size: Theme.scaled(style == .prominent ? 17 : 14, settings: settings),
+                                      weight: .semibold, design: .rounded))
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.75)
+                }
+            }
+            .foregroundStyle(style == .prominent ? .white : (isPlaying ? Theme.ink : Theme.inkSoft))
+            .padding(.horizontal, style == .prominent ? 22 : 14)
+            .padding(.vertical, style == .prominent ? 16 : 12)
+            .frame(minWidth: 44, minHeight: (style == .prominent ? 56 : 44) * settings.buttonScaleFactor)
+            .background(
+                Capsule().fill(style == .prominent
+                               ? (isPlaying ? Theme.vegetable : Theme.vegetable.opacity(0.85))
+                               : (isPlaying ? Theme.creamDeep : Theme.cream))
+            )
+            .overlay(
+                Capsule().strokeBorder(style == .prominent ? Color.clear : Theme.inkSoft.opacity(0.18), lineWidth: 1.5)
+            )
+            .shadow(color: style == .prominent ? Theme.vegetable.opacity(0.3) : .clear, radius: 10, y: 5)
+        }
+        .buttonStyle(PressableButtonStyle(settings: settings))
+        .disabled(!isAvailable)
+        .accessibilityHint("播放普通话发音")
+    }
+}

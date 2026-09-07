@@ -1,0 +1,84 @@
+{
+  "items": [
+    {
+      "id": "number_0",
+      "number": 0,
+      "chinese_name": "零",
+      "image_items": [],
+      "audio": null,
+      "sort_order": 0
+    },
+    {
+      "id": "number_1",
+      "number": 1,
+      "chinese_name": "一",
+      "image_items": ["🍎"],
+      "audio": null,
+      "sort_order": 1
+    },
+    {
+      "id": "number_2",
+      "number": 2,
+      "chinese_name": "二",
+      "image_items": ["🍌"],
+      "audio": null,
+      "sort_order": 2
+    },
+    {
+      "id": "number_3",
+      "number": 3,
+      "chinese_name": "三",
+      "image_items": ["🍓"],
+      "audio": null,
+      "sort_order": 3
+    },
+    {
+      "id": "number_4",
+      "number": 4,
+      "chinese_name": "四",
+      "image_items": ["🍉"],
+      "audio": null,
+      "sort_order": 4
+    },
+    {
+      "id": "number_5",
+      "number": 5,
+      "chinese_name": "五",
+      "image_items": ["🍊"],
+      "audio": null,
+      "sort_order": 5
+    },
+    {
+      "id": "number_6",
+      "number": 6,
+      "chinese_name": "六",
+      "image_items": ["🐱"],
+      "audio": null,
+      "sort_order": 6
+    },
+    {
+      "id": "number_7",
+      "number": 7,
+      "chinese_name": "七",
+      "image_items": ["🐶"],
+      "audio": null,
+      "sort_order": 7
+    },
+    {
+      "id": "number_8",
+      "number": 8,
+      "chinese_name": "八",
+      "image_items": ["🐟"],
+      "audio": null,
+      "sort_order": 8
+    },
+    {
+      "id": "number_9",
+      "number": 9,
+      "chinese_name": "九",
+      "image_items": ["🌸"],
+      "audio": null,
+      "sort_order": 9
+    }
+  ]
+}

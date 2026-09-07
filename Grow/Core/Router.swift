@@ -2,8 +2,9 @@ import Foundation
 
 /// 全局路由：Tab 切换 + 各 Tab 的 NavigationStack 路径
 final class Router: ObservableObject {
+    /// 底部导航：首页 / 探索 / 游戏 / 收藏（设置放在右上角，§8）
     enum Tab: String {
-        case home, nature, poem, favorites
+        case home, explore, games, favorites
     }
 
     enum NatureRoute: Hashable {

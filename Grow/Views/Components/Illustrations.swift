@@ -7,18 +7,9 @@ import SwiftUI
 struct IllustrationView: View {
     let identifier: String
 
-    private static let cache = NSCache<NSString, UIImage>()
-
+    /// 资产加载已统一走 AssetManager（§23），此处保留静态入口兼容旧调用
     static func bundleImage(_ name: String) -> UIImage? {
-        if let hit = cache.object(forKey: name as NSString) { return hit }
-        let url = Bundle.main.url(forResource: name, withExtension: "heic", subdirectory: "Images")
-            ?? Bundle.main.url(forResource: name, withExtension: "jpg", subdirectory: "Images")
-            ?? Bundle.main.url(forResource: name, withExtension: "png", subdirectory: "Images")
-            ?? Bundle.main.url(forResource: name, withExtension: "heic")
-            ?? Bundle.main.url(forResource: name, withExtension: "jpg")
-        guard let url, let img = UIImage(contentsOfFile: url.path) else { return nil }
-        cache.setObject(img, forKey: name as NSString)
-        return img
+        AssetManager.bundleImage(name)
     }
 
     var body: some View {

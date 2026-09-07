@@ -65,32 +65,42 @@ struct HomeView: View {
         .offset(y: appeared ? 0 : 12)
     }
 
-    // 两个主入口卡片（点击切换到对应 Tab）
+    // 四个主入口：2 × 2 玻璃卡片布局（§6 / §7 / §11）
     private var mainCards: some View {
-        VStack(spacing: 18) {
-            Button {
-                router.tab = .nature
-            } label: {
-                HomeEntryCard(
-                    symbol: "🌱",
-                    title: "自然世界",
-                    subtitle: "认识我们身边的自然",
-                    colors: [Theme.vegetable.opacity(0.85), Theme.vegetable.opacity(0.55)]
-                )
-            }
-            .buttonStyle(PressableButtonStyle())
+        let columns = [GridItem(.flexible(), spacing: 16), GridItem(.flexible(), spacing: 16)]
 
-            Button {
-                router.tab = .poem
+        return LazyVGrid(columns: columns, spacing: 16) {
+            NavigationLink {
+                NatureRootView()
             } label: {
-                HomeEntryCard(
-                    symbol: "📖",
-                    title: "古诗小世界",
-                    subtitle: "和古诗一起认识四季与生活",
-                    colors: [Theme.poemWarm.opacity(0.8), Theme.poemWarm.opacity(0.5)]
-                )
+                GlassEntryCard(symbol: "🌱", title: "自然世界", subtitle: "认识身边的自然",
+                               tint: Theme.vegetable)
             }
-            .buttonStyle(PressableButtonStyle())
+            .buttonStyle(PressableButtonStyle(settings: settings))
+
+            NavigationLink {
+                PoemRootView()
+            } label: {
+                GlassEntryCard(symbol: "📖", title: "古诗小世界", subtitle: "和古诗一起探索",
+                               tint: Theme.poemWarm)
+            }
+            .buttonStyle(PressableButtonStyle(settings: settings))
+
+            NavigationLink {
+                LearningHomeView()
+            } label: {
+                GlassEntryCard(symbol: "🔤", title: "看图识字", subtitle: "数字 · 拼音",
+                               tint: Theme.fruit)
+            }
+            .buttonStyle(PressableButtonStyle(settings: settings))
+
+            NavigationLink {
+                PuzzleHomeView()
+            } label: {
+                GlassEntryCard(symbol: "🧩", title: "趣味拼图", subtitle: "动手拼一拼",
+                               tint: Theme.plant)
+            }
+            .buttonStyle(PressableButtonStyle(settings: settings))
         }
         .opacity(appeared ? 1 : 0)
         .offset(y: appeared ? 0 : 20)
@@ -109,45 +119,6 @@ struct HomeView: View {
             }
         }
         return list
-    }
-}
-
-// MARK: - 主入口卡片
-
-struct HomeEntryCard: View {
-    @EnvironmentObject var settings: SettingsManager
-    let symbol: String
-    let title: String
-    let subtitle: String
-    let colors: [Color]
-
-    var body: some View {
-        HStack(spacing: 20) {
-            Text(symbol)
-                .font(.system(size: 56))
-                .frame(width: 84, height: 84)
-                .background(Circle().fill(.white.opacity(0.55)))
-
-            VStack(alignment: .leading, spacing: 6) {
-                Text(title)
-                    .font(.system(size: Theme.scaled(24, settings: settings), weight: .bold, design: .rounded))
-                    .foregroundStyle(.white)
-                Text(subtitle)
-                    .font(.system(size: Theme.scaled(14, settings: settings), weight: .medium))
-                    .foregroundStyle(.white.opacity(0.9))
-            }
-            Spacer()
-            Image(systemName: "chevron.right")
-                .font(.system(size: 16, weight: .bold))
-                .foregroundStyle(.white.opacity(0.7))
-        }
-        .padding(22)
-        .frame(minHeight: 128 * settings.buttonScaleFactor)
-        .background(
-            RoundedRectangle(cornerRadius: 32, style: .continuous)
-                .fill(LinearGradient(colors: colors, startPoint: .topLeading, endPoint: .bottomTrailing))
-        )
-        .shadow(color: colors[0].opacity(0.35), radius: 14, y: 8)
     }
 }
 
@@ -237,11 +208,7 @@ struct RecentSection: View {
                             .padding(.horizontal, 18)
                             .padding(.vertical, 14)
                             .frame(minWidth: 96, minHeight: 96)
-                            .background(
-                                RoundedRectangle(cornerRadius: 22, style: .continuous)
-                                    .fill(.white.opacity(0.75))
-                            )
-                            .shadow(color: .black.opacity(0.05), radius: 8, y: 4)
+                            .glassCard(radius: 22)
                         }
                         .buttonStyle(PressableButtonStyle())
                     }

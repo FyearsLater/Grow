@@ -54,6 +54,8 @@ final class SettingsManager: ObservableObject {
     @Published var animationOn: Bool { didSet { persist() } }
     @Published var reduceMotion: Bool { didSet { persist() } }
     @Published var ageMode: AgeMode { didSet { persist() } }
+    /// 拼图辅助：儿童一段时间没有操作时，轻微提示某个正确位置（§56 / §57）
+    @Published var puzzleAssist: Bool { didSet { persist() } }
 
     private let defaults = UserDefaults.standard
     private static let prefix = "grow.settings."
@@ -72,6 +74,9 @@ final class SettingsManager: ObservableObject {
         animationOn = defaults.object(forKey: Self.prefix + "animationOn") as? Bool ?? true
         reduceMotion = defaults.object(forKey: Self.prefix + "reduceMotion") as? Bool ?? false
         ageMode = Self.decode(AgeMode.self, key: "ageMode", fallback: .preschool)
+        // 2–3 岁默认开启拼图辅助，4–6 岁默认关闭（§59 / §60）
+        let age = Self.decode(AgeMode.self, key: "ageMode", fallback: .preschool)
+        puzzleAssist = defaults.object(forKey: Self.prefix + "puzzleAssist") as? Bool ?? (age == .toddler)
     }
 
     // MARK: - 派生系数（供 Theme 使用）
@@ -128,6 +133,7 @@ final class SettingsManager: ObservableObject {
         defaults.set(animationOn, forKey: p + "animationOn")
         defaults.set(reduceMotion, forKey: p + "reduceMotion")
         defaults.set(ageMode.rawValue, forKey: p + "ageMode")
+        defaults.set(puzzleAssist, forKey: p + "puzzleAssist")
     }
 
     /// 统一在值变化后调用

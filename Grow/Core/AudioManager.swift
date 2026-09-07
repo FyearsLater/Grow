@@ -138,7 +138,7 @@ final class AudioManager: NSObject, ObservableObject {
         print("[TTS] zh-CN picked:", Self.bestVoice(for: .mandarin)?.name ?? "nil")
         print("[TTS] zh-HK picked:", Self.bestVoice(for: .cantonese)?.name ?? "nil")
         print("[TTS] en-US picked:", Self.bestVoice(for: .english)?.name ?? "nil")
-        print("[TTS] available:", availableLanguages.map { $0.rawValue }.sorted())
+        print("[TTS] zh-HK exact voice installed:", Self.hasExactVoice(for: .cantonese))
         #endif
     }
 
@@ -148,7 +148,18 @@ final class AudioManager: NSObject, ObservableObject {
         for lang in SpeechLanguage.allCases {
             if Self.bestVoice(for: lang) != nil { set.insert(lang) }
         }
-        DispatchQueue.main.async { self.availableLanguages = set }
+        DispatchQueue.main.async {
+            self.availableLanguages = set
+            #if DEBUG
+            print("[TTS] available:", set.map { $0.rawValue }.sorted())
+            #endif
+        }
+    }
+
+    /// 系统是否安装了该语言的精确语音包（不含 fallback 回退）。
+    /// 用于设置页展示语音包状态：无精确粤语包时，「粤」会以回退语音发声（非标准粤语）。
+    static func hasExactVoice(for language: SpeechLanguage) -> Bool {
+        AVSpeechSynthesisVoice.speechVoices().contains { $0.language == language.rawValue }
     }
 
     // MARK: - 自然对象发音

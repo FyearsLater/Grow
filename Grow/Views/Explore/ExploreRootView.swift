@@ -1,6 +1,7 @@
 import SwiftUI
 
-/// 探索页：自然世界 / 古诗小世界 / 看图识字（§9）
+/// 探索页：随机发现——每次进入 / 点击「换一换」，随机展示四个板块中的一个内容。
+/// 与首页（固定入口）职责区分：探索页只做「随机惊喜发现」。
 struct ExploreRootView: View {
     @EnvironmentObject var settings: SettingsManager
     @EnvironmentObject var content: ContentRepository
@@ -11,19 +12,24 @@ struct ExploreRootView: View {
 
     var body: some View {
         ScrollView(showsIndicators: false) {
-            VStack(spacing: 18) {
+            VStack(spacing: 22) {
                 header
+
                 if let discovery {
                     discoveryCard(discovery)
-                        .opacity(appeared ? 1 : 0)
-                        .offset(y: appeared ? 0 : 12)
+                        .id(discovery.id)
+                        .transition(.asymmetric(
+                            insertion: .scale(scale: 0.92).combined(with: .opacity),
+                            removal: .opacity))
                 }
-                entries
+
+                refreshButton
             }
             .padding(.horizontal, 20)
             .padding(.bottom, 30)
             .frame(maxWidth: 560)
             .frame(maxWidth: .infinity)
+            .animation(GrowAnimation.card(settings), value: discovery?.id)
         }
         .background(Theme.cream.ignoresSafeArea())
         .navigationTitle("探索")
@@ -35,89 +41,109 @@ struct ExploreRootView: View {
     }
 
     private var header: some View {
-        GlassPageHeader(title: "探索", subtitle: "挑一个喜欢的去看看")
+        GlassPageHeader(title: "探索", subtitle: "每次都有新发现")
             .padding(.top, 8)
             .opacity(appeared ? 1 : 0)
     }
 
-    private var entries: some View {
-        VStack(spacing: 16) {
-            NavigationLink {
-                NatureRootView()
-            } label: {
-                GlassEntryCard(module: .nature,
-                               detail: "\(content.natureItems.count) 个对象",
-                               layout: .horizontal)
-            }
-            .buttonStyle(PressableButtonStyle(settings: settings))
-
-            NavigationLink {
-                PoemRootView()
-            } label: {
-                GlassEntryCard(module: .poem,
-                               detail: "\(content.poems.count) 首古诗",
-                               layout: .horizontal)
-            }
-            .buttonStyle(PressableButtonStyle(settings: settings))
-
-            NavigationLink {
-                LearningHomeView()
-            } label: {
-                GlassEntryCard(module: .learning,
-                               detail: "\(learning.numbers.count + learning.pinyins.count) 张卡片",
-                               layout: .horizontal)
-            }
-            .buttonStyle(PressableButtonStyle(settings: settings))
-        }
-        .opacity(appeared ? 1 : 0)
-        .offset(y: appeared ? 0 : 16)
-    }
-
-    // MARK: - 今日发现：随机推荐一个内容、游戏或古诗词
-
-    private func makeDiscovery() -> Discovery? {
-        let makers: [() -> Discovery?] = [
-            { content.natureItems.randomElement().map { .nature($0) } },
-            { content.poems.randomElement().map { .poem($0) } },
-            { learning.numbers.randomElement().map { .number($0) } },
-            { learning.pinyins.randomElement().map { .pinyin($0) } },
-            { games.playableDefinitions.isEmpty ? nil : .game }
-        ]
-        return makers.randomElement()?()
-    }
+    // MARK: - 随机发现大卡（点击进入对应内容）
 
     @ViewBuilder
     private func discoveryCard(_ discovery: Discovery) -> some View {
         NavigationLink { discoveryDestination(discovery) } label: {
-            HStack(spacing: 16) {
-                discoveryIcon(discovery, size: 64)
-                    .frame(width: 64, height: 64)
+            VStack(spacing: 16) {
+                // 类别标签
+                Text(discovery.badge)
+                    .font(.system(size: Theme.scaled(14, settings: settings), weight: .bold, design: .rounded))
+                    .foregroundStyle(discovery.accent)
+                    .padding(.horizontal, 14)
+                    .padding(.vertical, 6)
+                    .background(Capsule().fill(discovery.accent.opacity(0.16)))
 
-                VStack(alignment: .leading, spacing: 4) {
-                    HStack(spacing: 6) {
-                        Text(discovery.badge)
-                            .font(.system(size: Theme.scaled(12, settings: settings), weight: .bold, design: .rounded))
-                            .foregroundStyle(discovery.accent)
-                        Spacer()
-                        Image(systemName: "arrow.right.circle.fill")
-                            .font(.system(size: 20))
-                            .foregroundStyle(discovery.accent.opacity(0.7))
-                    }
+                discoveryIcon(discovery, size: 132)
+                    .frame(width: 132, height: 132)
+
+                VStack(spacing: 6) {
                     Text(discovery.title)
-                        .font(.system(size: Theme.scaled(18, settings: settings), weight: .bold, design: .rounded))
+                        .font(.system(size: Theme.scaled(30, settings: settings), weight: .bold, design: .rounded))
                         .foregroundStyle(Theme.ink)
                         .lineLimit(1)
+                        .minimumScaleFactor(0.7)
                     Text(discovery.subtitle)
-                        .font(.system(size: Theme.scaled(13, settings: settings), weight: .medium))
+                        .font(.system(size: Theme.scaled(16, settings: settings), weight: .medium))
                         .foregroundStyle(Theme.inkSoft)
                         .lineLimit(1)
                 }
+
+                HStack(spacing: 6) {
+                    Text("点开看看")
+                        .font(.system(size: Theme.scaled(14, settings: settings), weight: .semibold))
+                    Image(systemName: "arrow.right")
+                        .font(.system(size: 13, weight: .bold))
+                }
+                .foregroundStyle(discovery.accent)
             }
-            .padding(16)
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .growCard(fill: discovery.accent.opacity(0.18))
+            .frame(maxWidth: .infinity)
+            .padding(.vertical, 30)
+            .padding(.horizontal, 20)
+            .growCard(fill: discovery.accent.opacity(0.16))
         }
         .buttonStyle(PressableButtonStyle(settings: settings))
+        .opacity(appeared ? 1 : 0)
+        .offset(y: appeared ? 0 : 12)
+    }
+
+    // MARK: - 换一换（刷新随机内容）
+
+    private var refreshButton: some View {
+        Button {
+            guard let current = discovery else { return }
+            withAnimation(GrowAnimation.card(settings)) {
+                discovery = makeDiscovery(excluding: current)
+            }
+            // 播报新内容名称，强化「发现」感
+            if let next = discovery { speakDiscovery(next) }
+        } label: {
+            HStack(spacing: 10) {
+                Image(systemName: "arrow.clockwise")
+                    .font(.system(size: 20, weight: .bold))
+                Text("换一换")
+                    .font(.system(size: Theme.scaled(19, settings: settings), weight: .bold, design: .rounded))
+            }
+            .foregroundStyle(.white)
+            .padding(.horizontal, 36)
+            .frame(minHeight: 58 * settings.buttonScaleFactor)
+            .background(Capsule().fill(Theme.vegetable))
+            .shadow(color: Theme.vegetable.opacity(0.35), radius: 12, y: 6)
+        }
+        .buttonStyle(PressableButtonStyle(settings: settings))
+        .accessibilityHint("随机换一个内容")
+        .opacity(appeared ? 1 : 0)
+    }
+
+    private func speakDiscovery(_ discovery: Discovery) {
+        let settings = SettingsManager.shared
+        AudioManager.shared.speak(name: discovery.spokenText,
+                                  language: settings.defaultLanguage,
+                                  key: "explore-\(discovery.id)")
+    }
+
+    // MARK: - 随机选题（避免与当前内容重复）
+
+    private func makeDiscovery(excluding current: Discovery? = nil) -> Discovery? {
+        for _ in 0..<6 {
+            let makers: [() -> Discovery?] = [
+                { content.natureItems.randomElement().map { .nature($0) } },
+                { content.poems.randomElement().map { .poem($0) } },
+                { learning.numbers.randomElement().map { .number($0) } },
+                { learning.pinyins.randomElement().map { .pinyin($0) } },
+                { games.playableDefinitions.isEmpty ? nil : .game }
+            ]
+            if let next = makers.randomElement()?(), next.id != current?.id {
+                return next
+            }
+        }
+        return current
     }
 
     @ViewBuilder
@@ -138,10 +164,12 @@ struct ExploreRootView: View {
             IllustrationView(identifier: item.illustration)
                 .frame(width: size, height: size)
                 .clipShape(RoundedRectangle(cornerRadius: size * 0.26, style: .continuous))
+                .shadow(color: .black.opacity(0.08), radius: 10, y: 5)
         case .poem(let poem):
             IllustrationView(identifier: poem.illustration)
                 .frame(width: size, height: size)
                 .clipShape(RoundedRectangle(cornerRadius: size * 0.26, style: .continuous))
+                .shadow(color: .black.opacity(0.08), radius: 10, y: 5)
         case .number:
             LearningTopicIcon(topic: .numbers, size: size)
         case .pinyin(let item):
@@ -198,6 +226,17 @@ private enum Discovery: Identifiable {
         case .number(let item): return "数字 \(item.number)"
         case .pinyin(let item): return item.type.displayName
         case .game: return "玩一玩 · 认一认"
+        }
+    }
+
+    /// 换一换时的朗读文本
+    var spokenText: String {
+        switch self {
+        case .nature(let item): return item.nameZh
+        case .poem(let poem): return "古诗，\(poem.title)"
+        case .number(let item): return item.chineseName
+        case .pinyin(let item): return item.symbol
+        case .game: return "一起玩游戏"
         }
     }
 

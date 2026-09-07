@@ -154,7 +154,7 @@ struct NatureCardFace: View {
                     .foregroundStyle(Theme.inkSoft)
             }
 
-            LanguageButtonsRow(name: item.nameZh, nameEn: item.nameEn, itemKey: item.id, languages: [.mandarin, .cantonese])
+            LanguageButtonsRow(name: item.nameZh, nameEn: item.nameEn, itemKey: item.id)
 
             Spacer(minLength: 0)
         }

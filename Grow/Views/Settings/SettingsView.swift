@@ -48,6 +48,9 @@ struct SettingsView: View {
     private var parentSection: some View {
         settingsCard("朗读与声音") {
             VStack(spacing: 16) {
+                // 语音包状态（缺包时对应语言无法标准发声）
+                voicePackStatus
+
                 // 默认发音语言
                 VStack(alignment: .leading, spacing: 8) {
                     Text("默认发音")
@@ -144,6 +147,46 @@ struct SettingsView: View {
                 .buttonStyle(PlainButtonStyle())
             }
         }
+    }
+
+    // MARK: - 语音包状态
+
+    /// 列出每种语言的系统语音包安装情况；缺失时给出去系统设置下载的引导。
+    private var voicePackStatus: some View {
+        let missing = SpeechLanguage.allCases.filter { !AudioManager.hasExactVoice(for: $0) }
+
+        return VStack(alignment: .leading, spacing: 10) {
+            Text("语音包状态")
+                .font(.system(size: 15, weight: .semibold))
+                .foregroundStyle(Theme.ink)
+
+            ForEach(SpeechLanguage.allCases) { lang in
+                HStack {
+                    Text("\(lang.fullName)（\(lang.displayName)）")
+                        .font(.system(size: 14, weight: .medium))
+                        .foregroundStyle(Theme.inkSoft)
+                    Spacer()
+                    if AudioManager.hasExactVoice(for: lang) {
+                        Label("已安装", systemImage: "checkmark.circle.fill")
+                            .font(.system(size: 13, weight: .semibold))
+                            .foregroundStyle(Theme.vegetable)
+                    } else {
+                        Label("未安装 · 回退发声", systemImage: "exclamationmark.circle.fill")
+                            .font(.system(size: 13, weight: .semibold))
+                            .foregroundStyle(Theme.poemWarm)
+                    }
+                }
+            }
+
+            if !missing.isEmpty {
+                Text("未安装时点击该语言按钮会用相近语音代替发声（不是标准发音）。安装方法：iPhone 设置 → 辅助功能 → 朗读内容 → 声音，下载对应语音，如「中文（香港）」。")
+                    .font(.system(size: 12))
+                    .foregroundStyle(Theme.inkSoft.opacity(0.8))
+                    .lineSpacing(3)
+            }
+        }
+        .padding(14)
+        .background(RoundedRectangle(cornerRadius: 16, style: .continuous).fill(Theme.cream))
     }
 
     // MARK: - 通用小组件

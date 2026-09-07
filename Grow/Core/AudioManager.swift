@@ -35,11 +35,12 @@ enum SpeechLanguage: String, Codable, CaseIterable, Identifiable {
 
     /// 同语系 fallback 顺序：找不到精确匹配时按这个顺序回退
     /// 国语：zh-CN → zh-TW（台湾普通话，仍是国语腔）→ zh-HK（最后兜底，保证能出声）
-    /// 粤语：zh-HK 专用，不回退
+    /// 粤语：zh-HK → zh-TW → zh-CN（尽力发声：没有粤语语音包时，
+    /// 优先借用台湾普通话，再退到任意中文语音，保证按钮永远可用、总能出声）
     var fallbackLanguageCodes: [String] {
         switch self {
         case .mandarin: return ["zh-TW", "zh-HK"]
-        case .cantonese: return []
+        case .cantonese: return ["zh-TW", "zh-CN"]
         case .english: return ["en-GB", "en-AU", "en-US"]
         }
     }
@@ -241,7 +242,7 @@ final class AudioManager: NSObject, ObservableObject {
             return best
         }
 
-        // 同语系 fallback（普通话 → 台湾普通话；粤语不回退）
+        // 同语系 fallback（普通话 → 台湾普通话 → 粤语；粤语 → 台湾普通话 → 国语，保证总能出声）
         for code in language.fallbackLanguageCodes {
             let candidates = all.filter { $0.language == code }
             if let best = candidates.max(by: { $0.quality.rawValue < $1.quality.rawValue }) {

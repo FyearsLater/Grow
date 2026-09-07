@@ -1,23 +1,46 @@
 import SwiftUI
 
-/// 播放时的小声波指示器
+/// 播放时的小声波指示器：4 根竖条以不同相位往复跳动（长短跳动）。
+/// 由 TimelineView 驱动持续动画；Reduce Motion / 关闭动画时静态显示中高条。
 struct WaveIndicator: View {
+    @ObservedObject private var settings = SettingsManager.shared
     let active: Bool
     var color: Color = .white
 
+    private static let barCount = 4
+
     var body: some View {
-        HStack(spacing: 3) {
-            ForEach(0..<3, id: \.self) { i in
-                Capsule()
-                    .fill(color)
-                    .frame(width: 3, height: active ? 14 : 6)
-                    .animation(
-                        active ? .easeInOut(duration: 0.45).repeatForever().delay(Double(i) * 0.12) : .default,
-                        value: active
-                    )
+        Group {
+            if active && settings.animationOn && !settings.reduceMotion {
+                TimelineView(.animation(minimumInterval: 1.0 / 30.0)) { context in
+                    HStack(spacing: 3) {
+                        ForEach(0..<Self.barCount, id: \.self) { i in
+                            Capsule()
+                                .fill(color)
+                                .frame(width: 3, height: barHeight(i, at: context.date))
+                        }
+                    }
+                }
+            } else {
+                // 静态形态：中高条，保持占位尺寸稳定
+                HStack(spacing: 3) {
+                    ForEach(0..<Self.barCount, id: \.self) { _ in
+                        Capsule()
+                            .fill(color)
+                            .frame(width: 3, height: 9)
+                    }
+                }
             }
         }
         .frame(height: 14)
+    }
+
+    /// 每根条按相位错开的正弦波在 5~14pt 之间往复变化
+    private func barHeight(_ index: Int, at date: Date) -> CGFloat {
+        let t = date.timeIntervalSinceReferenceDate
+        let phase = t * 4.2 + Double(index) * 0.85
+        let s = (sin(phase) + 1) / 2  // 0...1
+        return 5 + s * 9
     }
 }
 

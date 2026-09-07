@@ -40,25 +40,27 @@ struct CategoryCard: View {
     let category: NatureCategory
     let count: Int
 
+    /// 分类柔和主色（与拼图页同一套渐变卡片视觉语言）
+    private var accent: Color { Theme.categoryColor(category) }
+
     var body: some View {
         VStack(spacing: 14) {
-            ZStack {
-                Circle()
-                    .fill(.white.opacity(0.55))
-                    .frame(width: 76, height: 76)
-                Text(category.symbol)
-                    .font(.system(size: 46))
-            }
+            NatureCategoryIcon(category: category, size: 72)
             Text(category.displayName)
                 .font(.system(size: Theme.scaled(20, settings: settings), weight: .bold, design: .rounded))
-                .foregroundStyle(Theme.textPrimary)
+                .foregroundStyle(.white)
             Text("\(count) 个")
                 .font(.system(size: Theme.scaled(13, settings: settings), weight: .medium))
-                .foregroundStyle(Theme.textSecondary)
+                .foregroundStyle(.white.opacity(0.9))
         }
         .frame(maxWidth: .infinity)
         .frame(height: 180 * settings.pageScaleFactor)
-        .glassCard(tint: Theme.categoryColor(category), tintOpacity: 0.18)
+        .background(
+            RoundedRectangle(cornerRadius: 30, style: .continuous)
+                .fill(LinearGradient(colors: [accent.opacity(0.85), accent.opacity(0.55)],
+                                     startPoint: .topLeading, endPoint: .bottomTrailing))
+        )
+        .shadow(color: accent.opacity(0.32), radius: 12, y: 7)
     }
 }
 

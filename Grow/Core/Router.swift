@@ -23,6 +23,10 @@ final class Router: ObservableObject {
         case poemDetail(String)
         case pinyin(PinyinType)
         case numbers
+        /// DEBUG：直达二级页根部（--page=nature / poem / learning）
+        case natureRoot
+        case poemRoot
+        case learningRoot
     }
 
     @Published var tab: Tab
@@ -59,6 +63,15 @@ final class Router: ObservableObject {
                 if tab == .home { tab = .explore }
             } else if page == "numbers" {
                 explorePath = [.numbers]
+                if tab == .home { tab = .explore }
+            } else if page == "nature" {
+                explorePath = [.natureRoot]
+                if tab == .home { tab = .explore }
+            } else if page == "poem" {
+                explorePath = [.poemRoot]
+                if tab == .home { tab = .explore }
+            } else if page == "learning" {
+                explorePath = [.learningRoot]
                 if tab == .home { tab = .explore }
             }
         }

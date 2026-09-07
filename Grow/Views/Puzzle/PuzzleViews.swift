@@ -32,8 +32,7 @@ struct PuzzleHomeView: View {
 
     private var header: some View {
         VStack(spacing: 6) {
-            Text("🧩")
-                .font(.system(size: 44))
+            ModuleIconView(module: .puzzle, size: 56)
             Text("趣味拼图")
                 .font(.system(size: Theme.scaled(26, settings: settings), weight: .bold, design: .rounded))
                 .foregroundStyle(Theme.ink)
@@ -74,8 +73,15 @@ struct PuzzleHomeView: View {
                 Circle()
                     .fill(.white.opacity(0.55))
                     .frame(width: 76, height: 76)
-                Text(unlocked ? difficulty.symbol : "🔒")
-                    .font(.system(size: 40))
+                if unlocked {
+                    PuzzleDifficultyIcon(grid: difficulty.grid,
+                                         deep: deepColor(for: difficulty),
+                                         size: 44)
+                } else {
+                    Image(systemName: "lock.fill")
+                        .font(.system(size: 28, weight: .semibold))
+                        .foregroundStyle(.white.opacity(0.95))
+                }
             }
 
             VStack(alignment: .leading, spacing: 5) {
@@ -119,6 +125,15 @@ struct PuzzleHomeView: View {
         case .easy:   return [Theme.vegetable.opacity(0.85), Theme.vegetable.opacity(0.55)]
         case .medium: return [Theme.animal.opacity(0.85), Theme.animal.opacity(0.55)]
         case .hard:   return [Theme.plant.opacity(0.85), Theme.plant.opacity(0.55)]
+        }
+    }
+
+    /// 拼块深色（与卡片底色同色系、加深对比）
+    private func deepColor(for difficulty: PuzzleDifficulty) -> Color {
+        switch difficulty {
+        case .easy:   return Theme.deepGreen
+        case .medium: return Theme.deepBlue
+        case .hard:   return Theme.deepLilac
         }
     }
 }
@@ -222,8 +237,9 @@ struct PuzzleCompleteView: View {
         VStack(spacing: 16) {
             Spacer()
 
-            Text("✨")
-                .font(.system(size: 54))
+            Image(systemName: "sparkles")
+                .font(.system(size: 46, weight: .semibold))
+                .foregroundStyle(Theme.poemWarm)
                 .scaleEffect(popped ? 1.0 : 0.6)
                 .opacity(popped ? 1 : 0)
 

@@ -21,12 +21,12 @@ struct PoemRootView: View {
                         .foregroundStyle(Theme.ink)
                         .padding(.top, 8)
 
-                    // 分类筛选
+                    // 分类筛选（去 Emoji：模拟器上 Emoji 显示「?」，只留文字）
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 10) {
-                            categoryChip(nil, symbol: "✨", name: "全部")
+                            categoryChip(nil, name: "全部")
                             ForEach(PoemCategory.allCases) { c in
-                                categoryChip(c, symbol: c.symbol, name: c.displayName)
+                                categoryChip(c, name: c.displayName)
                             }
                         }
                     }
@@ -49,23 +49,20 @@ struct PoemRootView: View {
         }
     }
 
-    private func categoryChip(_ c: PoemCategory?, symbol: String, name: String) -> some View {
+    private func categoryChip(_ c: PoemCategory?, name: String) -> some View {
         let selected = selectedCategory == c
         return Button {
             withAnimation(.spring(response: 0.3)) { selectedCategory = c }
         } label: {
-            HStack(spacing: 4) {
-                Text(symbol)
-                Text(name)
-                    .font(.system(size: 15, weight: .semibold))
-            }
-            .padding(.horizontal, 16)
-            .padding(.vertical, 10)
-            .frame(minHeight: 44)
-            .background(
-                Capsule().fill(selected ? Theme.poemAccent.opacity(0.85) : Color.white.opacity(0.8))
-            )
-            .foregroundStyle(selected ? .white : Theme.inkSoft)
+            Text(name)
+                .font(.system(size: 15, weight: .semibold))
+                .padding(.horizontal, 16)
+                .padding(.vertical, 10)
+                .frame(minHeight: 44)
+                .background(
+                    Capsule().fill(selected ? Theme.poemAccent.opacity(0.85) : Color.white.opacity(0.8))
+                )
+                .foregroundStyle(selected ? .white : Theme.inkSoft)
         }
         .buttonStyle(PressableButtonStyle())
     }
@@ -92,7 +89,7 @@ struct PoemListCard: View {
                     .foregroundStyle(Theme.inkSoft)
                 HStack(spacing: 6) {
                     ForEach(poem.categories.prefix(2)) { c in
-                        Text("\(c.symbol)\(c.displayName)")
+                        Text(c.displayName)
                             .font(.system(size: 12, weight: .semibold))
                             .padding(.horizontal, 8)
                             .padding(.vertical, 4)

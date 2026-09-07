@@ -29,8 +29,7 @@ struct LearningHomeView: View {
 
     private var header: some View {
         VStack(spacing: 6) {
-            Text("🔤")
-                .font(.system(size: 44))
+            ModuleIconView(module: .learning, size: 56)
             Text("看图识字")
                 .font(.system(size: Theme.scaled(26, settings: settings), weight: .bold, design: .rounded))
                 .foregroundStyle(Theme.ink)
@@ -48,27 +47,24 @@ struct LearningHomeView: View {
             NavigationLink {
                 NumberView()
             } label: {
-                LearningCategoryCard(symbol: "🔢", title: "数字", subtitle: "0 – 9",
-                                     count: learning.numbers.count,
-                                     colors: [Theme.fruit.opacity(0.85), Theme.fruit.opacity(0.55)])
+                LearningCategoryCard(topic: .numbers, title: "数字", subtitle: "0 – 9",
+                                     count: learning.numbers.count)
             }
             .buttonStyle(PressableButtonStyle(settings: settings))
 
             NavigationLink {
                 PinyinView(type: .initial)
             } label: {
-                LearningCategoryCard(symbol: "🔵", title: "声母", subtitle: "认识拼音声母",
-                                     count: learning.pinyins(of: .initial).count,
-                                     colors: [Theme.animal.opacity(0.85), Theme.animal.opacity(0.55)])
+                LearningCategoryCard(topic: .initial, title: "声母", subtitle: "认识拼音声母",
+                                     count: learning.pinyins(of: .initial).count)
             }
             .buttonStyle(PressableButtonStyle(settings: settings))
 
             NavigationLink {
                 PinyinView(type: .final)
             } label: {
-                LearningCategoryCard(symbol: "🟢", title: "韵母", subtitle: "认识拼音韵母",
-                                     count: learning.pinyins(of: .final).count,
-                                     colors: [Theme.plant.opacity(0.85), Theme.plant.opacity(0.55)])
+                LearningCategoryCard(topic: .final, title: "韵母", subtitle: "认识拼音韵母",
+                                     count: learning.pinyins(of: .final).count)
             }
             .buttonStyle(PressableButtonStyle(settings: settings))
         }
@@ -77,21 +73,17 @@ struct LearningHomeView: View {
     }
 }
 
-/// 分类大卡片（与首页入口卡片同一套视觉语言）
+/// 分类大卡片（与拼图页入口卡片同一套视觉语言：柔和渐变底 + 矢量图标）
 struct LearningCategoryCard: View {
     @EnvironmentObject var settings: SettingsManager
-    let symbol: String
+    let topic: LearningTopic
     let title: String
     let subtitle: String
     let count: Int
-    let colors: [Color]
 
     var body: some View {
         HStack(spacing: 18) {
-            Text(symbol)
-                .font(.system(size: 46))
-                .frame(width: 76, height: 76)
-                .background(Circle().fill(.white.opacity(0.55)))
+            LearningTopicIcon(topic: topic, size: 64)
 
             VStack(alignment: .leading, spacing: 5) {
                 Text(title)
@@ -116,6 +108,14 @@ struct LearningCategoryCard: View {
                 .fill(LinearGradient(colors: colors, startPoint: .topLeading, endPoint: .bottomTrailing))
         )
         .shadow(color: colors[0].opacity(0.32), radius: 12, y: 7)
+    }
+
+    private var colors: [Color] {
+        switch topic {
+        case .numbers: return [Theme.fruit.opacity(0.85), Theme.fruit.opacity(0.55)]
+        case .initial: return [Theme.animal.opacity(0.85), Theme.animal.opacity(0.55)]
+        case .final: return [Theme.plant.opacity(0.85), Theme.plant.opacity(0.55)]
+        }
     }
 }
 

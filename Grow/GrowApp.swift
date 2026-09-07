@@ -235,6 +235,12 @@ struct ExploreTabRoot: View {
                         PinyinView(type: type)
                     case .numbers:
                         NumberView()
+                    case .natureRoot:
+                        NatureRootView()
+                    case .poemRoot:
+                        PoemRootView()
+                    case .learningRoot:
+                        LearningHomeView()
                     }
                 }
         }

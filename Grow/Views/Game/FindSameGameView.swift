@@ -109,7 +109,7 @@ struct FindSameGameView: View {
     private func choose(_ option: FindSameEngine.Option) {
         guard !engine.isCompleted else { return }
         if engine.choose(option.id) {
-            GameSound.correct.play()
+            // 正确音效由 GameFeedbackManager.correct() 统一播放（避免双重播放）
             feedback.correct(gameId: "findsame", itemName: option.item.nameZh)
             // 自动进入下一轮（留出朗读/打勾时间）
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {

@@ -225,8 +225,7 @@ struct SortingGameView: View {
         }
 
         if let category = hitCategory, engine.drop(item, into: category) {
-            // 放对：入桶 + "对啦！苹果"
-            GameSound.correct.play()
+            // 放对：入桶 + "对啦！苹果"（正确音效由 GameFeedbackManager.correct() 统一播放）
             feedback.correct(gameId: "sorting", itemName: item.item.nameZh)
             drag = nil
             if engine.isCompleted {

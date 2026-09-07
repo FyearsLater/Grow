@@ -40,7 +40,8 @@ enum DevLog {
                 "拼图零重写迁入游戏中心：原有 难度→列表→游戏 三级结构与解锁进度完整保留，旧数据不丢；拼图源扩充到 15 张（全部 720×720 实图校验通过），完成时双写「最近探索」。",
                 "自然详情页新增「玩一玩」：拼一拼 / 找相同 / 找朋友 三个入口，点击跨 Tab 直达对应游戏（以该对象为焦点开局）。",
                 "全程禁止金币/排名/倒计时/惩罚；错误操作无音效只有语音引导；减弱动态效果开启时关闭轻晃等动画。",
-                "新增 DEBUG 深链：--page=game:home / game:puzzle / game:matching:<id> / game:findsame:<id> / game:sorting。"
+                "新增 DEBUG 深链：--page=game:home / game:puzzle / game:matching:<id> / game:findsame:<id> / game:sorting。",
+                "修正：配对/找相同/分一分判定正确时的提示音效改为统一由 GameFeedbackManager 播放，修复短暂的双重播放。"
             ],
             isCurrent: true
         ),

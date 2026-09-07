@@ -123,7 +123,7 @@ struct MatchingGameView: View {
             GameSound.pick.play()
 
         case .matched(let a, let b):
-            GameSound.correct.play()
+            // 正确音效由 GameFeedbackManager.correct() 统一播放（避免双重播放）
             let item = engine.cards.first { $0.id == a }?.item ?? card.item
             lastMatchedItem = item
             // 正确短语 + 对象名一次朗读（"找到了！苹果"）

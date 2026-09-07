@@ -27,21 +27,9 @@ struct ExploreRootView: View {
     }
 
     private var header: some View {
-        HStack {
-            VStack(alignment: .leading, spacing: 4) {
-                Text("探索")
-                    .font(.system(size: Theme.scaled(28, settings: settings), weight: .bold, design: .rounded))
-                    .foregroundStyle(Theme.ink)
-                Text("挑一个喜欢的去看看")
-                    .font(.system(size: Theme.scaled(14, settings: settings), weight: .medium))
-                    .foregroundStyle(Theme.inkSoft)
-            }
-            Spacer()
-            Text("🧭")
-                .font(.system(size: 40))
-        }
-        .padding(.top, 8)
-        .opacity(appeared ? 1 : 0)
+        GlassPageHeader(title: "探索", subtitle: "挑一个喜欢的去看看")
+            .padding(.top, 8)
+            .opacity(appeared ? 1 : 0)
     }
 
     private var entries: some View {
@@ -49,27 +37,27 @@ struct ExploreRootView: View {
             NavigationLink {
                 NatureRootView()
             } label: {
-                GlassEntryCard(symbol: "🌱", title: "自然世界", subtitle: "认识身边的自然",
+                GlassEntryCard(module: .nature,
                                detail: "\(content.natureItems.count) 个对象",
-                               tint: Theme.vegetable, layout: .horizontal)
+                               layout: .horizontal)
             }
             .buttonStyle(PressableButtonStyle(settings: settings))
 
             NavigationLink {
                 PoemRootView()
             } label: {
-                GlassEntryCard(symbol: "📖", title: "古诗小世界", subtitle: "和古诗一起探索",
+                GlassEntryCard(module: .poem,
                                detail: "\(content.poems.count) 首古诗",
-                               tint: Theme.poemWarm, layout: .horizontal)
+                               layout: .horizontal)
             }
             .buttonStyle(PressableButtonStyle(settings: settings))
 
             NavigationLink {
                 LearningHomeView()
             } label: {
-                GlassEntryCard(symbol: "🔤", title: "看图识字", subtitle: "数字 · 拼音",
+                GlassEntryCard(module: .learning,
                                detail: "\(learning.numbers.count + learning.pinyins.count) 张卡片",
-                               tint: Theme.fruit, layout: .horizontal)
+                               layout: .horizontal)
             }
             .buttonStyle(PressableButtonStyle(settings: settings))
         }

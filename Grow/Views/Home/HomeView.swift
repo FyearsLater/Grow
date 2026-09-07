@@ -1,6 +1,7 @@
 import SwiftUI
 
-/// 首页：两个核心入口卡片 + 最近学习 + 设置入口
+/// 首页：儿童探索空间（Liquid Glass 设计语言，§1-§17）
+/// 统一玻璃卡片体系 + 柔和低饱和主题色 + 大量留白
 struct HomeView: View {
     @EnvironmentObject var settings: SettingsManager
     @EnvironmentObject var content: ContentRepository
@@ -11,12 +12,14 @@ struct HomeView: View {
     var body: some View {
         NavigationStack {
             ZStack {
-                Theme.cream.ignoresSafeArea()
-                // 背景轻微动态装饰
+                // 柔和渐变背景（§13：微弱渐变 + 空间感，不抢内容）
+                LinearGradient(colors: [Theme.homeBgTop, Theme.homeBgBottom],
+                               startPoint: .top, endPoint: .bottom)
+                    .ignoresSafeArea()
                 BackgroundBlobs()
 
                 ScrollView(showsIndicators: false) {
-                    VStack(spacing: 24) {
+                    VStack(spacing: 28) {
                         header
                         mainCards
                         if !recentItems.isEmpty {
@@ -25,6 +28,8 @@ struct HomeView: View {
                     }
                     .padding(.horizontal, 20)
                     .padding(.bottom, 30)
+                    .frame(maxWidth: 560)
+                    .frame(maxWidth: .infinity)
                 }
             }
             .toolbar {
@@ -32,16 +37,13 @@ struct HomeView: View {
                     NavigationLink {
                         SettingsView()
                     } label: {
-                        Image(systemName: "gearshape.fill")
-                            .font(.system(size: 18, weight: .semibold))
-                            .foregroundStyle(Theme.inkSoft)
-                            .frame(minWidth: 44, minHeight: 44)
+                        GlassIconBadge(systemName: "gearshape", size: 40, iconSize: 15)
                     }
-                    .buttonStyle(PressableButtonStyle())
+                    .buttonStyle(GlassButtonStyle(settings: settings))
                 }
             }
             .onAppear {
-                withAnimation(.easeOut(duration: 0.35)) {
+                withAnimation(GrowAnimation.appear(settings) ?? .easeOut(duration: 0.01)) {
                     appeared = true
                 }
             }
@@ -51,21 +53,37 @@ struct HomeView: View {
         }
     }
 
+    // MARK: - 品牌头部：轻 Logo + 轻字重副标题（§5）
+
     private var header: some View {
-        VStack(spacing: 6) {
-            Text("Grow")
-                .font(.system(size: Theme.scaled(40, settings: settings), weight: .bold, design: .rounded))
-                .foregroundStyle(Theme.ink)
+        VStack(spacing: 8) {
+            HStack(spacing: 8) {
+                // 品牌小叶子：与自然主题呼应，替换巨大粗体 Logo
+                ZStack {
+                    Circle()
+                        .fill(Theme.softGreen.opacity(0.4))
+                        .frame(width: 26, height: 26)
+                    Image(systemName: "leaf.fill")
+                        .font(.system(size: 13, weight: .semibold))
+                        .foregroundStyle(Theme.deepGreen)
+                }
+                Text("Grow")
+                    .font(GrowFont.title(settings))
+                    .tracking(1)
+                    .foregroundStyle(Theme.textPrimary)
+            }
             Text("看一看，听一听，探索身边的世界")
-                .font(.system(size: Theme.scaled(15, settings: settings), weight: .medium))
-                .foregroundStyle(Theme.inkSoft)
+                .font(GrowFont.caption(settings))
+                .tracking(2.5)
+                .foregroundStyle(Theme.textSecondary)
         }
         .padding(.top, 12)
         .opacity(appeared ? 1 : 0)
         .offset(y: appeared ? 0 : 12)
     }
 
-    // 四个主入口：2 × 2 玻璃卡片布局（§6 / §7 / §11）
+    // MARK: - 四个核心入口：统一玻璃卡片（§6）
+
     private var mainCards: some View {
         let columns = [GridItem(.flexible(), spacing: 16), GridItem(.flexible(), spacing: 16)]
 
@@ -73,34 +91,30 @@ struct HomeView: View {
             NavigationLink {
                 NatureRootView()
             } label: {
-                GlassEntryCard(symbol: "🌱", title: "自然世界", subtitle: "认识身边的自然",
-                               tint: Theme.vegetable)
+                GlassEntryCard(module: .nature)
             }
-            .buttonStyle(PressableButtonStyle(settings: settings))
+            .buttonStyle(GlassButtonStyle(settings: settings))
 
             NavigationLink {
                 PoemRootView()
             } label: {
-                GlassEntryCard(symbol: "📖", title: "古诗小世界", subtitle: "和古诗一起探索",
-                               tint: Theme.poemWarm)
+                GlassEntryCard(module: .poem)
             }
-            .buttonStyle(PressableButtonStyle(settings: settings))
+            .buttonStyle(GlassButtonStyle(settings: settings))
 
             NavigationLink {
                 LearningHomeView()
             } label: {
-                GlassEntryCard(symbol: "🔤", title: "看图识字", subtitle: "数字 · 拼音",
-                               tint: Theme.fruit)
+                GlassEntryCard(module: .learning)
             }
-            .buttonStyle(PressableButtonStyle(settings: settings))
+            .buttonStyle(GlassButtonStyle(settings: settings))
 
             NavigationLink {
                 PuzzleHomeView()
             } label: {
-                GlassEntryCard(symbol: "🧩", title: "趣味拼图", subtitle: "动手拼一拼",
-                               tint: Theme.plant)
+                GlassEntryCard(module: .puzzle)
             }
-            .buttonStyle(PressableButtonStyle(settings: settings))
+            .buttonStyle(GlassButtonStyle(settings: settings))
         }
         .opacity(appeared ? 1 : 0)
         .offset(y: appeared ? 0 : 20)
@@ -122,7 +136,7 @@ struct HomeView: View {
     }
 }
 
-// MARK: - 背景装饰（极轻动态）
+// MARK: - 背景装饰（极轻动态，低存在感）
 
 struct BackgroundBlobs: View {
     @EnvironmentObject var settings: SettingsManager
@@ -131,19 +145,22 @@ struct BackgroundBlobs: View {
     var body: some View {
         ZStack {
             Circle()
-                .fill(Theme.vegetable.opacity(0.08))
-                .frame(width: 220)
-                .offset(x: -110, y: -240)
+                .fill(Theme.softGreen.opacity(0.16))
+                .frame(width: 260)
+                .blur(radius: 30)
+                .offset(x: -120, y: -260)
                 .offset(y: drift ? 10 : -10)
             Circle()
-                .fill(Theme.animal.opacity(0.08))
-                .frame(width: 170)
-                .offset(x: 120, y: -160)
+                .fill(Theme.softBlue.opacity(0.16))
+                .frame(width: 210)
+                .blur(radius: 30)
+                .offset(x: 130, y: -170)
                 .offset(y: drift ? -12 : 12)
             Circle()
-                .fill(Theme.fruit.opacity(0.07))
-                .frame(width: 150)
-                .offset(x: 110, y: 300)
+                .fill(Theme.softLilac.opacity(0.12))
+                .frame(width: 180)
+                .blur(radius: 30)
+                .offset(x: 120, y: 320)
                 .offset(y: drift ? 8 : -8)
         }
         .onAppear {
@@ -177,11 +194,11 @@ struct RecentSection: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             Text("最近看过")
-                .font(.system(size: Theme.scaled(17, settings: settings), weight: .bold, design: .rounded))
-                .foregroundStyle(Theme.ink)
+                .font(GrowFont.heading(settings))
+                .foregroundStyle(Theme.textPrimary)
 
             ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 12) {
+                HStack(spacing: 14) {
                     ForEach(items) { entry in
                         NavigationLink {
                             // 直达对应条目的详情页，而不是分类卡组
@@ -201,16 +218,16 @@ struct RecentSection: View {
                                 IllustrationView(identifier: entry.illustration)
                                     .frame(width: 58, height: 58)
                                     .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
-                                    .shadow(color: .black.opacity(0.06), radius: 4, y: 2)
+                                    .shadow(color: .black.opacity(0.05), radius: 4, y: 2)
                                 Text(entry.title)
-                                    .font(.system(size: Theme.scaled(14, settings: settings), weight: .semibold))
-                                    .foregroundStyle(Theme.ink)
+                                    .font(GrowFont.caption(settings).weight(.semibold))
+                                    .foregroundStyle(Theme.textPrimary)
                                     .lineLimit(1)
                             }
                             .frame(minWidth: 72, minHeight: 72)
                             .contentShape(Rectangle())
                         }
-                        .buttonStyle(PressableButtonStyle())
+                        .buttonStyle(GlassButtonStyle(settings: settings))
                     }
                 }
             }

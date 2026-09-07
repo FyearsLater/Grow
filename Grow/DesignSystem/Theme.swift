@@ -21,6 +21,22 @@ enum Theme {
     static let poemWarm = Color(red: 0.72, green: 0.58, blue: 0.44)     // 暖棕
     static let poemPaper = Color(red: 0.97, green: 0.95, blue: 0.90)    // 宣纸色
 
+    // 模块柔和主题色（低饱和，§3：颜色由设计系统统一控制）
+    static let softGreen = Color(red: 0.67, green: 0.82, blue: 0.66)   // 自然世界
+    static let softSand  = Color(red: 0.89, green: 0.82, blue: 0.70)   // 古诗小世界
+    static let softBlue  = Color(red: 0.65, green: 0.78, blue: 0.89)   // 看图识字
+    static let softLilac = Color(red: 0.79, green: 0.73, blue: 0.88)   // 拼图世界
+
+    // 模块深色（图标内容 / 强调，低饱和）
+    static let deepGreen = Color(red: 0.35, green: 0.54, blue: 0.38)
+    static let deepSand  = Color(red: 0.63, green: 0.50, blue: 0.35)
+    static let deepBlue  = Color(red: 0.32, green: 0.50, blue: 0.68)
+    static let deepLilac = Color(red: 0.51, green: 0.43, blue: 0.67)
+
+    // 首页背景：极轻渐变，营造空间感（§13）
+    static let homeBgTop    = Color(red: 0.99, green: 0.98, blue: 0.95)
+    static let homeBgBottom = Color(red: 0.93, green: 0.95, blue: 0.94)
+
     // 功能色
     static let heart = Color(red: 0.92, green: 0.45, blue: 0.45)        // 收藏红
 
@@ -48,6 +64,38 @@ enum Theme {
 
     static func scaled(_ size: CGFloat, settings: SettingsManager) -> CGFloat {
         size * settings.fontScaleFactor * settings.pageScaleFactor
+    }
+}
+
+// MARK: - 四级字体系统（§9：Title / Subtitle / Body / Caption）
+//
+// 原则：儿童 App 不等于粗黑体。圆润（rounded）、中等偏轻字重，
+// 标题与说明形成明显层级；全部跟随设置档位缩放。
+
+enum GrowFont {
+    /// Title：页面主标题（Grow Logo / 大标题）
+    static func title(_ settings: SettingsManager) -> Font {
+        .system(size: Theme.scaled(30, settings: settings), weight: .semibold, design: .rounded)
+    }
+
+    /// 区块 / 卡片标题
+    static func heading(_ settings: SettingsManager) -> Font {
+        .system(size: Theme.scaled(18, settings: settings), weight: .semibold, design: .rounded)
+    }
+
+    /// Body：正文 / 主要操作文字
+    static func body(_ settings: SettingsManager) -> Font {
+        .system(size: Theme.scaled(16, settings: settings), weight: .medium)
+    }
+
+    /// Subtitle：副标题、一句话说明
+    static func subtitle(_ settings: SettingsManager) -> Font {
+        .system(size: Theme.scaled(14, settings: settings), weight: .regular)
+    }
+
+    /// Caption：辅助说明、最轻一档
+    static func caption(_ settings: SettingsManager) -> Font {
+        .system(size: Theme.scaled(12.5, settings: settings), weight: .regular)
     }
 }
 

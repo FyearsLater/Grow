@@ -95,7 +95,7 @@ struct GlassCardStyle: ViewModifier {
             .overlay(
                 shape.stroke(Theme.glassHighlight, lineWidth: 1)
             )
-            .shadow(color: .black.opacity(0.08), radius: 14, y: 7)
+            .shadow(color: .black.opacity(0.06), radius: 12, y: 5)
     }
 }
 
@@ -270,75 +270,94 @@ struct GlassChip: View {
     }
 }
 
-// MARK: - 统一入口卡（合并 Phase 2 的 5 套入口卡片）
+// MARK: - 统一入口卡（§6：Icon → 标题 → 描述 的现代层级，全 App 统一）
 
 struct GlassEntryCard: View {
     @EnvironmentObject var settings: SettingsManager
 
     enum Layout { case vertical, horizontal }
 
-    let symbol: String
-    let title: String
-    let subtitle: String
+    let module: GrowModule
     /// 计数或状态说明，如「78 个对象」「完成入门后解锁」
     var detail: String? = nil
-    var tint: Color = Theme.success
     var layout: Layout = .vertical
 
     var body: some View {
         Group {
             switch layout {
             case .vertical:
-                VStack(alignment: .leading, spacing: 10) {
-                    Text(symbol)
-                        .font(.system(size: 40))
-                        .frame(width: 62, height: 62)
-                        .background(Circle().fill(tint.opacity(0.22)))
-                    Spacer(minLength: 2)
-                    Text(title)
-                        .font(.system(size: Theme.scaled(19, settings: settings), weight: .bold, design: .rounded))
+                VStack(alignment: .leading, spacing: 12) {
+                    ModuleIconView(module: module, size: 54)
+                    Spacer(minLength: 4)
+                    Text(module.title)
+                        .font(GrowFont.heading(settings))
                         .foregroundStyle(Theme.textPrimary)
                         .lineLimit(1)
                         .minimumScaleFactor(0.8)
-                    Text(subtitle)
-                        .font(.system(size: Theme.scaled(12, settings: settings), weight: .medium))
+                    Text(module.subtitle)
+                        .font(GrowFont.caption(settings))
                         .foregroundStyle(Theme.textSecondary)
-                        .lineLimit(2)
+                        .lineLimit(1)
                         .minimumScaleFactor(0.85)
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(16)
-                .frame(minHeight: 150 * settings.buttonScaleFactor)
+                .padding(18)
+                .frame(minHeight: 156 * settings.buttonScaleFactor)
 
             case .horizontal:
-                HStack(spacing: 18) {
-                    Text(symbol)
-                        .font(.system(size: 44))
-                        .frame(width: 72, height: 72)
-                        .background(Circle().fill(tint.opacity(0.22)))
+                HStack(spacing: 16) {
+                    ModuleIconView(module: module, size: 64)
 
                     VStack(alignment: .leading, spacing: 4) {
-                        Text(title)
-                            .font(.system(size: Theme.scaled(21, settings: settings), weight: .bold, design: .rounded))
+                        Text(module.title)
+                            .font(GrowFont.heading(settings))
                             .foregroundStyle(Theme.textPrimary)
-                        Text(subtitle)
-                            .font(.system(size: Theme.scaled(13, settings: settings), weight: .medium))
+                        Text(module.subtitle)
+                            .font(GrowFont.caption(settings))
                             .foregroundStyle(Theme.textSecondary)
                         if let detail {
                             Text(detail)
-                                .font(.system(size: Theme.scaled(12, settings: settings), weight: .semibold))
-                                .foregroundStyle(tint.opacity(0.9))
+                                .font(GrowFont.caption(settings).weight(.semibold))
+                                .foregroundStyle(module.deepTint)
                         }
                     }
                     Spacer()
                     Image(systemName: "chevron.right")
-                        .font(.system(size: 15, weight: .bold))
-                        .foregroundStyle(Theme.textSecondary.opacity(0.7))
+                        .font(.system(size: 14, weight: .semibold))
+                        .foregroundStyle(Theme.textSecondary.opacity(0.5))
                 }
                 .padding(18)
-                .frame(minHeight: 104 * settings.buttonScaleFactor)
+                .frame(minHeight: 100 * settings.buttonScaleFactor)
             }
         }
-        .glassCard(tint: tint, tintOpacity: 0.16)
+        .glassCard(tint: module.tint.opacity(0.45), tintOpacity: 0.10)
+    }
+}
+
+// MARK: - 页面头部（标题 + 副标题 + 右侧操作，Glass 语言统一）
+
+struct GlassPageHeader: View {
+    @EnvironmentObject var settings: SettingsManager
+
+    let title: String
+    var subtitle: String? = nil
+    var trailing: AnyView? = nil
+
+    var body: some View {
+        HStack(alignment: .center) {
+            VStack(alignment: .leading, spacing: 3) {
+                Text(title)
+                    .font(GrowFont.title(settings))
+                    .foregroundStyle(Theme.textPrimary)
+                if let subtitle {
+                    Text(subtitle)
+                        .font(GrowFont.caption(settings))
+                        .tracking(2)
+                        .foregroundStyle(Theme.textSecondary)
+                }
+            }
+            Spacer()
+            trailing
+        }
     }
 }

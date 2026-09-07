@@ -28,6 +28,22 @@ enum DevLog {
     /// 全部开发记录（最新在前）
     static let all: [DevLogEntry] = [
         DevLogEntry(
+            version: "0.2.2",
+            date: "2026-09-07",
+            title: "首页视觉重设计 · 设计系统统一（DesignSystem）",
+            changes: [
+                "首页全面重设计：告别传统四色块，改为统一 Liquid Glass 卡片体系，柔和低饱和主题色（柔绿/米色/淡蓝/淡紫）。",
+                "四个模块图标统一为 Soft 3D 视觉系统：嫩芽、诗卷、汉字卡、双拼图，全部矢量绘制，不再混用 Emoji。",
+                "建立四级字体系统（Title/Subtitle/Body/Caption）：圆润、中轻字重、层级分明，告别粗黑大字。",
+                "Grow 品牌头重做：轻量 Logo + 小叶子标记，副标题轻字重、宽松字距，大量留白。",
+                "背景改为柔和渐变 + 极轻光斑，营造空间感与呼吸感，不再抢内容。",
+                "入口卡片重建层级：图标 → 标题 → 一句话说明；按压反馈轻微自然，并完整适配减弱动态效果。",
+                "设计系统同步重构：Colors/Typography/Radius/Glass/Icon 统一收口，新增 ModuleIconView、GlassPageHeader，探索页同步换新。",
+                "原有功能全部保留：自然世界、古诗小世界、看图识字、拼图世界、收藏、最近看过、设置、音频。"
+            ],
+            isCurrent: true
+        ),
+        DevLogEntry(
             version: "0.2.1",
             date: "2026-09-07",
             title: "视觉统一优化：卡片页去灰边 · 收藏移位 · 最近看过去框 · 拼音排版",
@@ -37,7 +53,7 @@ enum DevLog {
                 "首页「最近看过」去掉白色小画框，改为干净缩略图 + 名称。",
                 "拼音卡片重排：示例图片放大，拼音字母与例词左右并排，视觉与其他模块统一。"
             ],
-            isCurrent: true
+            isCurrent: false
         ),
         DevLogEntry(
             version: "0.2.0",

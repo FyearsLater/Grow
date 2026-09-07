@@ -1,0 +1,135 @@
+{
+  "definitions": [
+    {
+      "id": "puzzle",
+      "type": "puzzle",
+      "title": "趣味拼图",
+      "icon": "puzzle",
+      "description": "把打乱的图块拼回原样",
+      "sort_order": 1
+    },
+    {
+      "id": "matching",
+      "type": "matching",
+      "title": "配对",
+      "icon": "matching",
+      "description": "翻翻小卡，找出一样的朋友",
+      "sort_order": 2
+    },
+    {
+      "id": "findsame",
+      "type": "findSame",
+      "title": "找相同",
+      "icon": "findSame",
+      "description": "找出和它一样的",
+      "sort_order": 3
+    },
+    {
+      "id": "sorting",
+      "type": "sorting",
+      "title": "分一分",
+      "icon": "sorting",
+      "description": "把物品放进对应的筐",
+      "sort_order": 4
+    }
+  ],
+  "levels": [
+    {
+      "game_id": "matching",
+      "level": 1,
+      "content_ids": [
+        "fruit_apple", "fruit_banana", "fruit_watermelon",
+        "veg_broccoli", "veg_carrot",
+        "animal_panda", "animal_rabbit", "animal_duck",
+        "plant_sunflower", "plant_rose"
+      ],
+      "configuration": { "group_count": 2 }
+    },
+    {
+      "game_id": "matching",
+      "level": 2,
+      "content_ids": [
+        "fruit_apple", "fruit_banana", "fruit_watermelon", "fruit_strawberry",
+        "veg_broccoli", "veg_carrot", "veg_tomato",
+        "animal_panda", "animal_rabbit", "animal_duck", "animal_elephant",
+        "plant_sunflower", "plant_rose"
+      ],
+      "configuration": { "group_count": 3 }
+    },
+    {
+      "game_id": "matching",
+      "level": 3,
+      "content_ids": [
+        "animal_cat", "animal_dog", "animal_wolf",
+        "animal_tiger", "animal_lion", "animal_bear"
+      ],
+      "configuration": { "group_count": 3 }
+    },
+    {
+      "game_id": "findsame",
+      "level": 1,
+      "content_ids": [
+        "fruit_apple", "fruit_banana", "veg_carrot",
+        "animal_panda", "animal_duck",
+        "plant_sunflower", "plant_rose"
+      ],
+      "configuration": { "rounds": 3, "option_count": 2 }
+    },
+    {
+      "game_id": "findsame",
+      "level": 2,
+      "content_ids": [
+        "fruit_watermelon", "fruit_pineapple", "veg_broccoli", "veg_eggplant",
+        "animal_rabbit", "animal_elephant", "plant_lotus", "plant_bamboo"
+      ],
+      "configuration": { "rounds": 4, "option_count": 3 }
+    },
+    {
+      "game_id": "findsame",
+      "level": 3,
+      "content_ids": [
+        "fruit_apple", "fruit_peach", "fruit_mango",
+        "fruit_orange", "fruit_pear", "fruit_strawberry"
+      ],
+      "configuration": { "rounds": 4, "option_count": 4, "same_category_distractors": true }
+    },
+    {
+      "game_id": "sorting",
+      "level": 1,
+      "content_ids": [
+        "fruit_apple", "fruit_banana", "fruit_watermelon",
+        "veg_broccoli", "veg_carrot", "veg_tomato",
+        "veg_cucumber", "veg_pepper", "veg_pumpkin"
+      ],
+      "configuration": {
+        "category_pairs": [{ "category_a": "fruit", "category_b": "vegetable" }]
+      }
+    },
+    {
+      "game_id": "sorting",
+      "level": 2,
+      "content_ids": [
+        "fruit_apple", "fruit_banana", "fruit_watermelon", "fruit_strawberry",
+        "fruit_grapes", "fruit_mango",
+        "veg_broccoli", "veg_carrot", "veg_tomato",
+        "veg_cucumber", "veg_pepper", "veg_pumpkin"
+      ],
+      "configuration": {
+        "category_pairs": [{ "category_a": "fruit", "category_b": "vegetable" }]
+      }
+    },
+    {
+      "game_id": "sorting",
+      "level": 3,
+      "content_ids": [
+        "animal_panda", "animal_rabbit", "animal_duck", "animal_elephant",
+        "animal_dog", "animal_tiger",
+        "plant_sunflower", "plant_rose", "plant_lotus",
+        "plant_bamboo", "plant_pine", "plant_orchid"
+      ],
+      "configuration": {
+        "category_pairs": [{ "category_a": "animal", "category_b": "plant" }]
+      }
+    }
+  ]
+}

@@ -11,6 +11,56 @@
       "sort_order": 1
     },
     {
+      "id": "puzzle_watermelon_4",
+      "title": "西瓜",
+      "category": "水果",
+      "image": "img:fruit_watermelon",
+      "difficulty": "easy",
+      "piece_count": 4,
+      "source_nature_item_id": "fruit_watermelon",
+      "sort_order": 2
+    },
+    {
+      "id": "puzzle_strawberry_4",
+      "title": "草莓",
+      "category": "水果",
+      "image": "img:fruit_strawberry",
+      "difficulty": "easy",
+      "piece_count": 4,
+      "source_nature_item_id": "fruit_strawberry",
+      "sort_order": 3
+    },
+    {
+      "id": "puzzle_rabbit_4",
+      "title": "兔子",
+      "category": "动物",
+      "image": "img:animal_rabbit",
+      "difficulty": "easy",
+      "piece_count": 4,
+      "source_nature_item_id": "animal_rabbit",
+      "sort_order": 4
+    },
+    {
+      "id": "puzzle_duck_4",
+      "title": "鸭子",
+      "category": "动物",
+      "image": "img:animal_duck",
+      "difficulty": "easy",
+      "piece_count": 4,
+      "source_nature_item_id": "animal_duck",
+      "sort_order": 5
+    },
+    {
+      "id": "puzzle_broccoli_4",
+      "title": "西兰花",
+      "category": "蔬菜",
+      "image": "img:veg_broccoli",
+      "difficulty": "easy",
+      "piece_count": 4,
+      "source_nature_item_id": "veg_broccoli",
+      "sort_order": 6
+    },
+    {
       "id": "puzzle_panda_9",
       "title": "熊猫",
       "category": "动物",
@@ -21,6 +71,76 @@
       "sort_order": 1
     },
     {
+      "id": "puzzle_elephant_9",
+      "title": "大象",
+      "category": "动物",
+      "image": "img:animal_elephant",
+      "difficulty": "medium",
+      "piece_count": 9,
+      "source_nature_item_id": "animal_elephant",
+      "sort_order": 2
+    },
+    {
+      "id": "puzzle_tiger_9",
+      "title": "老虎",
+      "category": "动物",
+      "image": "img:animal_tiger",
+      "difficulty": "medium",
+      "piece_count": 9,
+      "source_nature_item_id": "animal_tiger",
+      "sort_order": 3
+    },
+    {
+      "id": "puzzle_sunflower_9",
+      "title": "向日葵",
+      "category": "植物",
+      "image": "img:plant_sunflower",
+      "difficulty": "medium",
+      "piece_count": 9,
+      "source_nature_item_id": "plant_sunflower",
+      "sort_order": 4
+    },
+    {
+      "id": "puzzle_pineapple_9",
+      "title": "菠萝",
+      "category": "水果",
+      "image": "img:fruit_pineapple",
+      "difficulty": "medium",
+      "piece_count": 9,
+      "source_nature_item_id": "fruit_pineapple",
+      "sort_order": 5
+    },
+    {
+      "id": "puzzle_butterfly_16",
+      "title": "蝴蝶",
+      "category": "动物",
+      "image": "img:animal_butterfly",
+      "difficulty": "hard",
+      "piece_count": 16,
+      "source_nature_item_id": "animal_butterfly",
+      "sort_order": 1
+    },
+    {
+      "id": "puzzle_giraffe_16",
+      "title": "长颈鹿",
+      "category": "动物",
+      "image": "img:animal_giraffe",
+      "difficulty": "hard",
+      "piece_count": 16,
+      "source_nature_item_id": "animal_giraffe",
+      "sort_order": 2
+    },
+    {
+      "id": "puzzle_dolphin_16",
+      "title": "海豚",
+      "category": "动物",
+      "image": "img:animal_dolphin",
+      "difficulty": "hard",
+      "piece_count": 16,
+      "source_nature_item_id": "animal_dolphin",
+      "sort_order": 3
+    },
+    {
       "id": "puzzle_sunflower_16",
       "title": "向日葵",
       "category": "植物",
@@ -28,7 +148,7 @@
       "difficulty": "hard",
       "piece_count": 16,
       "source_nature_item_id": "plant_sunflower",
-      "sort_order": 1
+      "sort_order": 4
     }
   ]
 }

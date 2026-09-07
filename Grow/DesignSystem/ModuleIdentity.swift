@@ -18,7 +18,7 @@ enum GrowModule {
         case .nature: return "自然世界"
         case .poem: return "古诗小世界"
         case .learning: return "看图识字"
-        case .puzzle: return "拼图世界"
+        case .puzzle: return "趣味游戏"
         }
     }
 
@@ -27,7 +27,7 @@ enum GrowModule {
         case .nature: return "认识身边的自然"
         case .poem: return "和古诗一起探索"
         case .learning: return "数字 · 拼音"
-        case .puzzle: return "动手拼一拼"
+        case .puzzle: return "拼图 · 配对 · 找相同 · 分类"
         }
     }
 
@@ -267,7 +267,8 @@ private struct CharacterCardGlyph: View {
 
 // MARK: - 拼图世界：两块拼图组合
 
-private struct PuzzleGlyph: View {
+/// 拼图双块（Soft 3D）：ModuleIconView(.puzzle) 与 GameModuleIcon(.puzzle) 共用
+struct PuzzleGlyph: View {
     let deep: Color
     let light: Color
 

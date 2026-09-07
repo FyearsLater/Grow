@@ -24,3 +24,25 @@ enum PuzzleSound {
         }
     }
 }
+
+// MARK: - 游戏音效（Phase 5：配对/找相同/分类共用，与拼图同一批柔和系统短音）
+//
+// 错误操作**无任何音效**（§47 / §跨文件约定 4），只有 GameFeedbackManager 的语音引导。
+
+enum GameSound {
+    case pick       // 抓起 / 翻面
+    case correct    // 正确
+    case complete   // 整局完成
+
+    func play() {
+        AudioServicesPlaySystemSound(soundID)
+    }
+
+    private var soundID: SystemSoundID {
+        switch self {
+        case .pick:     return 1104   // 轻微
+        case .correct:  return 1057   // 清脆短促
+        case .complete: return 1025   // 柔和提示
+        }
+    }
+}

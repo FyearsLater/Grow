@@ -247,7 +247,13 @@ struct PuzzleGameView: View {
                 engine.completePuzzle()
                 let time = engine.elapsed()
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.45) {
+                    // 原进度逻辑不动（解锁状态保存在 grow.puzzle.progress）
                     progress.recordCompletion(puzzleId: currentItem.id, time: time)
+                    // 双写游戏中心结果（仅供"最近探索"展示，与解锁进度互不影响）
+                    GameResultStore.shared.record(gameId: "puzzle",
+                                                  level: currentItem.difficulty.gameLevel.rawValue,
+                                                  completed: true,
+                                                  contentId: currentItem.sourceNatureItemId)
                     withAnimation(.easeOut(duration: 0.3)) { showComplete = true }
                     PuzzleSound.complete.play()
                 }

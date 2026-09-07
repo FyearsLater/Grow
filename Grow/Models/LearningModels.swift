@@ -155,6 +155,15 @@ enum PuzzleDifficulty: String, Codable, CaseIterable, Identifiable {
         case .hard: return .medium
         }
     }
+
+    /// 游戏中心统一难度口径（4/9/16 片 → L1/L2/L3，仅用于展示与游戏结果记录）
+    var gameLevel: GameDifficultyLevel {
+        switch self {
+        case .easy: return .level1
+        case .medium: return .level2
+        case .hard: return .level3
+        }
+    }
 }
 
 /// 拼图条目

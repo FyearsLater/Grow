@@ -1,9 +1,10 @@
 import SwiftUI
 
-/// 自然对象详情：大图 + 三语发音 + 折叠简介（按年龄模式显示不同内容）
+/// 自然对象详情：大图 + 三语发音 + 折叠简介（按年龄模式显示不同内容）+ 玩一玩入口
 struct NatureDetailView: View {
     @EnvironmentObject var settings: SettingsManager
     @EnvironmentObject var audio: AudioManager
+    @EnvironmentObject var router: Router
     let item: NatureItem
 
     @State private var showMore = false
@@ -34,6 +35,9 @@ struct NatureDetailView: View {
 
                     // 简介折叠卡片
                     descriptionCard
+
+                    // 玩一玩（Phase 5：跨 Tab 直达游戏）
+                    playSection
 
                     Spacer(minLength: 20)
                 }
@@ -90,5 +94,52 @@ struct NatureDetailView: View {
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(20)
         .growCard(fill: .white.opacity(0.7))
+    }
+
+    // MARK: - 玩一玩（拼一拼 / 找相同 / 找朋友，跨 Tab 跳转游戏中心）
+
+    private var playSection: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            Text("玩一玩")
+                .font(.system(size: Theme.scaled(16, settings: settings), weight: .bold, design: .rounded))
+                .foregroundStyle(Theme.ink)
+
+            HStack(spacing: 10) {
+                playButton(GameModule.puzzle, title: "拼一拼") {
+                    router.openNatureGame(natureId: item.id, game: .puzzle)
+                }
+                playButton(GameModule.findSame, title: "找相同") {
+                    router.openNatureGame(natureId: item.id, game: .findSame)
+                }
+                playButton(GameModule.matching, title: "找朋友") {
+                    router.openNatureGame(natureId: item.id, game: .matching)
+                }
+            }
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(20)
+        .growCard(fill: .white.opacity(0.7))
+    }
+
+    private func playButton(_ module: GameModule, title: String, action: @escaping () -> Void) -> some View {
+        Button(action: action) {
+            HStack(spacing: 8) {
+                GameModuleIcon(module: module, size: 30)
+                Text(title)
+                    .font(.system(size: Theme.scaled(15, settings: settings), weight: .semibold, design: .rounded))
+                    .foregroundStyle(Theme.ink)
+            }
+            .padding(.horizontal, 14)
+            .frame(minHeight: 48 * settings.buttonScaleFactor)
+            .frame(maxWidth: .infinity)
+            .background(
+                Capsule().fill(module.tint.opacity(0.35))
+            )
+            .overlay(
+                Capsule().strokeBorder(module.tint.opacity(0.6), lineWidth: 1)
+            )
+        }
+        .buttonStyle(PressableButtonStyle(settings: settings))
+        .accessibilityHint("去玩\(title)")
     }
 }

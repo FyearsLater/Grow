@@ -10,6 +10,8 @@ struct GrowApp: App {
     @StateObject private var learning = LearningRepository.shared
     @StateObject private var puzzles = PuzzleRepository.shared
     @StateObject private var progress = ProgressManager.shared
+    @StateObject private var games = GameRepository.shared
+    @StateObject private var gameResults = GameResultStore.shared
 
     var body: some Scene {
         WindowGroup {
@@ -22,6 +24,8 @@ struct GrowApp: App {
                 .environmentObject(learning)
                 .environmentObject(puzzles)
                 .environmentObject(progress)
+                .environmentObject(games)
+                .environmentObject(gameResults)
                 .tint(Theme.ink)
                 // 儿童应用固定浅色：保证液态玻璃与整体奶白设计一致
                 .preferredColorScheme(.light)
@@ -247,11 +251,39 @@ struct ExploreTabRoot: View {
     }
 }
 
-/// 游戏：趣味拼图（§10，未来可继续加入找一找、配一配等）
+/// 游戏：趣味游戏中心（Phase 5）—— 拼图 / 配对 / 找相同 / 分类
 struct GameTabRoot: View {
+    @EnvironmentObject var router: Router
+
     var body: some View {
-        NavigationStack {
-            PuzzleHomeView()
+        NavigationStack(path: $router.gamesPath) {
+            GameHomeView()
+                .navigationDestination(for: Router.GameRoute.self) { route in
+                    switch route {
+                    case .home:
+                        GameHomeView()
+                    case .puzzleHome:
+                        PuzzleHomeView()
+                    case .puzzleGame(let puzzleId):
+                        if let item = PuzzleRepository.shared.puzzle(id: puzzleId) {
+                            PuzzleGameView(item: item)
+                        } else {
+                            PuzzleHomeView()
+                        }
+                    case .levelSelect(let type):
+                        GameLevelPickerView(type: type)
+                    case .matching(let level, let focus):
+                        MatchingGameView(level: level, focus: focus)
+                    case .findSame(let level, let focus):
+                        FindSameGameView(level: level, focus: focus)
+                    case .sorting(let level):
+                        SortingGameView(level: level)
+                    case .natureDetail(let id):
+                        if let item = ContentRepository.shared.natureItems.first(where: { $0.id == id }) {
+                            NatureDetailView(item: item)
+                        }
+                    }
+                }
         }
     }
 }

@@ -1,13 +1,13 @@
 # 🌱 Grow — 2–6 岁儿童探索式启蒙 App
 
-一款面向 **2–6 岁儿童**（当前主打 **2–3 岁**）的 iOS 原生 App（SwiftUI，零第三方依赖）。
+一款面向 **2–6 岁儿童**（当前主打 **2–3 岁**）的 iOS 原生 App（SwiftUI）。语音使用系统 TTS 与开源 sherpa-onnx 离线 TTS（内置静态库，无需联网、无运行时第三方依赖）。
 产品定位不是「早教机」，而是一个属于孩子的、轻松现代的**数字探索空间**：
 自然认知 · 古诗启蒙 · 看图识字 · 趣味拼图。
 
 > 设计语言：**iOS 26 Liquid Glass** + 柔和低饱和色板 + 统一 Soft 3D 图标系统。
 > 现代、干净、呼吸感；儿童友好，但不幼稚。
 
-**当前版本：v0.2.2**（开发日志见 App 内「设置 → 开发日志」）
+**当前版本：v0.4.1**（开发日志见 App 内「设置 → 开发日志」）
 
 ---
 
@@ -15,22 +15,30 @@
 
 | 模块 | 内容 |
 |---|---|
-| 首页 | Liquid Glass 统一卡片体系，四入口：自然世界 / 古诗小世界 / 看图识字 / 拼图世界；最近看过（点击直达详情）；右上角玻璃设置按钮 |
+| 首页 | Liquid Glass 统一卡片体系，四入口：自然世界 / 古诗小世界 / 看图识字 / 拼图世界（含拼图与趣味游戏）；最近看过（点击直达详情） |
 | 自然世界 | 4 分类（水果/蔬菜/动物/植物）共 **78 个对象**，720×720 实物摄影配图（HEIF）；整页翻页卡片流 |
 | 自然详情 | 大图 + 中英文名 + 三语发音（国/粤/En）+ 按年龄模式折叠简介 |
 | 古诗小世界 | **30 首古诗**（含江河/湖泊/山川/节日/历史等 9 分类），古风水墨插图；原文/拼音切换、逐句朗读、单句点读、注释、儿童理解 |
 | 看图识字 | 数字 0–9 + 拼音 **23 声母 + 24 韵母**（47 张卡片）：图片放大 + 字母/例词左右并排 |
 | 拼图世界 | 4/9/16 块三档逐级解锁，`PuzzleEngine` 运行时切割原图；完成后「认识一下」跳回自然详情 |
-| 底部导航 | 首页 / 探索 / 游戏 / 收藏；iOS 26+ 原生 TabView 自动获得系统 Liquid Glass 标签条，iOS 17/18 回退自定义玻璃胶囊 |
+| 底部导航 | 首页 / 探索 / 收藏 / 设置（v0.4.0 起设置移入底部四栏，独立的「游戏」Tab 已取消、游戏中心并入首页「拼图世界」）；iOS 26+ 原生 TabView 自动获得系统 Liquid Glass 标签条，iOS 17/18 回退自定义玻璃胶囊 |
 | 收藏 | 自然对象 + 古诗统一收藏 |
-| 设置 | 年龄模式（2-3 / 4-6 岁）、页面缩放 / 字号 / 按钮（小·标准·大·超大）、拼图辅助、朗读语言与音色（小男孩/小女孩/男大/女大）、停顿时长、动画开关、**开发日志** |
+| 设置 | 年龄模式（2-3 / 4-6 岁）、页面缩放 / 字号 / 按钮（小·标准·大·超大）、拼图辅助、朗读语言与音色（小男孩/小女孩/男大/女大，仅系统 TTS 路径生效）、停顿时长、动画开关、**启用自然语音开关**、**自然语音库下载中心（普通话·英语 / 粤语）**、**开发日志** |
 
 ### 音频能力
 
-- 系统粒子 TTS：`AVSpeechSynthesizer`，国语回退链 zh-CN → zh-TW → zh-HK（真机缺语音包也能出声）
-- 粤语 zh-HK、英语 en-US；古诗逐句队列朗读，句间停顿可调（短/适中/长）
-- 四档朗读音色（音高 + 性别偏好），作用于全部朗读场景
-- 拼图音效 `SoundEffects`；错误放置刻意不发声
+Grow 提供 **两套发音引擎**，在「设置 → 自然语音库」里用「启用自然语音」开关切换（默认关闭，即系统 TTS）：
+
+| 引擎 | 说明 | 是否需要下载 |
+|---|---|---|
+| 系统 TTS（默认） | `AVSpeechSynthesizer`，开箱即用、零下载 | 否 |
+| 开源自然语音 | sherpa-onnx 离线推理（Apache-2.0），发音更自然、离线可用 | 是（设置内下载） |
+
+- **粤语发音已修复**：iOS 17+ 内置粤语语音的 BCP-47 标签为 `yue-HK`（旧代码用 `zh-HK` 精确匹配永远失败，会掉到国语回退）。现已识别 `yue-HK / zh-HK`，点「粤」即调用系统内置 Sinji 粤语，**手机无需在系统设置里下载任何语音包**。
+- **自然语音库下载中心**（设置内）：普通话·英语包（MeloTTS int8，约 53MB）、粤语包（Cantonese VITS，约 114MB）；支持断点续传（中断后「继续」从断点接力）、实时进度、可取消、可删除；走国内镜像，一次下载离线可用。
+- 三语发音：国语（zh-CN）、粤语（yue-HK）、英语（en-US）；古诗逐句队列朗读，句间停顿可调（短/适中/长）。
+- 四档朗读音色（小男孩 / 小女孩 / 男大 / 女大 = 音高 + 性别偏好），作用于系统 TTS 路径（开源自然语音为单音色，不区分音色）。
+- 拼图音效 `SoundEffects`；错误放置刻意不发声。
 
 ---
 
@@ -69,7 +77,7 @@ xcodebuild -project Grow.xcodeproj -scheme Grow \
   -destination 'platform=iOS Simulator,name=iPhone 17 Pro' build
 ```
 
-- 最低支持 **iOS 17.0**，iPhone / iPad 竖屏；无第三方依赖
+- 最低支持 **iOS 17.0**，iPhone / iPad 竖屏；仅内置离线 TTS 静态库（sherpa-onnx / onnxruntime，vendored），无 SPM 运行时依赖
 - 无需签名即可跑模拟器；真机安装用未签名 IPA（xcodebuild archive → Payload → zip）
 - 开发环境：Xcode 26.3 (17C529) + iOS 26.3.1 SDK
 
@@ -77,7 +85,7 @@ xcodebuild -project Grow.xcodeproj -scheme Grow \
 
 ```bash
 xcrun simctl launch "iPhone 17 Pro" com.dyj.grow --tab=explore --page=deck:fruit
-# --tab: home | explore | games | favorites
+# --tab: home | explore | favorites | settings
 # --page: deck:<分类> | item:<自然对象id> | poem:<古诗id> | pinyin:<initial|final> | numbers | settings
 ```
 
@@ -93,7 +101,7 @@ Grow/
 │   ├── LearningModels.swift      # ContentItem 统一协议 / NumberItem / PinyinItem / PuzzleItem
 │   └── Content.swift
 ├── Core/
-│   ├── AudioManager.swift        # 唯一语音出口：TTS / 音色 / 回退链 / 逐句朗读
+│   ├── AudioManager.swift        # 唯一语音出口：系统 TTS + 开源 sherpa-onnx 双引擎 / 音色 / 粤语(yue-HK) / 逐句朗读
 │   ├── ContentRepository.swift   # JSON 内容加载（UI 与数据解耦）
 │   ├── LearningRepository.swift  # 数字 / 拼音仓库
 │   ├── PuzzleRepository.swift    # 拼图仓库
@@ -104,7 +112,8 @@ Grow/
 │   ├── Router.swift              # Tab 路由 + 深链启动参数
 │   ├── DevLog.swift              # 开发日志数据（版本号唯一真源）
 │   ├── AssetManager.swift        # 图片资产加载（HEIF 优先）
-│   └── SoundEffects.swift        # 拼图音效
+│   ├── SoundEffects.swift        # 拼图音效
+│   └── Voice/                    # 开源 TTS：VoicePack / VoicePackManager（下载·断点续传）/ NaturalTTSPlayer / SherpaOnnxWrapper（C API 封装）
 ├── DesignSystem/
 │   ├── Theme.swift               # 色彩 / GrowFont 字体 / 按压反馈
 │   ├── Tokens.swift              # 间距 / 圆角 / 动画
@@ -120,9 +129,11 @@ Grow/
 │   ├── Favorites/                # 收藏
 │   ├── Settings/                 # 设置 + 开发日志
 │   └── Components/               # 插画 / 共享组件
-└── Resources/
-    ├── Content/                  # nature / poems / numbers / pinyin / puzzles JSON
-    └── Images/                   # 108 张 720×720 HEIF 配图
+├── Resources/
+│   ├── Content/                  # nature / poems / numbers / pinyin / puzzles JSON
+│   └── Images/                   # 108 张 720×720 HEIF 配图
+├── Vendor/                      # 内置离线 TTS 静态库：sherpa-onnx / onnxruntime xcframework（不进 git，本地 vendor）
+└── Grow-Bridging-Header.h       # C API 桥接（导入 sherpa-onnx c-api.h）
 ```
 
 ---
@@ -170,7 +181,8 @@ Grow/
 1. ~~自然 52 + 古诗 20~~ ✅ → **78 + 30**
 2. ~~看图识字 + 拼图（Phase 2）~~ ✅
 3. ~~Liquid Glass 设计语言 + 首页重设计（Phase 3 / v0.2.2）~~ ✅
-4. 录制/接入专业儿童配音，替换系统 TTS
-5. 更多自然对象、更多古诗、更多拼图源
-6. iPad 大屏布局（非简单放大）
-7. 暂不新增模块（数学/创意/故事/音乐/英语留待后续规划）
+4. ~~开源 TTS 接入：sherpa-onnx 离线推理 + 应用内语音包下载 + 粤语修复（v0.4.0 / v0.4.1）~~ ✅
+5. 专业童声配音（可选，替换/补充开源 TTS 模型）
+6. 更多自然对象、更多古诗、更多拼图源
+7. iPad 大屏布局（非简单放大）
+8. 暂不新增模块（数学/创意/故事/音乐/英语留待后续规划）

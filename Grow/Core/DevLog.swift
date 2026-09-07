@@ -28,6 +28,21 @@ enum DevLog {
     /// 全部开发记录（最新在前）
     static let all: [DevLogEntry] = [
         DevLogEntry(
+            version: "0.3.1",
+            date: "2026-09-07",
+            title: "UI/交互打磨：拼音去重、分类网格、探索随机发现、详情页统一",
+            changes: [
+                "拼音卡片去掉重复的「声母/韵母」标签，与大标题只做一次提示。",
+                "数字、拼音页的发音按钮文字统一为「国」，与三语按钮行中的「国/粤/En」保持一致。",
+                "分一分游戏的待分类物品从单行横向滚动改为自适应多行网格，充分利用下方空间。",
+                "探索页新增「今日发现」随机推荐卡：每次进入随机展示一张自然卡片、一首古诗、一个数字/拼音或小游戏入口。",
+                "自然详情页收藏按钮移到名称旁边，与卡片页位置统一；移除右上角导航栏收藏。",
+                "自然详情页点击国/粤/En 朗读名称后，自动继续朗读「了解更多」介绍文字，并显示播放波形。",
+                "自然详情页底部「玩一玩」改为三列等宽竖排卡片，图标在上、文字在下，排版更整齐。"
+            ],
+            isCurrent: true
+        ),
+        DevLogEntry(
             version: "0.3.0",
             date: "2026-09-07",
             title: "Phase 5 趣味游戏中心：GameEngine + 拼图迁移 + 配对/找相同/分类",
@@ -43,7 +58,7 @@ enum DevLog {
                 "新增 DEBUG 深链：--page=game:home / game:puzzle / game:matching:<id> / game:findsame:<id> / game:sorting。",
                 "修正：配对/找相同/分一分判定正确时的提示音效改为统一由 GameFeedbackManager 播放，修复短暂的双重播放。"
             ],
-            isCurrent: true
+            isCurrent: false
         ),
         DevLogEntry(
             version: "0.2.3",

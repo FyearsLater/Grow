@@ -9,6 +9,11 @@ struct NatureDetailView: View {
 
     @State private var showMore = false
 
+    private var descriptionKey: String { "\(item.id)-desc" }
+    private var descriptionText: String {
+        settings.prefersLongDescription ? item.descriptionLong : item.descriptionShort
+    }
+
     var body: some View {
         ZStack {
             Theme.cream.ignoresSafeArea()
@@ -20,18 +25,26 @@ struct NatureDetailView: View {
                         .padding(.horizontal, 40)
                         .padding(.top, 8)
 
-                    // 名称
+                    // 名称（与卡片页统一：收藏按钮在名称旁）
                     VStack(spacing: 4) {
-                        Text(item.nameZh)
-                            .font(.system(size: Theme.scaled(38, settings: settings), weight: .bold, design: .rounded))
-                            .foregroundStyle(Theme.ink)
+                        HStack(spacing: 10) {
+                            Text(item.nameZh)
+                                .font(.system(size: Theme.scaled(38, settings: settings), weight: .bold, design: .rounded))
+                                .foregroundStyle(Theme.ink)
+                            FavoriteButton(kind: .nature, id: item.id)
+                        }
                         Text(item.nameEn)
                             .font(.system(size: Theme.scaled(20, settings: settings), weight: .semibold, design: .rounded))
                             .foregroundStyle(Theme.inkSoft)
                     }
 
-                    // 三语发音
-                    LanguageButtonsRow(name: item.nameZh, nameEn: item.nameEn, itemKey: "\(item.id)-detail")
+                    // 三语发音（读完后自动继续朗读介绍）
+                    LanguageButtonsRow(
+                        name: item.nameZh,
+                        nameEn: item.nameEn,
+                        itemKey: "\(item.id)-detail",
+                        onFinished: { speakDescription() }
+                    )
 
                     // 简介折叠卡片
                     descriptionCard
@@ -46,11 +59,6 @@ struct NatureDetailView: View {
         }
         .navigationTitle(item.nameZh)
         .navigationBarTitleDisplayMode(.inline)
-        .toolbar {
-            ToolbarItem(placement: .topBarTrailing) {
-                FavoriteButton(kind: .nature, id: item.id)
-            }
-        }
         .onAppear {
             // 记录最近学习
             UserLibrary.shared.recordNatureVisit(item.id)
@@ -60,15 +68,23 @@ struct NatureDetailView: View {
         }
     }
 
+    private func speakDescription() {
+        audio.speak(name: descriptionText, language: settings.defaultLanguage, key: descriptionKey)
+    }
+
     private var descriptionCard: some View {
-        let text = settings.prefersLongDescription ? item.descriptionLong : item.descriptionShort
+        VStack(alignment: .leading, spacing: 12) {
+            HStack(spacing: 8) {
+                Text("了解更多")
+                    .font(.system(size: Theme.scaled(16, settings: settings), weight: .bold, design: .rounded))
+                    .foregroundStyle(Theme.ink)
+                if audio.playingKey == descriptionKey {
+                    WaveIndicator(active: true, color: Theme.categoryColor(item.category))
+                }
+                Spacer()
+            }
 
-        return VStack(alignment: .leading, spacing: 12) {
-            Text("了解更多")
-                .font(.system(size: Theme.scaled(16, settings: settings), weight: .bold, design: .rounded))
-                .foregroundStyle(Theme.ink)
-
-            Text(text)
+            Text(descriptionText)
                 .font(.system(size: Theme.scaled(17, settings: settings), weight: .medium))
                 .foregroundStyle(Theme.inkSoft)
                 .lineSpacing(6)
@@ -104,7 +120,8 @@ struct NatureDetailView: View {
                 .font(.system(size: Theme.scaled(16, settings: settings), weight: .bold, design: .rounded))
                 .foregroundStyle(Theme.ink)
 
-            HStack(spacing: 10) {
+            let columns = Array(repeating: GridItem(.flexible(), spacing: 12), count: 3)
+            LazyVGrid(columns: columns, spacing: 12) {
                 playButton(GameModule.puzzle, title: "拼一拼") {
                     router.openNatureGame(natureId: item.id, game: .puzzle)
                 }
@@ -123,20 +140,23 @@ struct NatureDetailView: View {
 
     private func playButton(_ module: GameModule, title: String, action: @escaping () -> Void) -> some View {
         Button(action: action) {
-            HStack(spacing: 8) {
-                GameModuleIcon(module: module, size: 30)
+            VStack(spacing: 6) {
+                GameModuleIcon(module: module, size: 32)
                 Text(title)
                     .font(.system(size: Theme.scaled(15, settings: settings), weight: .semibold, design: .rounded))
                     .foregroundStyle(Theme.ink)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.8)
             }
-            .padding(.horizontal, 14)
-            .frame(minHeight: 48 * settings.buttonScaleFactor)
             .frame(maxWidth: .infinity)
+            .frame(minHeight: 76 * settings.buttonScaleFactor)
             .background(
-                Capsule().fill(module.tint.opacity(0.35))
+                RoundedRectangle(cornerRadius: 20, style: .continuous)
+                    .fill(module.tint.opacity(0.35))
             )
             .overlay(
-                Capsule().strokeBorder(module.tint.opacity(0.6), lineWidth: 1)
+                RoundedRectangle(cornerRadius: 20, style: .continuous)
+                    .strokeBorder(module.tint.opacity(0.6), lineWidth: 1)
             )
         }
         .buttonStyle(PressableButtonStyle(settings: settings))

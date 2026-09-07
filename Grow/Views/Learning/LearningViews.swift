@@ -260,17 +260,12 @@ struct PinyinCard: View {
             HStack(spacing: 22) {
                 // 左：拼音字母（点击发音）
                 Button { speak() } label: {
-                    VStack(spacing: 4) {
-                        Text(item.symbol)
-                            .font(.system(size: Theme.scaled(84, settings: settings), weight: .bold, design: .rounded))
-                            .foregroundStyle(Theme.vegetable)
-                        Text(item.type.displayName)
-                            .font(.system(size: Theme.scaled(14, settings: settings), weight: .semibold))
-                            .foregroundStyle(Theme.inkSoft)
-                    }
+                    Text(item.symbol)
+                        .font(.system(size: Theme.scaled(84, settings: settings), weight: .bold, design: .rounded))
+                        .foregroundStyle(Theme.vegetable)
                 }
                 .buttonStyle(PressableButtonStyle(settings: settings))
-                .accessibilityHint("播放 \(item.type.displayName) \(item.symbol) 的发音")
+                .accessibilityHint("播放 \(item.symbol) 的发音")
 
                 // 分隔线
                 Rectangle()
@@ -293,7 +288,7 @@ struct PinyinCard: View {
             }
 
             Spacer(minLength: 8)
-            SpeakButton(text: item.speechContent, key: key, title: "普通话", style: .prominent)
+            SpeakButton(text: item.speechContent, key: key, title: "国", style: .prominent)
             Spacer(minLength: 16)
         }
         .padding(.horizontal, 24)

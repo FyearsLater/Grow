@@ -158,7 +158,7 @@ struct SortingGameView: View {
         return frame.contains(drag.position)
     }
 
-    // MARK: - 物品托盘（横向滚动，卡 ≥ 90pt）
+    // MARK: - 物品托盘（自适应多行网格，卡 84pt）
 
     private var trayArea: some View {
         VStack(spacing: 6) {
@@ -166,19 +166,17 @@ struct SortingGameView: View {
                 .font(.system(size: Theme.scaled(13, settings: settings), weight: .medium))
                 .foregroundStyle(Theme.inkSoft)
 
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 14) {
-                    ForEach(engine.tray) { item in
-                        trayCard(item)
-                            .frame(width: 96, height: 96)
-                            .opacity(drag?.item.id == item.id ? 0.3 : 1)
-                            .gesture(dragGesture(item))
-                    }
+            let columns = [GridItem(.adaptive(minimum: 84), spacing: 14)]
+            LazyVGrid(columns: columns, spacing: 14) {
+                ForEach(engine.tray) { item in
+                    trayCard(item)
+                        .frame(width: 84, height: 84)
+                        .opacity(drag?.item.id == item.id ? 0.3 : 1)
+                        .gesture(dragGesture(item))
                 }
-                .padding(.horizontal, 20)
-                .padding(.vertical, 8)
             }
-            .frame(height: 130)
+            .padding(.horizontal, 20)
+            .padding(.vertical, 8)
         }
         .padding(.bottom, 12)
     }

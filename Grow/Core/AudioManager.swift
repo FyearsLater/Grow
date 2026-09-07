@@ -154,8 +154,9 @@ final class AudioManager: NSObject, ObservableObject {
     // MARK: - 自然对象发音
 
     /// 播放某个自然对象的指定语言发音（同样应用朗读音色设置）
-    func speak(name: String, language: SpeechLanguage, key: String) {
+    func speak(name: String, language: SpeechLanguage, key: String, onFinished: (() -> Void)? = nil) {
         stop()
+        self.onFinished = onFinished
         let settings = SettingsManager.shared
         let utterance = AVSpeechUtterance(string: name)
         utterance.voice = voice(for: language, role: settings.poemVoice)
@@ -213,6 +214,7 @@ final class AudioManager: NSObject, ObservableObject {
         lineRangeMap = []
         currentPoem = nil
         poemLineQueue = []
+        onFinished = nil
     }
 
     // MARK: - Helpers

@@ -51,6 +51,7 @@ struct LanguageButtonsRow: View {
     let name: String        // 当前语言下的读法（MVP 中英同名即可，TTS 按 locale 读）
     let nameEn: String
     let itemKey: String     // 播放 key 前缀
+    var onFinished: (() -> Void)? = nil
 
     var body: some View {
         HStack(spacing: 8) {
@@ -68,7 +69,7 @@ struct LanguageButtonsRow: View {
         // 按钮文字固定显示语言名称：国 / 粤 / En
         return Button {
             if isAvailable {
-                audio.speak(name: lang == .english ? nameEn : name, language: lang, key: key)
+                audio.speak(name: lang == .english ? nameEn : name, language: lang, key: key, onFinished: onFinished)
             }
         } label: {
             HStack(spacing: 5) {

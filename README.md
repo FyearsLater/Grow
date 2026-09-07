@@ -1,41 +1,64 @@
-# 🌱 Grow — 2-6 岁儿童自然认知与古诗词启蒙 App
+# 🌱 Grow — 2–6 岁儿童探索式启蒙 App
 
-一款面向 **2–6 岁儿童** 的 iOS 原生 App（SwiftUI），包含 **自然认知**（水果/蔬菜/动物/植物）与 **古诗词启蒙** 两大板块。
+一款面向 **2–6 岁儿童**（当前主打 **2–3 岁**）的 iOS 原生 App（SwiftUI，零第三方依赖）。
+产品定位不是「早教机」，而是一个属于孩子的、轻松现代的**数字探索空间**：
+自然认知 · 古诗启蒙 · 看图识字 · 趣味拼图。
 
-> 设计定位：现代儿童绘本 + 自然博物馆质感。儿童友好，但不幼稚；卡通，但不低幼。
+> 设计语言：**iOS 26 Liquid Glass** + 柔和低饱和色板 + 统一 Soft 3D 图标系统。
+> 现代、干净、呼吸感；儿童友好，但不幼稚。
 
-## 当前状态（Phase 1 · Demo 版）
+**当前版本：v0.2.2**（开发日志见 App 内「设置 → 开发日志」）
 
-按需求文档「先做 Demo 再扩充」的要求，本阶段已完成完整体验闭环：
+---
 
-| 模块 | 内容 |
-|---|---|
-| 首页 | 自然世界 / 古诗小世界 双入口 + 最近学习 + 设置 |
-| 自然世界 | 4 分类（水果/蔬菜/动物/植物），52 个对象（水果12/蔬菜12/动物16/植物12），实物摄影配图 |
-| 卡片浏览 | 大卡片左右滑动（露出下一张边缘）、页点指示、收藏 |
-| 自然详情 | 大插画 + 中英文名 + 三语发音 + 折叠简介（按年龄模式显示短/长版） |
-| 古诗 | 20 首必读古诗，含分类筛选，古风水墨插图（AI 生成，课本绘本风格） |
-| 古诗详情 | 程序化插画 + 原文/拼音切换 + 整首朗读（逐句高亮）+ 单句点读 + 注释 + 儿童理解 |
-| 收藏页 | 收藏的自然对象 + 古诗 |
-| 设置 | 页面缩放 / 字体 / 按钮（小·标准·大·超大）、年龄模式（2-3 岁 / 4-6 岁）、家长长按 3 秒验证（默认语言 / 朗读速度 0.75x-1.25x / 音效 / 动画开关） |
-| 音频 | 三语发音按钮（国语 / 粤语 / English）+ 系统 TTS：zh-CN / zh-HK / en-US，架构支持替换预置音频 |
-
-### Phase 2 新增
+## ✨ 功能总览
 
 | 模块 | 内容 |
 |---|---|
-| 首页 | 改为 2×2 四入口：自然世界 / 古诗小世界 / 看图识字 / 趣味拼图 |
-| 底部导航 | 首页 / 探索 / 游戏 / 收藏（设置移到右上角 ⚙️） |
-| 看图识字 · 数字 | 0–9：数量 → 阿拉伯数字 → 中文数字 → 发音，左右滑动 |
-| 看图识字 · 拼音 | 23 个声母 + 24 个韵母：图片 → 示例词 → 拼音 → 发音 |
-| 趣味拼图 | 4 / 9 / 16 块三档，逐级解锁，拖拽 + 自动吸附，运行时切片 |
-| 拼图联动 | 完成后显示中英文 + 三语发音，「认识一下」跳回自然认知详情 |
-| 设置 | 新增「拼图辅助」开关（2–3 岁默认开启，4–6 岁默认关闭） |
+| 首页 | Liquid Glass 统一卡片体系，四入口：自然世界 / 古诗小世界 / 看图识字 / 拼图世界；最近看过（点击直达详情）；右上角玻璃设置按钮 |
+| 自然世界 | 4 分类（水果/蔬菜/动物/植物）共 **78 个对象**，720×720 实物摄影配图（HEIF）；整页翻页卡片流 |
+| 自然详情 | 大图 + 中英文名 + 三语发音（国/粤/En）+ 按年龄模式折叠简介 |
+| 古诗小世界 | **30 首古诗**（含江河/湖泊/山川/节日/历史等 9 分类），古风水墨插图；原文/拼音切换、逐句朗读、单句点读、注释、儿童理解 |
+| 看图识字 | 数字 0–9 + 拼音 **23 声母 + 24 韵母**（47 张卡片）：图片放大 + 字母/例词左右并排 |
+| 拼图世界 | 4/9/16 块三档逐级解锁，`PuzzleEngine` 运行时切割原图；完成后「认识一下」跳回自然详情 |
+| 底部导航 | 首页 / 探索 / 游戏 / 收藏；iOS 26+ 原生 TabView 自动获得系统 Liquid Glass 标签条，iOS 17/18 回退自定义玻璃胶囊 |
+| 收藏 | 自然对象 + 古诗统一收藏 |
+| 设置 | 年龄模式（2-3 / 4-6 岁）、页面缩放 / 字号 / 按钮（小·标准·大·超大）、拼图辅助、朗读语言与音色（小男孩/小女孩/男大/女大）、停顿时长、动画开关、**开发日志** |
 
-## 如何运行
+### 音频能力
+
+- 系统粒子 TTS：`AVSpeechSynthesizer`，国语回退链 zh-CN → zh-TW → zh-HK（真机缺语音包也能出声）
+- 粤语 zh-HK、英语 en-US；古诗逐句队列朗读，句间停顿可调（短/适中/长）
+- 四档朗读音色（音高 + 性别偏好），作用于全部朗读场景
+- 拼图音效 `SoundEffects`；错误放置刻意不发声
+
+---
+
+## 🎨 设计系统（DesignSystem）
+
+所有 UI 统一调用设计系统组件，**禁止页面自造颜色/字体/玻璃效果**。
+
+| 文件 | 内容 |
+|---|---|
+| `DesignSystem/Theme.swift` | 色彩系统：米白底色、语义色（`textPrimary`/`textSecondary`…）、模块柔和色板（`softGreen/softSand/softBlue/softLilac` + `deep*`）、首页背景渐变；**GrowFont 四级字体**（Title / Heading / Body / Subtitle / Caption，rounded 中轻字重，跟随设置档位缩放）；`PressableButtonStyle` 按压反馈 |
+| `DesignSystem/Tokens.swift` | 间距 `GrowSpacing`、圆角 `GrowRadius`、动画 `GrowAnimation`（全部经 Reduce Motion / 动画开关门控） |
+| `DesignSystem/GlassComponents.swift` | 玻璃组件唯一入口：`glassSurface` / `glassCard`（iOS 26 走系统 `glassEffect`，iOS 17/18 回退 `ultraThinMaterial` + 高光描边）、`GlassButton` / `GlassIconButton` / `GlassChip` / `GlassEntryCard`（module 驱动）/ `GlassPageHeader` |
+| `DesignSystem/ModuleIdentity.swift` | 四模块统一视觉符号：`GrowModule` 枚举（标题/副标题/主题色/深色）+ `ModuleIconView` Soft 3D 矢量图标（嫩芽 / 诗卷 / 汉字卡 / 双拼图），不使用 Emoji |
+
+### 设计原则
+
+1. Glass 是材质不是内容：卡片轻染模块色，图标 → 标题 → 一句话说明的现代层级
+2. 中文标题圆润中轻字重，标题与说明层级分明；儿童 App ≠ 粗黑体
+3. 背景极轻渐变 + 模糊光斑，营造空间感，不抢内容
+4. 动画短、轻、自然；开启「减弱动态效果」自动降级
+5. 固定浅色外观（`preferredColorScheme(.light)`）保证玻璃质感一致
+
+---
+
+## 🚀 如何运行
 
 ```bash
-open Grow.xcodeproj          # 用 Xcode 16+ 打开
+open Grow.xcodeproj   # 用 Xcode 26+ 打开（Liquid Glass 需 iOS 26 SDK）
 # 选择 iPhone 模拟器，⌘R 运行
 ```
 
@@ -43,198 +66,111 @@ open Grow.xcodeproj          # 用 Xcode 16+ 打开
 
 ```bash
 xcodebuild -project Grow.xcodeproj -scheme Grow \
-  -destination 'platform=iOS Simulator,name=iPhone 16 Pro' build
+  -destination 'platform=iOS Simulator,name=iPhone 17 Pro' build
 ```
 
-- 最低支持 iOS 17.0，iPhone / iPad 竖屏
-- 无需任何第三方依赖、无需签名即可跑模拟器
+- 最低支持 **iOS 17.0**，iPhone / iPad 竖屏；无第三方依赖
+- 无需签名即可跑模拟器；真机安装用未签名 IPA（xcodebuild archive → Payload → zip）
+- 开发环境：Xcode 26.3 (17C529) + iOS 26.3.1 SDK
 
 **调试启动参数**（直接深跳到某个页面，方便截图/测试）：
 
 ```bash
-xcrun simctl launch "iPhone 16 Pro" com.dyj.grow --tab=nature --page=deck:fruit
-# --tab: home | nature | poem | favorites
-# --page: deck:<分类> | item:<自然对象id> | poem:<古诗id>
+xcrun simctl launch "iPhone 17 Pro" com.dyj.grow --tab=explore --page=deck:fruit
+# --tab: home | explore | games | favorites
+# --page: deck:<分类> | item:<自然对象id> | poem:<古诗id> | pinyin:<initial|final> | numbers | settings
 ```
-
-## 如何增加自然对象
-
-编辑 `Grow/Resources/Content/nature.json`，向 `items` 数组追加（无需改任何页面代码）：
-
-```json
-{
-  "id": "fruit_banana",
-  "category": "fruit",              // fruit | vegetable | animal | plant
-  "name_zh": "香蕉",
-  "name_en": "Banana",
-  "description_short": "2-4 岁版本简介（1-3 句）",
-  "description_long": "4-6 岁版本简介（3-5 句）",
-  "mandarin_audio": null,           // 未来填音频文件名，如 "banana_zh.m4a"
-  "cantonese_audio": null,
-  "english_audio": null,
-  "illustration": "banana",         // 插画标识
-  "sort_order": 4
-}
-```
-
-`illustration` 支持三种格式：
-
-| 格式 | 说明 |
-|---|---|
-| `img:<名称>` | 加载 `Grow/Resources/Images/<名称>.jpg` 的真实图片（当前 52 个自然对象与 20 首古诗均为此格式） |
-| 固定标识（`apple`/`panda`/`sunflower`） | SwiftUI 矢量插画 |
-| `emoji:🌿` | 兜底占位 |
-
-**更换图片**：直接替换 `Grow/Resources/Images/` 下的同名 jpg（建议 768×702 或 1:1）；**增加图片**：把新 jpg 放入该目录，JSON 里写 `"illustration": "img:文件名（不带扩展名）"` 即可。
-
-## 如何增加古诗
-
-编辑 `Grow/Resources/Content/poems.json`，向 `poems` 数组追加：
-
-```json
-{
-  "id": "poem_chunxiao",
-  "title": "春晓",
-  "author": "孟浩然",
-  "dynasty": "唐",
-  "categories": ["spring"],         // spring/summer/autumn/winter/night/nature/family/daily
-  "illustration": "poem_chunxiao",
-  "lines": [
-    { "poem_id": "poem_chunxiao", "order": 0, "text": "春眠不觉晓", "pinyin": "chūn mián bù jué xiǎo" }
-  ],
-  "annotations": [
-    { "poem_id": "poem_chunxiao", "target": "闻", "explanation": "听见。" }
-  ],
-  "kid_summary": "小朋友可以这样理解的一段话",
-  "sort_order": 3
-}
-```
-
-注意：`lines.text` 拼接后用于整首朗读的逐句高亮，`order` 从 0 开始。
-
-## 如何更换图片 / 音频
-
-- **图片**：当前 Demo 全部为程序化矢量插画（零外部资源、天然离线）。替换为真实插画时，在 `IllustrationView` 中将对应 `case` 改为 `Image("资源名")` 即可，内容 JSON 不用动。
-- **音频**：`AudioManager` 是唯一的语音出口（UI 不直接碰 AVFoundation）。把 JSON 中 `*_audio` 字段填上 bundle 内音频文件名（推荐 AAC/M4A），并在 `AudioManager.speak(...)` 里优先检查「有音频文件 → AVAudioPlayer 播放，否则回落 TTS」即可完成替换。
-
-## 如何修改默认设置
-
-默认值集中在 `Grow/Core/SettingsManager.swift` 的 `init()`（如 `fontSize` 默认 `.large`、`speechSpeed` 默认 `1.0`、背景音乐默认关闭）。运行时设置持久化在 UserDefaults（key 前缀 `grow.settings.`），删除 App 即恢复默认。
-
-## 项目结构
-
-```
-Grow/
-├── GrowApp.swift              # 入口 + Tab 结构 + Router
-├── Models/Models.swift        # NatureItem / Poem / PoemLine / Annotation
-├── Core/
-│   ├── AudioManager.swift     # 三语 TTS（可替换为音频文件/云端 TTS）
-│   ├── ContentRepository.swift# JSON 内容加载（UI 与数据解耦）
-│   ├── SettingsManager.swift  # 设置持久化 + 字号/缩放系数
-│   ├── UserLibrary.swift      # 收藏 + 最近学习
-│   └── Router.swift           # Tab 路由 + 调试启动参数
-├── DesignSystem/Theme.swift   # 统一色彩系统 / 按压反馈 / 卡片样式
-├── Views/
-│   ├── Home/                  # 首页（双入口卡片 + 最近学习）
-│   ├── Nature/                # 分类页 / 卡片滑动 / 详情
-│   ├── Poem/                  # 古诗列表 / 沉浸式详情
-│   ├── Favorites/             # 收藏页
-│   ├── Settings/              # 设置 + 家长长按验证
-│   └── Components/            # 程序化插画 / 发音按钮 / 声波指示器
-└── Resources/Content/         # nature.json / poems.json（内容数据）
-```
-
-## 下一步（Phase 2+）
-
-1. ~~确认 Demo 视觉方向后，扩充至 50+ 自然对象、20 首古诗~~ ✅ 已完成（52 + 20）
-2. 录制/接入专业儿童友好配音（国语/粤语/英语），替换系统 TTS
-3. 个别水墨插图可按需重生成替换（对应 Images/poem_*.jpg）
-4. iPad 大屏布局（非简单放大）
-5. 交互测试：快速点击/连续滑动/声音叠加等儿童异常操作场景
 
 ---
 
-## 如何添加内容（Phase 2）
+## 📁 项目结构
 
-所有内容都是**数据驱动**的：加内容只需改 JSON + 放图片/音频，**不需要改 SwiftUI 页面**。
+```
+Grow/
+├── GrowApp.swift                 # 入口 + RootTabView（iOS26 原生 TabView / 老系统玻璃胶囊）+ 各 Tab 栈
+├── Models/
+│   ├── Models.swift              # NatureItem / Poem（含容错解码）/ PoemCategory
+│   ├── LearningModels.swift      # ContentItem 统一协议 / NumberItem / PinyinItem / PuzzleItem
+│   └── Content.swift
+├── Core/
+│   ├── AudioManager.swift        # 唯一语音出口：TTS / 音色 / 回退链 / 逐句朗读
+│   ├── ContentRepository.swift   # JSON 内容加载（UI 与数据解耦）
+│   ├── LearningRepository.swift  # 数字 / 拼音仓库
+│   ├── PuzzleRepository.swift    # 拼图仓库
+│   ├── PuzzleEngine.swift        # 运行时图片切片
+│   ├── ProgressManager.swift     # 拼图解锁进度
+│   ├── SettingsManager.swift     # 设置持久化 + 字号/缩放/按钮系数
+│   ├── UserLibrary.swift         # 收藏 + 最近看过
+│   ├── Router.swift              # Tab 路由 + 深链启动参数
+│   ├── DevLog.swift              # 开发日志数据（版本号唯一真源）
+│   ├── AssetManager.swift        # 图片资产加载（HEIF 优先）
+│   └── SoundEffects.swift        # 拼图音效
+├── DesignSystem/
+│   ├── Theme.swift               # 色彩 / GrowFont 字体 / 按压反馈
+│   ├── Tokens.swift              # 间距 / 圆角 / 动画
+│   ├── GlassComponents.swift     # Liquid Glass 组件库（唯一玻璃入口）
+│   └── ModuleIdentity.swift      # 四模块 Soft 3D 图标 + GrowModule
+├── Views/
+│   ├── Home/                     # 首页（玻璃卡片 + 最近看过 + 柔光背景）
+│   ├── Explore/                  # 探索 Tab
+│   ├── Nature/                   # 自然分类 / 整页翻页卡组 / 详情
+│   ├── Poem/                     # 古诗列表 / 沉浸式详情
+│   ├── Learning/                 # 看图识字（数字 / 拼音）
+│   ├── Puzzle/                   # 拼图首页 / 游戏
+│   ├── Favorites/                # 收藏
+│   ├── Settings/                 # 设置 + 开发日志
+│   └── Components/               # 插画 / 共享组件
+└── Resources/
+    ├── Content/                  # nature / poems / numbers / pinyin / puzzles JSON
+    └── Images/                   # 108 张 720×720 HEIF 配图
+```
+
+---
+
+## 📝 内容扩充指南（数据驱动，加内容不改页面）
+
+所有内容 JSON 驱动：**改 JSON + 放图即生效**（Xcode 文件系统同步组，新文件自动打包，无需改 pbxproj）。
 
 ### 图片标准
 
-- **统一 720 × 720 px**、1:1，优先 JPEG / HEIF
-- 放在 `Grow/Resources/Images/`，命名用有意义的英文（`apple` / `panda` / `sunflower`），**不要** `img001`、`final2`
-- 只有需要透明背景的 UI 元素才用 PNG，内容图片不要全用 PNG
-- 项目已启用 Xcode 文件系统同步，新文件会被自动打包，**无需手动改 pbxproj**
-- ⚠️ 不要为了「高清」把内容图升级到 1024² / 2048²，这会显著增加包体积
+- **720 × 720 px**、1:1，优先 HEIF（`magick in.jpg -resize 720x720^ -gravity center -extent 720x720 -format heic out.heic`）
+- 放 `Grow/Resources/Images/`，命名用有意义的英文；不要为了「高清」升到 1024²/2048²
+- `illustration` 格式：`img:<名称>`（实物图）/ 固定标识（apple/panda 等矢量插画）/ `emoji:🌿`（兜底）
 
-### 添加数字（0–9）
+### 各内容文件
 
-编辑 `Grow/Resources/Content/numbers.json`：
+| 文件 | 追加方式 |
+|---|---|
+| `nature.json` | `items[]`：id / category（fruit·vegetable·animal·plant）/ name_zh / name_en / 双语简介 / illustration / sort_order |
+| `poems.json` | `poems[]`：lines.text 拼接用于逐句高亮（order 从 0 起）；分类 rawValue 必须在 `PoemCategory` 枚举中已有（未知分类会被容错跳过） |
+| `numbers.json` | `image_items` 填展示数量用的 emoji，UI 按 `number` 重复 |
+| `pinyin.json` | **`speak_text` 必填呼读音汉字**（b→玻、a→啊）；示例词首字必须真对应 |
+| `puzzles.json` | 只需一张 720×720 原图，切片运行时计算，**禁止预存切片**；`source_nature_item_id` 联动自然详情 |
 
-```json
-{
-  "id": "number_10", "number": 10, "chinese_name": "十",
-  "image_items": ["🍎"], "audio": null, "sort_order": 10
-}
-```
+### 修改规则与默认值
 
-`image_items` 填展示「数量」用的 emoji，UI 会按 `number` 重复展示。
+- 拼图解锁规则：`ProgressManager.isUnlocked`（完成前一难度任意一张解锁下一档）
+- 默认设置：`SettingsManager.init()`（持久化 key 前缀 `grow.settings.`，删 App 恢复默认）
+- 替换预录音频：文件入 Bundle → JSON `audio` 字段填文件名 → `AudioManager` 优先播放（当前为空回退 TTS）；**不要绕过 AudioManager 自建音频管理器**
 
-### 添加声母 / 韵母
+---
 
-编辑 `Grow/Resources/Content/pinyin.json`：
+## 🧭 开发约定（踩坑沉淀）
 
-```json
-{
-  "id": "pinyin_initial_b", "type": "initial", "symbol": "b",
-  "example_word": "斑马", "example_word_pinyin": "bān mǎ",
-  "image": "img:animal_zebra", "speak_text": "玻", "audio": null, "sort_order": 1
-}
-```
+1. **枚举先行**：给 JSON 加新分类前，先在 `Models` 补枚举 case，否则整文件解码失败（已对古诗分类做容错跳过）
+2. **扩充内容后必须模拟器启动对应页面截图验证**
+3. **版本号以 `DevLog.swift` 为唯一真源**：更新后工程 `MARKETING_VERSION` 同步 DevLog 版本
+4. **GitHub 推送等用户指令**，不自动推送
+5. iOS 26 `glassEffect` 的 tint 渲染偏重，柔和效果传 `color.opacity()` 压低
+6. `AnyShape` 描边用 `.stroke`（无 `strokeBorder`）；裸形状加 `.shadow` 前必须先有 fill（否则黑色前景）
+7. iOS 26.3.1 模拟器缺 emoji 字体显示「？」，真机不受影响
 
-- `type`：`initial` 声母 / `final` 韵母（`tone` 为未来声调预留，暂不使用）
-- `image`：复用插画标识，`img:图片名` 或 `emoji:🐚`
-- **`speak_text` 必填且要准确**：系统 TTS 念不出裸拼音符号（念 `b` 会变成英文字母），
-  因此填该拼音的**呼读音汉字**（b→玻、a→啊、ao→熬、eng→鞥）
-- 示例词的**首字**必须真的对应该声母/韵母；宁可只展示符号 + 发音，也不要用错示例
+## 🗺️ Roadmap
 
-### 添加拼图
-
-编辑 `Grow/Resources/Content/puzzles.json`：
-
-```json
-{
-  "id": "puzzle_apple_9", "title": "苹果", "category": "水果",
-  "image": "img:fruit_apple", "difficulty": "medium",
-  "piece_count": 9, "source_nature_item_id": "fruit_apple", "sort_order": 1
-}
-```
-
-- `difficulty`：`easy` 4 块 / `medium` 9 块 / `hard` 16 块
-- **只需要一张 720×720 原图**，切片由 `PuzzleEngine` 在运行时计算；
-  **禁止**预先保存 `apple_9_1` 这类切片图
-- `source_nature_item_id` 填自然认知条目 id，完成后即可「认识一下」跳回详情
-
-### 修改解锁规则
-
-`Grow/Core/ProgressManager.swift` → `isUnlocked(_:repo:)`。
-默认规则：**完成前一难度的任意一张**即解锁下一难度。
-
-### 修改默认设置
-
-`Grow/Core/SettingsManager.swift` → `init()` 中的 fallback 值
-（年龄模式、拼图辅助、字号、按钮大小、朗读速度等）。
-
-### 替换音频
-
-- 数字 / 拼音 / 拼图发音统一走 `AudioManager.speak(name:language:key:)`，
-  **不要每个页面自己建音频管理器**；播放前会自动 stop，天然避免声音叠加
-- 想换成预录音频：把文件放进 Bundle，在模型 `audio` 字段填文件名，
-  再让 `AudioManager` 优先播放 `audio`（当前为空时回退系统 TTS）
-- 拼图音效在 `Grow/Core/SoundEffects.swift`；**错误放置刻意不发声**
-
-### 新增分类
-
-1. 在 `Grow/Models/` 对应枚举里加 case（`NatureCategory` / `PinyinType` / `PuzzleDifficulty`）
-2. 补上 `displayName` / `symbol` 等展示属性
-3. 在 JSON 里使用新 case 的 rawValue
-4. 页面会自动出现新分类，无需改 View
+1. ~~自然 52 + 古诗 20~~ ✅ → **78 + 30**
+2. ~~看图识字 + 拼图（Phase 2）~~ ✅
+3. ~~Liquid Glass 设计语言 + 首页重设计（Phase 3 / v0.2.2）~~ ✅
+4. 录制/接入专业儿童配音，替换系统 TTS
+5. 更多自然对象、更多古诗、更多拼图源
+6. iPad 大屏布局（非简单放大）
+7. 暂不新增模块（数学/创意/故事/音乐/英语留待后续规划）

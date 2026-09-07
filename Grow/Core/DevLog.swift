@@ -28,6 +28,17 @@ enum DevLog {
     /// 全部开发记录（最新在前）
     static let all: [DevLogEntry] = [
         DevLogEntry(
+            version: "0.4.2",
+            date: "2026-09-08",
+            title: "修复拼图拖动无法放入目标框",
+            changes: [
+                "修复拼图游戏：托盘拼图块无法拖入上方拼图板（松手后回弹、放不进去）的问题。根因为托盘使用 ScrollView 包裹，其滚动手势与拼图块的 DragGesture 冲突，吞掉拖拽事件导致落点判定失败。",
+                "移除托盘 ScrollView，改用普通 LazyVGrid，消除手势冲突，拖拽坐标恢复可靠。",
+                "handleDrop 改用确定性的真实板边长（boardSizeValue）替代 GeometryReader 偏好捕获的 boardRect.width，避免列/行算错导致误判。"
+            ],
+            isCurrent: true
+        ),
+        DevLogEntry(
             version: "0.4.1",
             date: "2026-09-08",
             title: "修复粤语发音 · 设置精简 · 语音包下载断点续传",
@@ -37,7 +48,7 @@ enum DevLog {
                 "设置页精简：移除「语音包状态」卡片（与「自然语音库」重复）、移除「减少动画」开关（与「动画效果」语义重叠）、开启自然语音时隐藏「古诗词朗读音色」（模型为单音色，该项不生效）。",
                 "修复语音包下载在约 80% 处中断：下载改为 Range 分块（2MB/块）+ 断点续传（.part 续写）+ 单块失败自动重试（5 次退避），并延长超时；中断后点「继续」从断点接力，不再从头来过。"
             ],
-            isCurrent: true
+            isCurrent: false
         ),
         DevLogEntry(
             version: "0.4.0",

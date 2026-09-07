@@ -17,6 +17,7 @@ struct PuzzleGameView: View {
     @State private var currentItem: PuzzleItem
 
     @State private var boardRect: CGRect = .zero
+    @State private var boardSizeValue: CGFloat = 0
     @State private var sourceImage: UIImage?
     @State private var cropCache: [Int: UIImage] = [:]
     @State private var drag: DragState?
@@ -159,6 +160,7 @@ struct PuzzleGameView: View {
         )
         .frame(maxWidth: .infinity)
         .padding(.vertical, 8)
+        .onAppear { boardSizeValue = size }
     }
 
     private func gridLines(grid: Int) -> some View {
@@ -188,15 +190,13 @@ struct PuzzleGameView: View {
                 .font(.system(size: Theme.scaled(13, settings: settings), weight: .medium))
                 .foregroundStyle(Theme.inkSoft)
 
-            ScrollView(showsIndicators: false) {
-                LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 10), count: columns), spacing: 10) {
-                    ForEach(engine.trayPieces) { piece in
-                        trayPiece(piece, size: trayCell)
-                    }
+            LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 10), count: columns), spacing: 10) {
+                ForEach(engine.trayPieces) { piece in
+                    trayPiece(piece, size: trayCell)
                 }
-                .padding(.horizontal, 20)
-                .padding(.bottom, 20)
             }
+            .padding(.horizontal, 20)
+            .padding(.bottom, 20)
         }
         .padding(.top, 4)
     }
@@ -234,7 +234,7 @@ struct PuzzleGameView: View {
     private func handleDrop(index: Int, at location: CGPoint) {
         let point = CGPoint(x: location.x - boardRect.minX, y: location.y - boardRect.minY)
 
-        if engine.isCorrectDrop(index: index, at: point, boardSize: boardRect.width) {
+        if engine.isCorrectDrop(index: index, at: point, boardSize: boardSizeValue) {
             // 正确：自动吸附 + 柔和音效 + 锁定（§46）
             withAnimation(.spring(response: 0.3, dampingFraction: 0.62)) {
                 drag = nil

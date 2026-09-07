@@ -16,6 +16,7 @@ struct SettingsView: View {
 
                     displaySection
                     ageSection
+                    VoicePackCenterCard()
                     parentSection
                 }
                 .padding(.horizontal, 20)
@@ -229,6 +230,133 @@ struct SettingsView: View {
             }
             .pickerStyle(.segmented)
         }
+    }
+}
+
+// MARK: - 自然语音库（开源 TTS 模型下载中心）
+
+/// 展示可下载的开源语音包：下载 / 进度 / 取消 / 删除，下载后朗读自动改用自然语音。
+struct VoicePackCenterCard: View {
+    @EnvironmentObject var settings: SettingsManager
+    @ObservedObject private var manager = VoicePackManager.shared
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 14) {
+            Text("自然语音库")
+                .font(.system(size: Theme.scaled(17, settings: settings), weight: .bold, design: .rounded))
+                .foregroundStyle(Theme.ink)
+
+            Text("开源 TTS 模型（sherpa-onnx 离线推理）。下载后 Grow 会自动改用自然语音朗读，不联网也能用。")
+                .font(.system(size: 13))
+                .foregroundStyle(Theme.inkSoft.opacity(0.85))
+                .lineSpacing(3)
+
+            ForEach(VoicePack.all) { pack in
+                packRow(pack)
+            }
+
+            Text("下载需要联网，建议在 Wi-Fi 下进行；模型较大，请耐心等待。")
+                .font(.system(size: 12))
+                .foregroundStyle(Theme.inkSoft.opacity(0.7))
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .padding(20)
+        .growCard(fill: .white.opacity(0.7))
+    }
+
+    private func packRow(_ pack: VoicePack) -> some View {
+        let state = manager.state(pack)
+
+        return VStack(alignment: .leading, spacing: 10) {
+            HStack(spacing: 12) {
+                ZStack {
+                    Circle()
+                        .fill(Theme.softGreen.opacity(0.35))
+                        .frame(width: 38, height: 38)
+                    Image(systemName: "waveform")
+                        .font(.system(size: 16, weight: .semibold))
+                        .foregroundStyle(Theme.deepGreen)
+                }
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(pack.displayName)
+                        .font(.system(size: 15, weight: .semibold))
+                        .foregroundStyle(Theme.ink)
+                    Text("\(pack.subtitle) · 约 \(pack.estimatedMB)")
+                        .font(.system(size: 12))
+                        .foregroundStyle(Theme.inkSoft.opacity(0.85))
+                }
+                Spacer()
+                actionButton(pack, state)
+            }
+
+            if case .downloading(let progress, let downloaded, let total) = state {
+                ProgressView(value: progress)
+                    .tint(Theme.vegetable)
+                HStack {
+                    Text("\(Int(progress * 100))% · \(mb(downloaded)) / \(mb(total))")
+                        .font(.system(size: 12, weight: .medium))
+                        .foregroundStyle(Theme.inkSoft)
+                    Spacer()
+                    Button("取消") { manager.cancel(pack) }
+                        .font(.system(size: 13, weight: .semibold))
+                        .foregroundStyle(Theme.poemWarm)
+                        .buttonStyle(.plain)
+                }
+            }
+
+            if case .failed(let message) = state {
+                Text(message)
+                    .font(.system(size: 12))
+                    .foregroundStyle(Theme.poemWarm)
+            }
+        }
+        .padding(14)
+        .background(RoundedRectangle(cornerRadius: 16, style: .continuous).fill(Theme.cream))
+    }
+
+    @ViewBuilder
+    private func actionButton(_ pack: VoicePack, _ state: VoicePackManager.State) -> some View {
+        switch state {
+        case .installed:
+            HStack(spacing: 12) {
+                Label("已安装", systemImage: "checkmark.circle.fill")
+                    .font(.system(size: 13, weight: .semibold))
+                    .foregroundStyle(Theme.vegetable)
+                Button {
+                    manager.delete(pack)
+                } label: {
+                    Image(systemName: "trash")
+                        .font(.system(size: 13, weight: .semibold))
+                        .foregroundStyle(Theme.poemWarm)
+                }
+                .buttonStyle(.plain)
+            }
+        case .downloading:
+            ProgressView()
+        default:
+            Button {
+                manager.download(pack)
+            } label: {
+                Text(state.buttonTitle)
+                    .font(.system(size: 14, weight: .bold, design: .rounded))
+                    .foregroundStyle(.white)
+                    .padding(.horizontal, 18)
+                    .padding(.vertical, 8)
+                    .background(Capsule().fill(Theme.vegetable))
+            }
+            .buttonStyle(PressableButtonStyle(settings: settings))
+        }
+    }
+
+    private func mb(_ bytes: Int64) -> String {
+        String(format: "%.0fMB", Double(bytes) / 1_048_576)
+    }
+}
+
+extension VoicePackManager.State {
+    var buttonTitle: String {
+        if case .failed = self { return "重试" }
+        return "下载"
     }
 }
 

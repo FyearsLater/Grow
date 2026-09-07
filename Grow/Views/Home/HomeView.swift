@@ -32,23 +32,10 @@ struct HomeView: View {
                     .frame(maxWidth: .infinity)
                 }
             }
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    NavigationLink {
-                        SettingsView()
-                    } label: {
-                        GlassIconBadge(systemName: "gearshape", size: 40, iconSize: 15)
-                    }
-                    .buttonStyle(GlassButtonStyle(settings: settings))
-                }
-            }
             .onAppear {
                 withAnimation(GrowAnimation.appear(settings) ?? .easeOut(duration: 0.01)) {
                     appeared = true
                 }
-            }
-            .navigationDestination(isPresented: $router.showSettings) {
-                SettingsView()
             }
         }
     }

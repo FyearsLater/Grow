@@ -2,9 +2,9 @@ import Foundation
 
 /// 全局路由：Tab 切换 + 探索栈深链路径
 final class Router: ObservableObject {
-    /// 底部导航：首页 / 探索 / 收藏（设置放在右上角，§8）
+    /// 底部导航：首页 / 探索 / 收藏 / 设置
     enum Tab: String {
-        case home, explore, favorites
+        case home, explore, favorites, settings
     }
 
     enum NatureRoute: Hashable {
@@ -33,8 +33,6 @@ final class Router: ObservableObject {
     @Published var naturePath: [NatureRoute] = []
     @Published var poemPath: [PoemRoute] = []
     @Published var explorePath: [ExploreRoute] = []
-    /// DEBUG 专用：启动直达设置页（--page=settings）
-    @Published var showSettings = false
 
     init() {
         #if DEBUG
@@ -48,7 +46,7 @@ final class Router: ObservableObject {
         }
         if let page = Self.arg("--page=") {
             if page == "settings" {
-                showSettings = true
+                tab = .settings
             } else if page.hasPrefix("deck:"), let cat = NatureCategory(rawValue: String(page.dropFirst(5))) {
                 explorePath = [.natureDeck(cat)]
                 if tab == .home { tab = .explore }

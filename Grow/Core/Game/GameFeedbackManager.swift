@@ -59,11 +59,13 @@ final class GameFeedbackManager: ObservableObject {
         feedbackToken += 1
     }
 
-    /// 所有游戏语音统一走 AudioManager.speak（语言跟随 SettingsManager.defaultLanguage，§音频唯一出口）
+    /// 所有游戏语音统一走 AudioManager.speak（语言跟随 SettingsManager.defaultLanguage，§音频唯一出口）。
+    /// 游戏反馈是自动语音：未下载自然语音包时静默回退系统语音，不弹窗打断游戏。
     private func speak(_ text: String, gameId: String, purpose: String) {
         AudioManager.shared.speak(name: text,
                                   language: SettingsManager.shared.defaultLanguage,
-                                  key: "game-\(gameId)-\(purpose)")
+                                  key: "game-\(gameId)-\(purpose)",
+                                  promptIfMissing: false)
     }
 
     /// 随机取用、避免连续重复

@@ -116,6 +116,8 @@ final class AudioManager: NSObject, ObservableObject {
     @Published private(set) var availableLanguages: Set<SpeechLanguage> = []
 
     private let synthesizer = AVSpeechSynthesizer()
+    /// 自然语音引擎（开源 TTS 模型，sherpa-onnx 离线推理）；已下载语音包的语言优先走这里
+    private let naturalPlayer = NaturalTTSPlayer.shared
     private var lineRangeMap: [(range: NSRange, index: Int)] = []
     private var onFinished: (() -> Void)?
     /// 整首古诗逐句朗读队列
@@ -164,12 +166,42 @@ final class AudioManager: NSObject, ObservableObject {
 
     // MARK: - 自然对象发音
 
-    /// 播放某个自然对象的指定语言发音（同样应用朗读音色设置）
-    func speak(name: String, language: SpeechLanguage, key: String, onFinished: (() -> Void)? = nil) {
+    /// 播放某个自然对象的指定语言发音（同样应用朗读音色设置）。
+    /// 引擎选择：已下载自然语音包 → 开源 TTS；未下载 → 弹窗引导（或按 promptIfMissing=false 静默回退系统语音）。
+    /// - promptIfMissing: 用户主动点击朗读=true；游戏反馈等自动语音=false（不打断游戏）
+    func speak(name: String, language: SpeechLanguage, key: String, onFinished: (() -> Void)? = nil, promptIfMissing: Bool = true) {
+        if naturalPlayer.isReady(for: language) {
+            stop()
+            self.onFinished = onFinished
+            playingKey = key
+            naturalPlayer.speak(
+                text: name,
+                language: language,
+                speed: Float(SettingsManager.shared.speechSpeed),
+                key: key
+            ) { [weak self] in
+                guard let self else { return }
+                if self.playingKey == key { self.playingKey = nil }
+                let cb = self.onFinished
+                self.onFinished = nil
+                cb?()
+            }
+            return
+        }
+        if promptIfMissing {
+            stop()
+            VoicePackPromptCenter.shared.suggestDownload(language: language, sampleText: name)
+            return
+        }
+        speakWithSystem(text: name, language: language, key: key, onFinished: onFinished)
+    }
+
+    /// 系统语音（AVSpeechSynthesizer）朗读——未安装自然语音包时的回退路径
+    private func speakWithSystem(text: String, language: SpeechLanguage, key: String, onFinished: (() -> Void)?) {
         stop()
         self.onFinished = onFinished
         let settings = SettingsManager.shared
-        let utterance = AVSpeechUtterance(string: name)
+        let utterance = AVSpeechUtterance(string: text)
         utterance.voice = voice(for: language, role: settings.poemVoice)
         utterance.rate = Self.rate(for: settings.speechSpeed)
         utterance.pitchMultiplier = settings.poemVoice.pitchMultiplier
@@ -180,6 +212,25 @@ final class AudioManager: NSObject, ObservableObject {
 
     /// 播放古诗单句
     func speakPoemLine(_ text: String, key: String) {
+        let lang = SettingsManager.shared.poemLanguage
+        if naturalPlayer.isReady(for: lang) {
+            stop()
+            playingKey = key
+            naturalPlayer.speak(
+                text: text,
+                language: lang,
+                speed: Float(SettingsManager.shared.speechSpeed),
+                key: key
+            ) { [weak self] in
+                guard let self else { return }
+                if self.playingKey == key { self.playingKey = nil }
+            }
+            return
+        }
+        speakPoemLineSystem(text, key: key)
+    }
+
+    private func speakPoemLineSystem(_ text: String, key: String) {
         stop()
         let settings = SettingsManager.shared
         let utterance = AVSpeechUtterance(string: text)
@@ -193,6 +244,12 @@ final class AudioManager: NSObject, ObservableObject {
 
     /// 朗读整首古诗：逐句加入队列，句间按设置停顿，高亮当前句
     func speakPoem(_ poem: Poem) {
+        // 整首朗读是用户主动点击：缺自然语音包（非粤语）时先弹窗引导下载
+        let lang = SettingsManager.shared.poemLanguage
+        if !naturalPlayer.isReady(for: lang), lang != .cantonese {
+            VoicePackPromptCenter.shared.suggestDownload(language: lang, sampleText: "《\(poem.title)》")
+            return
+        }
         stop()
         guard !poem.lines.isEmpty else { return }
         currentPoem = poem
@@ -205,6 +262,35 @@ final class AudioManager: NSObject, ObservableObject {
     private func speakNextPoemLine() {
         guard let line = poemLineQueue.first else { return }
         let settings = SettingsManager.shared
+        let idx = (currentPoem?.lines.count ?? poemLineQueue.count) - poemLineQueue.count
+        speakingLineIndex = idx
+
+        // 自然语音链：逐句合成播放，句间按设置停顿
+        if naturalPlayer.isReady(for: settings.poemLanguage) {
+            naturalPlayer.speak(
+                text: line.text,
+                language: settings.poemLanguage,
+                speed: Float(settings.speechSpeed),
+                key: "poem-\(currentPoem?.id ?? "x")-\(idx)"
+            ) { [weak self] in
+                guard let self else { return }
+                self.poemLineQueue.removeFirst()
+                if self.poemLineQueue.isEmpty {
+                    self.currentPoem = nil
+                    self.playingKey = nil
+                    self.speakingLineIndex = nil
+                    self.onFinished?()
+                    self.onFinished = nil
+                } else {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + settings.poemPause) {
+                        self.speakNextPoemLine()
+                    }
+                }
+            }
+            return
+        }
+
+        // 系统语音链（回退）
         let utterance = AVSpeechUtterance(string: line.text)
         utterance.voice = voice(for: settings.poemLanguage, role: settings.poemVoice)
         utterance.rate = Self.rate(for: settings.speechSpeed)
@@ -213,13 +299,12 @@ final class AudioManager: NSObject, ObservableObject {
         // 最后一句不需要停顿，其他句按设置停
         utterance.postUtteranceDelay = poemLineQueue.count == 1 ? 0 : settings.poemPause
 
-        let idx = (currentPoem?.lines.count ?? poemLineQueue.count) - poemLineQueue.count
-        speakingLineIndex = idx
         synthesizer.speak(utterance)
     }
 
     func stop() {
         synthesizer.stopSpeaking(at: .immediate)
+        naturalPlayer.stop()
         playingKey = nil
         speakingLineIndex = nil
         lineRangeMap = []

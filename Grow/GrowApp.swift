@@ -33,17 +33,19 @@ struct GrowApp: App {
     }
 }
 
-/// 底部导航：首页 / 探索 / 收藏（设置放在右上角 ⚙️，§8）
+/// 底部导航：首页 / 探索 / 收藏 / 设置
 /// iOS 26+：原生 TabView 自动获得系统 Liquid Glass 标签条（需 iOS 26 SDK 编译）。
 /// iOS 17/18 回退：自定义悬浮玻璃胶囊。
 struct RootTabView: View {
     @EnvironmentObject var router: Router
     @EnvironmentObject var settings: SettingsManager
+    @ObservedObject private var voicePrompt = VoicePackPromptCenter.shared
 
     private let items: [(tab: Router.Tab, title: String, icon: String)] = [
         (.home, "首页", "house.fill"),
         (.explore, "探索", "safari.fill"),
-        (.favorites, "收藏", "heart.fill")
+        (.favorites, "收藏", "heart.fill"),
+        (.settings, "设置", "gearshape.fill")
     ]
 
     var body: some View {
@@ -67,8 +69,12 @@ struct RootTabView: View {
             FavoritesTabRoot()
                 .tabItem { Label("收藏", systemImage: "heart.fill") }
                 .tag(Router.Tab.favorites)
+            SettingsTabRoot()
+                .tabItem { Label("设置", systemImage: "gearshape.fill") }
+                .tag(Router.Tab.settings)
         }
         .ignoresSafeArea(.keyboard)
+        .voicePackPrompt()
     }
 
     private var legacyGlassTabView: some View {
@@ -80,12 +86,15 @@ struct RootTabView: View {
                     .tag(Router.Tab.explore)
                 FavoritesTabRoot()
                     .tag(Router.Tab.favorites)
+                SettingsTabRoot()
+                    .tag(Router.Tab.settings)
             }
             .toolbar(.hidden, for: .tabBar)
 
             glassTabBar
         }
         .ignoresSafeArea(.keyboard)
+        .voicePackPrompt()
     }
 
     private var glassTabBar: some View {
@@ -165,6 +174,39 @@ struct RootTabView: View {
             }
         }
     }
+}
+
+/// 设置：独立 Tab 根视图（v0.4.0 起从首页右上角移入底部导航）
+struct SettingsTabRoot: View {
+    var body: some View {
+        NavigationStack {
+            SettingsView()
+        }
+    }
+}
+
+/// 未下载自然语音包时点朗读 → 弹窗引导（去下载 / 暂不）
+struct VoicePackPromptModifier: ViewModifier {
+    @EnvironmentObject var router: Router
+    @ObservedObject var center = VoicePackPromptCenter.shared
+
+    func body(content: Content) -> some View {
+        content.alert(item: $center.request) { req in
+            let size = VoicePack.all.first { $0.languages.contains(req.language) }?.estimatedMB ?? "数十 MB"
+            return Alert(
+                title: Text("需要下载语音包"),
+                message: Text("朗读「\(req.sampleText)」需要先在 设置 → 自然语音库 下载对应语音包（约 \(size)）。下载需要联网，建议在 Wi-Fi 下进行；下载一次后离线可用，发音远比系统语音自然。"),
+                primaryButton: .default(Text("去下载")) {
+                    router.tab = .settings
+                },
+                secondaryButton: .cancel(Text("暂不"))
+            )
+        }
+    }
+}
+
+extension View {
+    func voicePackPrompt() -> some View { modifier(VoicePackPromptModifier()) }
 }
 
 /// Tab 根视图：各自持有独立 NavigationStack（独立于首页的跳转路径）

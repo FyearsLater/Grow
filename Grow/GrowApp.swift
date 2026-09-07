@@ -30,7 +30,8 @@ struct GrowApp: App {
 }
 
 /// 底部导航：首页 / 探索 / 游戏 / 收藏（设置放在右上角 ⚙️，§8）
-/// iOS 26 液态玻璃风格：悬浮胶囊、毛玻璃底、选中高亮。
+/// iOS 26+：原生 TabView 自动获得系统 Liquid Glass 标签条（需 iOS 26 SDK 编译）。
+/// iOS 17/18 回退：自定义悬浮玻璃胶囊。
 struct RootTabView: View {
     @EnvironmentObject var router: Router
     @EnvironmentObject var settings: SettingsManager
@@ -43,6 +44,34 @@ struct RootTabView: View {
     ]
 
     var body: some View {
+        if #available(iOS 26.0, *) {
+            nativeTabView
+        } else {
+            legacyGlassTabView
+        }
+    }
+
+    /// iOS 26+：标准 TabView，编译即自动采用 Liquid Glass
+    @available(iOS 26.0, *)
+    private var nativeTabView: some View {
+        TabView(selection: $router.tab) {
+            HomeView()
+                .tabItem { Label("首页", systemImage: "house.fill") }
+                .tag(Router.Tab.home)
+            ExploreTabRoot()
+                .tabItem { Label("探索", systemImage: "safari.fill") }
+                .tag(Router.Tab.explore)
+            GameTabRoot()
+                .tabItem { Label("游戏", systemImage: "puzzlepiece.extension.fill") }
+                .tag(Router.Tab.games)
+            FavoritesTabRoot()
+                .tabItem { Label("收藏", systemImage: "heart.fill") }
+                .tag(Router.Tab.favorites)
+        }
+        .ignoresSafeArea(.keyboard)
+    }
+
+    private var legacyGlassTabView: some View {
         ZStack(alignment: .bottom) {
             TabView(selection: $router.tab) {
                 HomeView()

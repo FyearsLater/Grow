@@ -2,9 +2,8 @@ import SwiftUI
 
 // MARK: - Liquid Glass 组件库（§4：所有玻璃效果唯一实现入口）
 //
-// 部署目标 iOS 17：以 .ultraThinMaterial 为基材 + 统一高光/描边/阴影构成项目玻璃材质。
-// 未来升级 iOS 26 时，仅需在 GlassSurfaceStyle / GlassCardStyle 内替换为系统 glassEffect()，
-// 所有调用方零改动。
+// iOS 26+：使用系统原生 glassEffect() 真·液态玻璃（需 Xcode 26+ / iOS 26 SDK 编译）。
+// iOS 17/18 回退：.ultraThinMaterial 基材 + 统一高光/描边/阴影构成项目自定义玻璃材质。
 
 // MARK: - 玻璃基材
 
@@ -17,6 +16,19 @@ struct GlassSurfaceStyle: ViewModifier {
     var shadowRadius: CGFloat = 12
 
     func body(content: Content) -> some View {
+        if #available(iOS 26.0, *) {
+            // 真·液态玻璃：系统自带高光/折射/投影，tint 走 Glass.tint
+            content
+                .glassEffect(
+                    tint.map { Glass.regular.tint($0).interactive() } ?? Glass.regular.interactive(),
+                    in: shape
+                )
+        } else {
+            legacyMaterial(content)
+        }
+    }
+
+    private func legacyMaterial(_ content: Content) -> some View {
         content
             .background(
                 ZStack {
@@ -32,7 +44,7 @@ struct GlassSurfaceStyle: ViewModifier {
                 }
             )
             .overlay(
-                shape.strokeBorder(Theme.glassHighlight, lineWidth: 1)
+                shape.stroke(Theme.glassHighlight, lineWidth: 1)
             )
             .shadow(color: .black.opacity(0.08), radius: shadowRadius, y: shadowRadius / 2)
     }
@@ -54,8 +66,20 @@ struct GlassCardStyle: ViewModifier {
     var tintOpacity: Double = 0.14
 
     func body(content: Content) -> some View {
+        if #available(iOS 26.0, *) {
+            content
+                .glassEffect(
+                    tint.map { Glass.regular.tint($0) } ?? Glass.regular,
+                    in: RoundedRectangle(cornerRadius: radius, style: .continuous)
+                )
+        } else {
+            legacyMaterial(content)
+        }
+    }
+
+    private func legacyMaterial(_ content: Content) -> some View {
         let shape = RoundedRectangle(cornerRadius: radius, style: .continuous)
-        content
+        return content
             .background(
                 ZStack {
                     shape.fill(.ultraThinMaterial)
@@ -69,7 +93,7 @@ struct GlassCardStyle: ViewModifier {
                 }
             )
             .overlay(
-                shape.strokeBorder(Theme.glassHighlight, lineWidth: 1)
+                shape.stroke(Theme.glassHighlight, lineWidth: 1)
             )
             .shadow(color: .black.opacity(0.08), radius: 14, y: 7)
     }

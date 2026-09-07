@@ -190,6 +190,7 @@ extension PuzzleItem: ContentItem {
     var displayTitle: String { title }
     var illustrationID: String { image }
     var storedAgeLevel: AgeLevel? { ageLevelRaw.flatMap(AgeLevel.init(rawValue:)) }
+    var storedRelatedIDs: [String]? { relatedIDs }
     /// 缺省关联：对应的自然认知条目（§25 内容关联）
     var relatedContentIDs: [String] {
         if let ids = storedRelatedIDs { return ids }

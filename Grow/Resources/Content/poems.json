@@ -1,0 +1,1761 @@
+{
+  "poems": [
+    {
+      "id": "poem_jingyesi",
+      "title": "静夜思",
+      "author": "李白",
+      "dynasty": "唐",
+      "categories": [
+        "night",
+        "family"
+      ],
+      "illustration": "img:poem_jingyesi",
+      "lines": [
+        {
+          "poem_id": "poem_jingyesi",
+          "order": 0,
+          "text": "床前明月光",
+          "pinyin": "chuáng qián míng yuè guāng"
+        },
+        {
+          "poem_id": "poem_jingyesi",
+          "order": 1,
+          "text": "疑是地上霜",
+          "pinyin": "yí shì dì shàng shuāng"
+        },
+        {
+          "poem_id": "poem_jingyesi",
+          "order": 2,
+          "text": "举头望明月",
+          "pinyin": "jǔ tóu wàng míng yuè"
+        },
+        {
+          "poem_id": "poem_jingyesi",
+          "order": 3,
+          "text": "低头思故乡",
+          "pinyin": "dī tóu sī gù xiāng"
+        }
+      ],
+      "annotations": [
+        {
+          "poem_id": "poem_jingyesi",
+          "target": "明月",
+          "explanation": "明亮的月亮。"
+        },
+        {
+          "poem_id": "poem_jingyesi",
+          "target": "疑",
+          "explanation": "好像、似乎。"
+        },
+        {
+          "poem_id": "poem_jingyesi",
+          "target": "举头",
+          "explanation": "抬起头。"
+        },
+        {
+          "poem_id": "poem_jingyesi",
+          "target": "思",
+          "explanation": "想念、思念。"
+        }
+      ],
+      "kid_summary": "晚上，诗人看到窗外明亮的月光，以为地上铺了一层白霜。他抬起头看看月亮，又低下头，想起了自己的家乡。",
+      "sort_order": 1
+    },
+    {
+      "id": "poem_yong_e",
+      "title": "咏鹅",
+      "author": "骆宾王",
+      "dynasty": "唐",
+      "categories": [
+        "nature",
+        "daily"
+      ],
+      "illustration": "img:poem_yong_e",
+      "lines": [
+        {
+          "poem_id": "poem_yong_e",
+          "order": 0,
+          "text": "鹅，鹅，鹅",
+          "pinyin": "é, é, é"
+        },
+        {
+          "poem_id": "poem_yong_e",
+          "order": 1,
+          "text": "曲项向天歌",
+          "pinyin": "qū xiàng xiàng tiān gē"
+        },
+        {
+          "poem_id": "poem_yong_e",
+          "order": 2,
+          "text": "白毛浮绿水",
+          "pinyin": "bái máo fú lǜ shuǐ"
+        },
+        {
+          "poem_id": "poem_yong_e",
+          "order": 3,
+          "text": "红掌拨清波",
+          "pinyin": "hóng zhǎng bō qīng bō"
+        }
+      ],
+      "annotations": [
+        {
+          "poem_id": "poem_yong_e",
+          "target": "咏",
+          "explanation": "用诗来描写、歌唱。"
+        },
+        {
+          "poem_id": "poem_yong_e",
+          "target": "曲项",
+          "explanation": "弯着脖子。"
+        },
+        {
+          "poem_id": "poem_yong_e",
+          "target": "拨",
+          "explanation": "划动、拨开。"
+        },
+        {
+          "poem_id": "poem_yong_e",
+          "target": "清波",
+          "explanation": "清清的水波。"
+        }
+      ],
+      "kid_summary": "池塘里有一群大白鹅。它们弯着弯弯的脖子，对着天空嘎嘎地唱歌。雪白的羽毛浮在绿绿的水面上，红红的脚掌划动清清的水波。",
+      "sort_order": 2
+    },
+    {
+      "id": "poem_chunxiao",
+      "title": "春晓",
+      "author": "孟浩然",
+      "dynasty": "唐",
+      "categories": [
+        "spring",
+        "daily"
+      ],
+      "illustration": "img:poem_chunxiao",
+      "lines": [
+        {
+          "poem_id": "poem_chunxiao",
+          "order": 0,
+          "text": "春眠不觉晓",
+          "pinyin": "chūn mián bù jué xiǎo"
+        },
+        {
+          "poem_id": "poem_chunxiao",
+          "order": 1,
+          "text": "处处闻啼鸟",
+          "pinyin": "chù chù wén tí niǎo"
+        },
+        {
+          "poem_id": "poem_chunxiao",
+          "order": 2,
+          "text": "夜来风雨声",
+          "pinyin": "yè lái fēng yǔ shēng"
+        },
+        {
+          "poem_id": "poem_chunxiao",
+          "order": 3,
+          "text": "花落知多少",
+          "pinyin": "huā luò zhī duō shǎo"
+        }
+      ],
+      "annotations": [
+        {
+          "poem_id": "poem_chunxiao",
+          "target": "晓",
+          "explanation": "天刚亮的时候。"
+        },
+        {
+          "poem_id": "poem_chunxiao",
+          "target": "闻",
+          "explanation": "听见。"
+        },
+        {
+          "poem_id": "poem_chunxiao",
+          "target": "夜来",
+          "explanation": "昨天夜里。"
+        }
+      ],
+      "kid_summary": "春天的夜里睡得香，一觉醒来天已经亮了。到处都能听到小鸟叽叽喳喳地唱歌。诗人想起昨天夜里的风声雨声，不知道有多少花瓣被吹落了呀。",
+      "sort_order": 3
+    },
+    {
+      "id": "poem_minnong",
+      "title": "悯农",
+      "author": "李绅",
+      "dynasty": "唐",
+      "categories": [
+        "daily"
+      ],
+      "illustration": "img:poem_minnong",
+      "lines": [
+        {
+          "poem_id": "poem_minnong",
+          "order": 0,
+          "text": "锄禾日当午",
+          "pinyin": "chú hé rì dāng wǔ"
+        },
+        {
+          "poem_id": "poem_minnong",
+          "order": 1,
+          "text": "汗滴禾下土",
+          "pinyin": "hàn dī hé xià tǔ"
+        },
+        {
+          "poem_id": "poem_minnong",
+          "order": 2,
+          "text": "谁知盘中餐",
+          "pinyin": "shuí zhī pán zhōng cān"
+        },
+        {
+          "poem_id": "poem_minnong",
+          "order": 3,
+          "text": "粒粒皆辛苦",
+          "pinyin": "lì lì jiē xīn kǔ"
+        }
+      ],
+      "annotations": [
+        {
+          "poem_id": "poem_minnong",
+          "target": "锄禾",
+          "explanation": "给禾苗锄草松土。"
+        },
+        {
+          "poem_id": "poem_minnong",
+          "target": "日当午",
+          "explanation": "太阳正当头的中午。"
+        },
+        {
+          "poem_id": "poem_minnong",
+          "target": "皆",
+          "explanation": "都是。"
+        }
+      ],
+      "kid_summary": "中午太阳火辣辣的，农民伯伯还在田里干活，汗水一滴一滴落进泥土里。我们盘子里的每一粒米饭，都是他们辛辛苦苦种出来的，所以要爱惜粮食，不剩饭哦。",
+      "sort_order": 4
+    },
+    {
+      "id": "poem_guanqueque",
+      "title": "登鹳雀楼",
+      "author": "王之涣",
+      "dynasty": "唐",
+      "categories": [
+        "nature"
+      ],
+      "illustration": "img:poem_guanqueque",
+      "lines": [
+        {
+          "poem_id": "poem_guanqueque",
+          "order": 0,
+          "text": "白日依山尽",
+          "pinyin": "bái rì yī shān jìn"
+        },
+        {
+          "poem_id": "poem_guanqueque",
+          "order": 1,
+          "text": "黄河入海流",
+          "pinyin": "huáng hé rù hǎi liú"
+        },
+        {
+          "poem_id": "poem_guanqueque",
+          "order": 2,
+          "text": "欲穷千里目",
+          "pinyin": "yù qióng qiān lǐ mù"
+        },
+        {
+          "poem_id": "poem_guanqueque",
+          "order": 3,
+          "text": "更上一层楼",
+          "pinyin": "gèng shàng yī céng lóu"
+        }
+      ],
+      "annotations": [
+        {
+          "poem_id": "poem_guanqueque",
+          "target": "依山尽",
+          "explanation": "靠着山慢慢落下。"
+        },
+        {
+          "poem_id": "poem_guanqueque",
+          "target": "欲",
+          "explanation": "想要。"
+        },
+        {
+          "poem_id": "poem_guanqueque",
+          "target": "穷",
+          "explanation": "看尽、看遍。"
+        }
+      ],
+      "kid_summary": "太阳挨着大山慢慢落下去，黄河朝着大海哗哗地流。想看到更远更远的风景，就要再爬上一层楼。做事情也一样，站得高，才能看得远。",
+      "sort_order": 5
+    },
+    {
+      "id": "poem_cunju",
+      "title": "村居",
+      "author": "高鼎",
+      "dynasty": "清",
+      "categories": [
+        "spring",
+        "daily"
+      ],
+      "illustration": "img:poem_cunju",
+      "lines": [
+        {
+          "poem_id": "poem_cunju",
+          "order": 0,
+          "text": "草长莺飞二月天",
+          "pinyin": "cǎo zhǎng yīng fēi èr yuè tiān"
+        },
+        {
+          "poem_id": "poem_cunju",
+          "order": 1,
+          "text": "拂堤杨柳醉春烟",
+          "pinyin": "fú dī yáng liǔ zuì chūn yān"
+        },
+        {
+          "poem_id": "poem_cunju",
+          "order": 2,
+          "text": "儿童散学归来早",
+          "pinyin": "ér tóng sàn xué guī lái zǎo"
+        },
+        {
+          "poem_id": "poem_cunju",
+          "order": 3,
+          "text": "忙趁东风放纸鸢",
+          "pinyin": "máng chèn dōng fēng fàng zhǐ yuān"
+        }
+      ],
+      "annotations": [
+        {
+          "poem_id": "poem_cunju",
+          "target": "莺",
+          "explanation": "一种会唱歌的小鸟，黄莺。"
+        },
+        {
+          "poem_id": "poem_cunju",
+          "target": "拂堤",
+          "explanation": "轻轻擦过河堤。"
+        },
+        {
+          "poem_id": "poem_cunju",
+          "target": "纸鸢",
+          "explanation": "风筝。"
+        }
+      ],
+      "kid_summary": "二月里，小草长出来了，黄莺在天上飞。杨柳枝轻轻拂着河堤，在春天的雾气里跳舞。放学后，孩子们赶快跑回家，趁着东风放起了风筝。",
+      "sort_order": 6
+    },
+    {
+      "id": "poem_xiaochi",
+      "title": "小池",
+      "author": "杨万里",
+      "dynasty": "宋",
+      "categories": [
+        "summer",
+        "nature"
+      ],
+      "illustration": "img:poem_xiaochi",
+      "lines": [
+        {
+          "poem_id": "poem_xiaochi",
+          "order": 0,
+          "text": "泉眼无声惜细流",
+          "pinyin": "quán yǎn wú shēng xī xì liú"
+        },
+        {
+          "poem_id": "poem_xiaochi",
+          "order": 1,
+          "text": "树阴照水爱晴柔",
+          "pinyin": "shù yīn zhào shuǐ ài qíng róu"
+        },
+        {
+          "poem_id": "poem_xiaochi",
+          "order": 2,
+          "text": "小荷才露尖尖角",
+          "pinyin": "xiǎo hé cái lù jiān jiān jiǎo"
+        },
+        {
+          "poem_id": "poem_xiaochi",
+          "order": 3,
+          "text": "早有蜻蜓立上头",
+          "pinyin": "zǎo yǒu qīng tíng lì shàng tóu"
+        }
+      ],
+      "annotations": [
+        {
+          "poem_id": "poem_xiaochi",
+          "target": "泉眼",
+          "explanation": "泉水流出来的小口。"
+        },
+        {
+          "poem_id": "poem_xiaochi",
+          "target": "惜",
+          "explanation": "爱惜、舍不得。"
+        },
+        {
+          "poem_id": "poem_xiaochi",
+          "target": "尖尖角",
+          "explanation": "荷叶刚冒出的尖尖。"
+        }
+      ],
+      "kid_summary": "小泉眼悄悄地流着细细的水，树荫倒映在水面上，软软的、亮亮的。小荷叶刚刚露出尖尖的角，早就有一只蜻蜓站在上面啦。",
+      "sort_order": 7
+    },
+    {
+      "id": "poem_jiangxue",
+      "title": "江雪",
+      "author": "柳宗元",
+      "dynasty": "唐",
+      "categories": [
+        "winter",
+        "nature"
+      ],
+      "illustration": "img:poem_jiangxue",
+      "lines": [
+        {
+          "poem_id": "poem_jiangxue",
+          "order": 0,
+          "text": "千山鸟飞绝",
+          "pinyin": "qiān shān niǎo fēi jué"
+        },
+        {
+          "poem_id": "poem_jiangxue",
+          "order": 1,
+          "text": "万径人踪灭",
+          "pinyin": "wàn jìng rén zōng miè"
+        },
+        {
+          "poem_id": "poem_jiangxue",
+          "order": 2,
+          "text": "孤舟蓑笠翁",
+          "pinyin": "gū zhōu suō lì wēng"
+        },
+        {
+          "poem_id": "poem_jiangxue",
+          "order": 3,
+          "text": "独钓寒江雪",
+          "pinyin": "dú diào hán jiāng xuě"
+        }
+      ],
+      "annotations": [
+        {
+          "poem_id": "poem_jiangxue",
+          "target": "绝",
+          "explanation": "没有了、绝迹。"
+        },
+        {
+          "poem_id": "poem_jiangxue",
+          "target": "蓑笠翁",
+          "explanation": "穿蓑衣、戴斗笠的老爷爷。"
+        },
+        {
+          "poem_id": "poem_jiangxue",
+          "target": "独",
+          "explanation": "独自、一个人。"
+        }
+      ],
+      "kid_summary": "大雪天，山上没有小鸟飞，路上没有行人走。只有一位老爷爷，披着蓑衣、戴着斗笠，坐在小船上，独自在寒冷的江面上钓鱼。",
+      "sort_order": 8
+    },
+    {
+      "id": "poem_shanxing",
+      "title": "山行",
+      "author": "杜牧",
+      "dynasty": "唐",
+      "categories": [
+        "autumn",
+        "nature"
+      ],
+      "illustration": "img:poem_shanxing",
+      "lines": [
+        {
+          "poem_id": "poem_shanxing",
+          "order": 0,
+          "text": "远上寒山石径斜",
+          "pinyin": "yuǎn shàng hán shān shí jìng xié"
+        },
+        {
+          "poem_id": "poem_shanxing",
+          "order": 1,
+          "text": "白云生处有人家",
+          "pinyin": "bái yún shēng chù yǒu rén jiā"
+        },
+        {
+          "poem_id": "poem_shanxing",
+          "order": 2,
+          "text": "停车坐爱枫林晚",
+          "pinyin": "tíng chē zuò ài fēng lín wǎn"
+        },
+        {
+          "poem_id": "poem_shanxing",
+          "order": 3,
+          "text": "霜叶红于二月花",
+          "pinyin": "shuāng yè hóng yú èr yuè huā"
+        }
+      ],
+      "annotations": [
+        {
+          "poem_id": "poem_shanxing",
+          "target": "石径",
+          "explanation": "石头铺的小路。"
+        },
+        {
+          "poem_id": "poem_shanxing",
+          "target": "坐",
+          "explanation": "因为。"
+        },
+        {
+          "poem_id": "poem_shanxing",
+          "target": "霜叶",
+          "explanation": "被霜打过的枫叶。"
+        }
+      ],
+      "kid_summary": "一条石头小路弯弯地通向远处的深山，白云飘起的地方住着人家。诗人停下车来，因为太喜欢傍晚的枫树林了——被霜打过的枫叶，比二月的鲜花还要红。",
+      "sort_order": 9
+    },
+    {
+      "id": "poem_jueju",
+      "title": "绝句",
+      "author": "杜甫",
+      "dynasty": "唐",
+      "categories": [
+        "spring",
+        "nature"
+      ],
+      "illustration": "img:poem_jueju",
+      "lines": [
+        {
+          "poem_id": "poem_jueju",
+          "order": 0,
+          "text": "两个黄鹂鸣翠柳",
+          "pinyin": "liǎng gè huáng lí míng cuì liǔ"
+        },
+        {
+          "poem_id": "poem_jueju",
+          "order": 1,
+          "text": "一行白鹭上青天",
+          "pinyin": "yī háng bái lù shàng qīng tiān"
+        },
+        {
+          "poem_id": "poem_jueju",
+          "order": 2,
+          "text": "窗含西岭千秋雪",
+          "pinyin": "chuāng hán xī lǐng qiān qiū xuě"
+        },
+        {
+          "poem_id": "poem_jueju",
+          "order": 3,
+          "text": "门泊东吴万里船",
+          "pinyin": "mén bó dōng wú wàn lǐ chuán"
+        }
+      ],
+      "annotations": [
+        {
+          "poem_id": "poem_jueju",
+          "target": "黄鹂",
+          "explanation": "黄色的小鸟，叫声好听。"
+        },
+        {
+          "poem_id": "poem_jueju",
+          "target": "白鹭",
+          "explanation": "白色的水鸟。"
+        },
+        {
+          "poem_id": "poem_jueju",
+          "target": "泊",
+          "explanation": "停靠。"
+        }
+      ],
+      "kid_summary": "两只黄鹂在绿色的柳树上唱歌，一队白鹭排着队飞上蓝天。从窗户望出去，能看到西岭上多年不化的积雪；门前停着要到很远很远的地方去的船。",
+      "sort_order": 10
+    },
+    {
+      "id": "poem_caoyuan",
+      "title": "赋得古原草送别",
+      "author": "白居易",
+      "dynasty": "唐",
+      "categories": [
+        "spring",
+        "nature"
+      ],
+      "illustration": "img:poem_caoyuan",
+      "lines": [
+        {
+          "poem_id": "poem_caoyuan",
+          "order": 0,
+          "text": "离离原上草",
+          "pinyin": "lí lí yuán shàng cǎo"
+        },
+        {
+          "poem_id": "poem_caoyuan",
+          "order": 1,
+          "text": "一岁一枯荣",
+          "pinyin": "yī suì yī kū róng"
+        },
+        {
+          "poem_id": "poem_caoyuan",
+          "order": 2,
+          "text": "野火烧不尽",
+          "pinyin": "yě huǒ shāo bú jìn"
+        },
+        {
+          "poem_id": "poem_caoyuan",
+          "order": 3,
+          "text": "春风吹又生",
+          "pinyin": "chūn fēng chuī yòu shēng"
+        }
+      ],
+      "annotations": [
+        {
+          "poem_id": "poem_caoyuan",
+          "target": "离离",
+          "explanation": "草长得茂盛的样子。"
+        },
+        {
+          "poem_id": "poem_caoyuan",
+          "target": "枯荣",
+          "explanation": "枯萎和茂盛。"
+        },
+        {
+          "poem_id": "poem_caoyuan",
+          "target": "尽",
+          "explanation": "完、没了。"
+        }
+      ],
+      "kid_summary": "古原上的草长得多茂盛呀，每年冬天枯萎，春天又发芽。野火烧也烧不完它，春风一吹，小草又从土里钻出来了。小草的生命力真顽强！",
+      "sort_order": 11
+    },
+    {
+      "id": "poem_zaifa",
+      "title": "早发白帝城",
+      "author": "李白",
+      "dynasty": "唐",
+      "categories": [
+        "nature"
+      ],
+      "illustration": "img:poem_zaifa",
+      "lines": [
+        {
+          "poem_id": "poem_zaifa",
+          "order": 0,
+          "text": "朝辞白帝彩云间",
+          "pinyin": "zhāo cí bái dì cǎi yún jiān"
+        },
+        {
+          "poem_id": "poem_zaifa",
+          "order": 1,
+          "text": "千里江陵一日还",
+          "pinyin": "qiān lǐ jiāng líng yī rì huán"
+        },
+        {
+          "poem_id": "poem_zaifa",
+          "order": 2,
+          "text": "两岸猿声啼不住",
+          "pinyin": "liǎng àn yuán shēng tí bú zhù"
+        },
+        {
+          "poem_id": "poem_zaifa",
+          "order": 3,
+          "text": "轻舟已过万重山",
+          "pinyin": "qīng zhōu yǐ guò wàn chóng shān"
+        }
+      ],
+      "annotations": [
+        {
+          "poem_id": "poem_zaifa",
+          "target": "朝辞",
+          "explanation": "早晨告别。"
+        },
+        {
+          "poem_id": "poem_zaifa",
+          "target": "还",
+          "explanation": "到达、回来。"
+        },
+        {
+          "poem_id": "poem_zaifa",
+          "target": "万重山",
+          "explanation": "层层叠叠的许多山。"
+        }
+      ],
+      "kid_summary": "早晨，诗人离开高高的白帝城，那里像在彩云中间。坐着小船顺流而下，一天就到了千里之外的江陵。两岸猴子的叫声还没停，轻快的小船已经穿过了数不清的大山。",
+      "sort_order": 12
+    },
+    {
+      "id": "poem_pubu",
+      "title": "望庐山瀑布",
+      "author": "李白",
+      "dynasty": "唐",
+      "categories": [
+        "nature"
+      ],
+      "illustration": "img:poem_pubu",
+      "lines": [
+        {
+          "poem_id": "poem_pubu",
+          "order": 0,
+          "text": "日照香炉生紫烟",
+          "pinyin": "rì zhào xiāng lú shēng zǐ yān"
+        },
+        {
+          "poem_id": "poem_pubu",
+          "order": 1,
+          "text": "遥看瀑布挂前川",
+          "pinyin": "yáo kàn pù bù guà qián chuān"
+        },
+        {
+          "poem_id": "poem_pubu",
+          "order": 2,
+          "text": "飞流直下三千尺",
+          "pinyin": "fēi liú zhí xià sān qiān chǐ"
+        },
+        {
+          "poem_id": "poem_pubu",
+          "order": 3,
+          "text": "疑是银河落九天",
+          "pinyin": "yí shì yín hé luò jiǔ tiān"
+        }
+      ],
+      "annotations": [
+        {
+          "poem_id": "poem_pubu",
+          "target": "香炉",
+          "explanation": "庐山的香炉峰。"
+        },
+        {
+          "poem_id": "poem_pubu",
+          "target": "川",
+          "explanation": "河流。"
+        },
+        {
+          "poem_id": "poem_pubu",
+          "target": "九天",
+          "explanation": "很高很高的天空。"
+        }
+      ],
+      "kid_summary": "阳光照在香炉峰上，山顶升起了紫色的云雾。远远看去，瀑布像一条白带子挂在山前面。水流飞快地冲下来，有三千尺那么长，就像银河从天上落下来了一样！",
+      "sort_order": 13
+    },
+    {
+      "id": "poem_youziyin",
+      "title": "游子吟",
+      "author": "孟郊",
+      "dynasty": "唐",
+      "categories": [
+        "family"
+      ],
+      "illustration": "img:poem_youziyin",
+      "lines": [
+        {
+          "poem_id": "poem_youziyin",
+          "order": 0,
+          "text": "慈母手中线",
+          "pinyin": "cí mǔ shǒu zhōng xiàn"
+        },
+        {
+          "poem_id": "poem_youziyin",
+          "order": 1,
+          "text": "游子身上衣",
+          "pinyin": "yóu zǐ shēn shàng yī"
+        },
+        {
+          "poem_id": "poem_youziyin",
+          "order": 2,
+          "text": "临行密密缝",
+          "pinyin": "lín xíng mì mì féng"
+        },
+        {
+          "poem_id": "poem_youziyin",
+          "order": 3,
+          "text": "意恐迟迟归",
+          "pinyin": "yì kǒng chí chí guī"
+        },
+        {
+          "poem_id": "poem_youziyin",
+          "order": 4,
+          "text": "谁言寸草心",
+          "pinyin": "shuí yán cùn cǎo xīn"
+        },
+        {
+          "poem_id": "poem_youziyin",
+          "order": 5,
+          "text": "报得三春晖",
+          "pinyin": "bào dé sān chūn huī"
+        }
+      ],
+      "annotations": [
+        {
+          "poem_id": "poem_youziyin",
+          "target": "游子",
+          "explanation": "离家在外的人。"
+        },
+        {
+          "poem_id": "poem_youziyin",
+          "target": "意恐",
+          "explanation": "担心。"
+        },
+        {
+          "poem_id": "poem_youziyin",
+          "target": "三春晖",
+          "explanation": "春天的阳光，比喻妈妈的爱。"
+        }
+      ],
+      "kid_summary": "要出远门了，妈妈一针一线地为孩子缝衣服，缝得又密又结实，因为担心孩子很久才能回来。孩子就像小草，妈妈的爱就像春天的阳光，小草怎么报答得了呢？",
+      "sort_order": 14
+    },
+    {
+      "id": "poem_xunyinzhe",
+      "title": "寻隐者不遇",
+      "author": "贾岛",
+      "dynasty": "唐",
+      "categories": [
+        "nature"
+      ],
+      "illustration": "img:poem_xunyinzhe",
+      "lines": [
+        {
+          "poem_id": "poem_xunyinzhe",
+          "order": 0,
+          "text": "松下问童子",
+          "pinyin": "sōng xià wèn tóng zǐ"
+        },
+        {
+          "poem_id": "poem_xunyinzhe",
+          "order": 1,
+          "text": "言师采药去",
+          "pinyin": "yán shī cǎi yào qù"
+        },
+        {
+          "poem_id": "poem_xunyinzhe",
+          "order": 2,
+          "text": "只在此山中",
+          "pinyin": "zhǐ zài cǐ shān zhōng"
+        },
+        {
+          "poem_id": "poem_xunyinzhe",
+          "order": 3,
+          "text": "云深不知处",
+          "pinyin": "yún shēn bù zhī chù"
+        }
+      ],
+      "annotations": [
+        {
+          "poem_id": "poem_xunyinzhe",
+          "target": "童子",
+          "explanation": "小孩子。"
+        },
+        {
+          "poem_id": "poem_xunyinzhe",
+          "target": "言",
+          "explanation": "说。"
+        },
+        {
+          "poem_id": "poem_xunyinzhe",
+          "target": "云深",
+          "explanation": "云雾很浓很深。"
+        }
+      ],
+      "kid_summary": "诗人到大山里找一位隐居的爷爷，在松树下问小书童：爷爷去哪儿了？小书童说：师父采药去了，就在这座大山里，可是云雾太大，不知道具体在哪里。",
+      "sort_order": 15
+    },
+    {
+      "id": "poem_luchai",
+      "title": "鹿柴",
+      "author": "王维",
+      "dynasty": "唐",
+      "categories": [
+        "nature"
+      ],
+      "illustration": "img:poem_luchai",
+      "lines": [
+        {
+          "poem_id": "poem_luchai",
+          "order": 0,
+          "text": "空山不见人",
+          "pinyin": "kōng shān bú jiàn rén"
+        },
+        {
+          "poem_id": "poem_luchai",
+          "order": 1,
+          "text": "但闻人语响",
+          "pinyin": "dàn wén rén yǔ xiǎng"
+        },
+        {
+          "poem_id": "poem_luchai",
+          "order": 2,
+          "text": "返景入深林",
+          "pinyin": "fǎn jǐng rù shēn lín"
+        },
+        {
+          "poem_id": "poem_luchai",
+          "order": 3,
+          "text": "复照青苔上",
+          "pinyin": "fù zhào qīng tái shàng"
+        }
+      ],
+      "annotations": [
+        {
+          "poem_id": "poem_luchai",
+          "target": "但闻",
+          "explanation": "只听到。"
+        },
+        {
+          "poem_id": "poem_luchai",
+          "target": "返景",
+          "explanation": "夕阳返照的光。"
+        },
+        {
+          "poem_id": "poem_luchai",
+          "target": "青苔",
+          "explanation": "长在潮湿地方的绿色小植物。"
+        }
+      ],
+      "kid_summary": "空空的大山里看不到人，只偶尔听到有人说话的声音。夕阳的金光钻进深深的树林，又轻轻地照在绿色的青苔上。山林里安静极了。",
+      "sort_order": 16
+    },
+    {
+      "id": "poem_chishang",
+      "title": "池上",
+      "author": "白居易",
+      "dynasty": "唐",
+      "categories": [
+        "summer",
+        "daily"
+      ],
+      "illustration": "img:poem_chishang",
+      "lines": [
+        {
+          "poem_id": "poem_chishang",
+          "order": 0,
+          "text": "小娃撑小艇",
+          "pinyin": "xiǎo wá chēng xiǎo tǐng"
+        },
+        {
+          "poem_id": "poem_chishang",
+          "order": 1,
+          "text": "偷采白莲回",
+          "pinyin": "tōu cǎi bái lián huí"
+        },
+        {
+          "poem_id": "poem_chishang",
+          "order": 2,
+          "text": "不解藏踪迹",
+          "pinyin": "bù jiě cáng zōng jì"
+        },
+        {
+          "poem_id": "poem_chishang",
+          "order": 3,
+          "text": "浮萍一道开",
+          "pinyin": "fú píng yī dào kāi"
+        }
+      ],
+      "annotations": [
+        {
+          "poem_id": "poem_chishang",
+          "target": "小艇",
+          "explanation": "小船。"
+        },
+        {
+          "poem_id": "poem_chishang",
+          "target": "不解",
+          "explanation": "不懂得。"
+        },
+        {
+          "poem_id": "poem_chishang",
+          "target": "浮萍",
+          "explanation": "浮在水面上的小植物。"
+        }
+      ],
+      "kid_summary": "一个小娃娃撑着小船，偷偷采了池里的白莲花回来。他不知道要藏起自己的踪迹，小船划过的地方，浮萍分开了一条长长的水路，一下子就被人发现啦。",
+      "sort_order": 17
+    },
+    {
+      "id": "poem_zengwanglun",
+      "title": "赠汪伦",
+      "author": "李白",
+      "dynasty": "唐",
+      "categories": [
+        "family"
+      ],
+      "illustration": "img:poem_zengwanglun",
+      "lines": [
+        {
+          "poem_id": "poem_zengwanglun",
+          "order": 0,
+          "text": "李白乘舟将欲行",
+          "pinyin": "lǐ bái chéng zhōu jiāng yù xíng"
+        },
+        {
+          "poem_id": "poem_zengwanglun",
+          "order": 1,
+          "text": "忽闻岸上踏歌声",
+          "pinyin": "hū wén àn shàng tà gē shēng"
+        },
+        {
+          "poem_id": "poem_zengwanglun",
+          "order": 2,
+          "text": "桃花潭水深千尺",
+          "pinyin": "táo huā tán shuǐ shēn qiān chǐ"
+        },
+        {
+          "poem_id": "poem_zengwanglun",
+          "order": 3,
+          "text": "不及汪伦送我情",
+          "pinyin": "bù jí wāng lún sòng wǒ qíng"
+        }
+      ],
+      "annotations": [
+        {
+          "poem_id": "poem_zengwanglun",
+          "target": "将欲行",
+          "explanation": "快要出发。"
+        },
+        {
+          "poem_id": "poem_zengwanglun",
+          "target": "踏歌",
+          "explanation": "一边用脚打拍子一边唱歌。"
+        },
+        {
+          "poem_id": "poem_zengwanglun",
+          "target": "不及",
+          "explanation": "比不上。"
+        }
+      ],
+      "kid_summary": "李白坐着小船正要出发，忽然听见岸上传来唱歌的声音——原来是好朋友汪伦来送他了。桃花潭的水即使有千尺深，也比不上汪伦送别我的这份情谊呀。",
+      "sort_order": 18
+    },
+    {
+      "id": "poem_huixiang",
+      "title": "回乡偶书",
+      "author": "贺知章",
+      "dynasty": "唐",
+      "categories": [
+        "family"
+      ],
+      "illustration": "img:poem_huixiang",
+      "lines": [
+        {
+          "poem_id": "poem_huixiang",
+          "order": 0,
+          "text": "少小离家老大回",
+          "pinyin": "shào xiǎo lí jiā lǎo dà huí"
+        },
+        {
+          "poem_id": "poem_huixiang",
+          "order": 1,
+          "text": "乡音无改鬓毛衰",
+          "pinyin": "xiāng yīn wú gǎi bìn máo shuāi"
+        },
+        {
+          "poem_id": "poem_huixiang",
+          "order": 2,
+          "text": "儿童相见不相识",
+          "pinyin": "ér tóng xiāng jiàn bù xiāng shí"
+        },
+        {
+          "poem_id": "poem_huixiang",
+          "order": 3,
+          "text": "笑问客从何处来",
+          "pinyin": "xiào wèn kè cóng hé chù lái"
+        }
+      ],
+      "annotations": [
+        {
+          "poem_id": "poem_huixiang",
+          "target": "老大",
+          "explanation": "年纪大了的时候。"
+        },
+        {
+          "poem_id": "poem_huixiang",
+          "target": "鬓毛",
+          "explanation": "耳朵边的头发。"
+        },
+        {
+          "poem_id": "poem_huixiang",
+          "target": "相识",
+          "explanation": "认识。"
+        }
+      ],
+      "kid_summary": "诗人很小的时候离开家乡，回来时已经变成了白头发老爷爷。家乡的口音没有变，可是村里的小朋友都不认识他了，还笑着问他：客人，您是从哪里来的呀？",
+      "sort_order": 19
+    },
+    {
+      "id": "poem_qingming",
+      "title": "清明",
+      "author": "杜牧",
+      "dynasty": "唐",
+      "categories": [
+        "spring",
+        "daily"
+      ],
+      "illustration": "img:poem_qingming",
+      "lines": [
+        {
+          "poem_id": "poem_qingming",
+          "order": 0,
+          "text": "清明时节雨纷纷",
+          "pinyin": "qīng míng shí jié yǔ fēn fēn"
+        },
+        {
+          "poem_id": "poem_qingming",
+          "order": 1,
+          "text": "路上行人欲断魂",
+          "pinyin": "lù shàng xíng rén yù duàn hún"
+        },
+        {
+          "poem_id": "poem_qingming",
+          "order": 2,
+          "text": "借问酒家何处有",
+          "pinyin": "jiè wèn jiǔ jiā hé chù yǒu"
+        },
+        {
+          "poem_id": "poem_qingming",
+          "order": 3,
+          "text": "牧童遥指杏花村",
+          "pinyin": "mù tóng yáo zhǐ xìng huā cūn"
+        }
+      ],
+      "annotations": [
+        {
+          "poem_id": "poem_qingming",
+          "target": "纷纷",
+          "explanation": "形容雨细细密密地下。"
+        },
+        {
+          "poem_id": "poem_qingming",
+          "target": "借问",
+          "explanation": "打听、请问。"
+        },
+        {
+          "poem_id": "poem_qingming",
+          "target": "牧童",
+          "explanation": "放牛放羊的小孩子。"
+        }
+      ],
+      "kid_summary": "清明节的时候，细雨下个不停，路上的人心情都很难过。诗人想找个喝酒歇脚的地方，就问路边的放牛小孩。小牧童指了指远处杏花开满的村子——那里就有酒家。",
+      "sort_order": 20
+    },
+    {
+      "id": "poem_wangtianmen",
+      "title": "望天门山",
+      "author": "李白",
+      "dynasty": "唐",
+      "categories": [
+        "nature",
+        "river"
+      ],
+      "illustration": "img:poem_wangtianmen",
+      "sort_order": 21,
+      "lines": [
+        {
+          "poem_id": "poem_wangtianmen",
+          "order": 0,
+          "text": "天门中断楚江开",
+          "pinyin": "tiān mén zhōng duàn chǔ jiāng kāi"
+        },
+        {
+          "poem_id": "poem_wangtianmen",
+          "order": 1,
+          "text": "碧水东流至此回",
+          "pinyin": "bì shuǐ dōng liú zhì cǐ huí"
+        },
+        {
+          "poem_id": "poem_wangtianmen",
+          "order": 2,
+          "text": "两岸青山相对出",
+          "pinyin": "liǎng àn qīng shān xiāng duì chū"
+        },
+        {
+          "poem_id": "poem_wangtianmen",
+          "order": 3,
+          "text": "孤帆一片日边来",
+          "pinyin": "gū fān yī piàn rì biān lái"
+        }
+      ],
+      "annotations": [
+        {
+          "poem_id": "poem_wangtianmen",
+          "target": "天门",
+          "explanation": "天门山，长江两岸两座大山像一扇门。"
+        },
+        {
+          "poem_id": "poem_wangtianmen",
+          "target": "中断",
+          "explanation": "从中间断开。"
+        },
+        {
+          "poem_id": "poem_wangtianmen",
+          "target": "楚江",
+          "explanation": "长江流过古楚地的一段。"
+        },
+        {
+          "poem_id": "poem_wangtianmen",
+          "target": "至此回",
+          "explanation": "到这里水流打转。"
+        },
+        {
+          "poem_id": "poem_wangtianmen",
+          "target": "孤帆",
+          "explanation": "一只孤单的小船。"
+        }
+      ],
+      "kid_summary": "长江从天门山中间冲开哗哗向东流，碧绿的水打了个转才走。两边的青山面对面耸立，一只小船从太阳那边慢悠悠地划过来。"
+    },
+    {
+      "id": "poem_zaochun",
+      "title": "早春呈水部张十八员外",
+      "author": "韩愈",
+      "dynasty": "唐",
+      "categories": [
+        "nature",
+        "spring"
+      ],
+      "illustration": "img:poem_zaochun",
+      "sort_order": 22,
+      "lines": [
+        {
+          "poem_id": "poem_zaochun",
+          "order": 0,
+          "text": "天街小雨润如酥",
+          "pinyin": "tiān jiē xiǎo yǔ rùn rú sū"
+        },
+        {
+          "poem_id": "poem_zaochun",
+          "order": 1,
+          "text": "草色遥看近却无",
+          "pinyin": "cǎo sè yáo kàn jìn què wú"
+        },
+        {
+          "poem_id": "poem_zaochun",
+          "order": 2,
+          "text": "最是一年春好处",
+          "pinyin": "zuì shì yī nián chūn hǎo chù"
+        },
+        {
+          "poem_id": "poem_zaochun",
+          "order": 3,
+          "text": "绝胜烟柳满皇都",
+          "pinyin": "jué shèng yān liǔ mǎn huáng dū"
+        }
+      ],
+      "annotations": [
+        {
+          "poem_id": "poem_zaochun",
+          "target": "天街",
+          "explanation": "京城里的街道。"
+        },
+        {
+          "poem_id": "poem_zaochun",
+          "target": "润如酥",
+          "explanation": "像酥油一样滋润。"
+        },
+        {
+          "poem_id": "poem_zaochun",
+          "target": "遥看近却无",
+          "explanation": "远远看着有绿色，走近又看不到。"
+        },
+        {
+          "poem_id": "poem_zaochun",
+          "target": "绝胜",
+          "explanation": "远远胜过。"
+        },
+        {
+          "poem_id": "poem_zaochun",
+          "target": "皇都",
+          "explanation": "指长安，皇帝的京城。"
+        }
+      ],
+      "kid_summary": "初春的小雨像酥油一样润泽，远看小草已泛绿，走近又看不见。早春是一年里最好的时光，比满城烟柳的晚春更美。"
+    },
+    {
+      "id": "poem_jiangshangyuzhe",
+      "title": "江上渔者",
+      "author": "范仲淹",
+      "dynasty": "宋",
+      "categories": [
+        "nature",
+        "river"
+      ],
+      "illustration": "img:poem_jiangshangyuzhe",
+      "sort_order": 23,
+      "lines": [
+        {
+          "poem_id": "poem_jiangshangyuzhe",
+          "order": 0,
+          "text": "江上往来人",
+          "pinyin": "jiāng shàng wǎng lái rén"
+        },
+        {
+          "poem_id": "poem_jiangshangyuzhe",
+          "order": 1,
+          "text": "但爱鲈鱼美",
+          "pinyin": "dàn ài lú yú měi"
+        },
+        {
+          "poem_id": "poem_jiangshangyuzhe",
+          "order": 2,
+          "text": "君看一叶舟",
+          "pinyin": "jūn kàn yī yè zhōu"
+        },
+        {
+          "poem_id": "poem_jiangshangyuzhe",
+          "order": 3,
+          "text": "出没风波里",
+          "pinyin": "chū mò fēng bō lǐ"
+        }
+      ],
+      "annotations": [
+        {
+          "poem_id": "poem_jiangshangyuzhe",
+          "target": "但爱",
+          "explanation": "只爱、只喜欢。"
+        },
+        {
+          "poem_id": "poem_jiangshangyuzhe",
+          "target": "鲈鱼",
+          "explanation": "一种淡水鱼，肉鲜美。"
+        },
+        {
+          "poem_id": "poem_jiangshangyuzhe",
+          "target": "一叶舟",
+          "explanation": "像一片小叶子一样的小船。"
+        },
+        {
+          "poem_id": "poem_jiangshangyuzhe",
+          "target": "出没",
+          "explanation": "一会儿出来，一会儿沉下去。"
+        }
+      ],
+      "kid_summary": "江上来来往往的人，只知道鲈鱼好吃。可你有没有看到，那像小叶子一样的小船，正一会儿浮起一会儿沉没在大风大浪里。"
+    },
+    {
+      "id": "poem_wangdongting",
+      "title": "望洞庭",
+      "author": "刘禹锡",
+      "dynasty": "唐",
+      "categories": [
+        "nature",
+        "lake"
+      ],
+      "illustration": "img:poem_wangdongting",
+      "sort_order": 24,
+      "lines": [
+        {
+          "poem_id": "poem_wangdongting",
+          "order": 0,
+          "text": "湖光秋月两相和",
+          "pinyin": "hú guāng qiū yuè liǎng xiāng hé"
+        },
+        {
+          "poem_id": "poem_wangdongting",
+          "order": 1,
+          "text": "潭面无风镜未磨",
+          "pinyin": "tán miàn wú fēng jìng wèi mí"
+        },
+        {
+          "poem_id": "poem_wangdongting",
+          "order": 2,
+          "text": "遥望洞庭山水翠",
+          "pinyin": "yáo wàng dòng tíng shān shuǐ cuì"
+        },
+        {
+          "poem_id": "poem_wangdongting",
+          "order": 3,
+          "text": "白银盘里一青螺",
+          "pinyin": "bái yín pán lǐ yī qīng luó"
+        }
+      ],
+      "annotations": [
+        {
+          "poem_id": "poem_wangdongting",
+          "target": "两相和",
+          "explanation": "互相映衬，显得很和谐。"
+        },
+        {
+          "poem_id": "poem_wangdongting",
+          "target": "潭面",
+          "explanation": "湖面。"
+        },
+        {
+          "poem_id": "poem_wangdongting",
+          "target": "镜未磨",
+          "explanation": "湖面像没有磨过的铜镜，朦胧柔和。"
+        },
+        {
+          "poem_id": "poem_wangdongting",
+          "target": "白银盘",
+          "explanation": "比喻平静的洞庭湖。"
+        },
+        {
+          "poem_id": "poem_wangdongting",
+          "target": "青螺",
+          "explanation": "比喻湖中的君山。"
+        }
+      ],
+      "kid_summary": "秋夜，洞庭湖水和月光融在一起，湖面没有风，像一面没磨过的铜镜。远远望去，湖中的君山像一个青螺，搁在白银盘里。"
+    },
+    {
+      "id": "poem_zhuliguan",
+      "title": "竹里馆",
+      "author": "王维",
+      "dynasty": "唐",
+      "categories": [
+        "nature",
+        "mountain"
+      ],
+      "illustration": "img:poem_zhuliguan",
+      "sort_order": 25,
+      "lines": [
+        {
+          "poem_id": "poem_zhuliguan",
+          "order": 0,
+          "text": "独坐幽篁里",
+          "pinyin": "dú zuò yōu huáng lǐ"
+        },
+        {
+          "poem_id": "poem_zhuliguan",
+          "order": 1,
+          "text": "弹琴复长啸",
+          "pinyin": "tán qín fù cháng xiào"
+        },
+        {
+          "poem_id": "poem_zhuliguan",
+          "order": 2,
+          "text": "深林人不知",
+          "pinyin": "shēn lín rén bù zhī"
+        },
+        {
+          "poem_id": "poem_zhuliguan",
+          "order": 3,
+          "text": "明月来相照",
+          "pinyin": "míng yuè lái xiāng zhào"
+        }
+      ],
+      "annotations": [
+        {
+          "poem_id": "poem_zhuliguan",
+          "target": "幽篁",
+          "explanation": "幽深的竹林。篁，竹子。"
+        },
+        {
+          "poem_id": "poem_zhuliguan",
+          "target": "长啸",
+          "explanation": "撮口长鸣。"
+        },
+        {
+          "poem_id": "poem_zhuliguan",
+          "target": "相照",
+          "explanation": "照耀我。"
+        }
+      ],
+      "kid_summary": "我独自坐在幽静的竹林里，一边弹琴一边长啸。深林里没有人知道我的存在，只有明月温柔地照着我。"
+    },
+    {
+      "id": "poem_jiuyue",
+      "title": "九月九日忆山东兄弟",
+      "author": "王维",
+      "dynasty": "唐",
+      "categories": [
+        "family",
+        "festival"
+      ],
+      "illustration": "img:poem_jiuyue",
+      "sort_order": 26,
+      "lines": [
+        {
+          "poem_id": "poem_jiuyue",
+          "order": 0,
+          "text": "独在异乡为异客",
+          "pinyin": "dú zài yì xiāng wéi yì kè"
+        },
+        {
+          "poem_id": "poem_jiuyue",
+          "order": 1,
+          "text": "每逢佳节倍思亲",
+          "pinyin": "měi féng jiā jié bèi sī qīn"
+        },
+        {
+          "poem_id": "poem_jiuyue",
+          "order": 2,
+          "text": "遥知兄弟登高处",
+          "pinyin": "yáo zhī xiōng dì dēng gāo chù"
+        },
+        {
+          "poem_id": "poem_jiuyue",
+          "order": 3,
+          "text": "遍插茱萸少一人",
+          "pinyin": "biàn chā zhū yú shǎo yī rén"
+        }
+      ],
+      "annotations": [
+        {
+          "poem_id": "poem_jiuyue",
+          "target": "异乡",
+          "explanation": "他乡、外地。"
+        },
+        {
+          "poem_id": "poem_jiuyue",
+          "target": "为异客",
+          "explanation": "做陌生的客人。"
+        },
+        {
+          "poem_id": "poem_jiuyue",
+          "target": "倍思亲",
+          "explanation": "加倍思念亲人。"
+        },
+        {
+          "poem_id": "poem_jiuyue",
+          "target": "登高",
+          "explanation": "重阳节登高的习俗。"
+        },
+        {
+          "poem_id": "poem_jiuyue",
+          "target": "茱萸",
+          "explanation": "一种香气浓郁的植物，古时重阳节佩戴。"
+        }
+      ],
+      "kid_summary": "我独自一人在外面漂泊，每到过节就格外想家。远远想象兄弟们今天登高插茱萸的时候，会发现少了我一个人。"
+    },
+    {
+      "id": "poem_chusai",
+      "title": "出塞",
+      "author": "王昌龄",
+      "dynasty": "唐",
+      "categories": [
+        "history",
+        "nature"
+      ],
+      "illustration": "img:poem_chusai",
+      "sort_order": 27,
+      "lines": [
+        {
+          "poem_id": "poem_chusai",
+          "order": 0,
+          "text": "秦时明月汉时关",
+          "pinyin": "qín shí míng yuè hàn shí guān"
+        },
+        {
+          "poem_id": "poem_chusai",
+          "order": 1,
+          "text": "万里长征人未还",
+          "pinyin": "wàn lǐ cháng zhēng rén wèi huán"
+        },
+        {
+          "poem_id": "poem_chusai",
+          "order": 2,
+          "text": "但使龙城飞将在",
+          "pinyin": "dàn shǐ lóng chéng fēi jiàng zài"
+        },
+        {
+          "poem_id": "poem_chusai",
+          "order": 3,
+          "text": "不教胡马度阴山",
+          "pinyin": "bù jiào hú mǎ dù yīn shān"
+        }
+      ],
+      "annotations": [
+        {
+          "poem_id": "poem_chusai",
+          "target": "秦时明月汉时关",
+          "explanation": "明月还是秦汉时的明月，关隘还是秦汉时的关隘。"
+        },
+        {
+          "poem_id": "poem_chusai",
+          "target": "长征",
+          "explanation": "远行出征。"
+        },
+        {
+          "poem_id": "poem_chusai",
+          "target": "龙城飞将",
+          "explanation": "汉代名将李广。"
+        },
+        {
+          "poem_id": "poem_chusai",
+          "target": "胡马",
+          "explanation": "指北方游牧民族的骑兵。"
+        },
+        {
+          "poem_id": "poem_chusai",
+          "target": "阴山",
+          "explanation": "山脉名，古代北方边塞。"
+        }
+      ],
+      "kid_summary": "还是秦汉时的明月和边关，万里出征的战士还没回家。要是有李广那样的飞将军在，绝不让敌人的马跨过阴山。"
+    },
+    {
+      "id": "poem_liangzhouci",
+      "title": "凉州词",
+      "author": "王翰",
+      "dynasty": "唐",
+      "categories": [
+        "history",
+        "nature"
+      ],
+      "illustration": "img:poem_liangzhouci",
+      "sort_order": 28,
+      "lines": [
+        {
+          "poem_id": "poem_liangzhouci",
+          "order": 0,
+          "text": "葡萄美酒夜光杯",
+          "pinyin": "pú táo měi jiǔ yè guāng bēi"
+        },
+        {
+          "poem_id": "poem_liangzhouci",
+          "order": 1,
+          "text": "欲饮琵琶马上催",
+          "pinyin": "yù yǐn pí pá mǎ shàng cuī"
+        },
+        {
+          "poem_id": "poem_liangzhouci",
+          "order": 2,
+          "text": "醉卧沙场君莫笑",
+          "pinyin": "zuì wò shā chǎng jūn mò xiào"
+        },
+        {
+          "poem_id": "poem_liangzhouci",
+          "order": 3,
+          "text": "古来征战几人回",
+          "pinyin": "gǔ lái zhēng zhàn jǐ rén huí"
+        }
+      ],
+      "annotations": [
+        {
+          "poem_id": "poem_liangzhouci",
+          "target": "夜光杯",
+          "explanation": "一种玉制的酒杯。"
+        },
+        {
+          "poem_id": "poem_liangzhouci",
+          "target": "琵琶",
+          "explanation": "一种乐器。"
+        },
+        {
+          "poem_id": "poem_liangzhouci",
+          "target": "沙场",
+          "explanation": "战场。"
+        },
+        {
+          "poem_id": "poem_liangzhouci",
+          "target": "君莫笑",
+          "explanation": "请不要笑话我们。"
+        }
+      ],
+      "kid_summary": "葡萄酒香、夜光杯亮，正要喝，琵琶声从马背上催人出发。我醉倒在战场上大家别笑，自古以来出征打仗的人有几个能回家？"
+    },
+    {
+      "id": "poem_yongliu",
+      "title": "咏柳",
+      "author": "贺知章",
+      "dynasty": "唐",
+      "categories": [
+        "nature",
+        "spring"
+      ],
+      "illustration": "img:poem_yongliu",
+      "sort_order": 29,
+      "lines": [
+        {
+          "poem_id": "poem_yongliu",
+          "order": 0,
+          "text": "碧玉妆成一树高",
+          "pinyin": "bì yù zhuāng chéng yī shù gāo"
+        },
+        {
+          "poem_id": "poem_yongliu",
+          "order": 1,
+          "text": "万条垂下绿丝绦",
+          "pinyin": "wàn tiáo chuí xià lǜ sī tāo"
+        },
+        {
+          "poem_id": "poem_yongliu",
+          "order": 2,
+          "text": "不知细叶谁裁出",
+          "pinyin": "bù zhī xì yè shuí cái chū"
+        },
+        {
+          "poem_id": "poem_yongliu",
+          "order": 3,
+          "text": "二月春风似剪刀",
+          "pinyin": "èr yuè chūn fēng sì jiǎn dāo"
+        }
+      ],
+      "annotations": [
+        {
+          "poem_id": "poem_yongliu",
+          "target": "碧玉",
+          "explanation": "绿色的玉石，比喻柳树。"
+        },
+        {
+          "poem_id": "poem_yongliu",
+          "target": "绿丝绦",
+          "explanation": "绿色的丝带，比喻柳枝。"
+        },
+        {
+          "poem_id": "poem_yongliu",
+          "target": "裁",
+          "explanation": "裁剪。"
+        }
+      ],
+      "kid_summary": "高高的柳树像用碧玉装扮的一样，无数根柳条像绿色的丝带垂下来。不知道这些细细的柳叶是谁剪出来的？原来是二月的春风像一把剪刀。"
+    },
+    {
+      "id": "poem_feng",
+      "title": "风",
+      "author": "李峤",
+      "dynasty": "唐",
+      "categories": [
+        "nature"
+      ],
+      "illustration": "img:poem_feng",
+      "sort_order": 30,
+      "lines": [
+        {
+          "poem_id": "poem_feng",
+          "order": 0,
+          "text": "解落三秋叶",
+          "pinyin": "jiě luò sān qiū yè"
+        },
+        {
+          "poem_id": "poem_feng",
+          "order": 1,
+          "text": "能开二月花",
+          "pinyin": "néng kāi èr yuè huā"
+        },
+        {
+          "poem_id": "poem_feng",
+          "order": 2,
+          "text": "过江千尺浪",
+          "pinyin": "guò jiāng qiān chǐ làng"
+        },
+        {
+          "poem_id": "poem_feng",
+          "order": 3,
+          "text": "入竹万竿斜",
+          "pinyin": "rù zhú wàn gān xié"
+        }
+      ],
+      "annotations": [
+        {
+          "poem_id": "poem_feng",
+          "target": "解落",
+          "explanation": "吹落。"
+        },
+        {
+          "poem_id": "poem_feng",
+          "target": "三秋",
+          "explanation": "晚秋，指九月。"
+        },
+        {
+          "poem_id": "poem_feng",
+          "target": "二月花",
+          "explanation": "春天的花。"
+        },
+        {
+          "poem_id": "poem_feng",
+          "target": "千尺浪",
+          "explanation": "很高的浪花。"
+        }
+      ],
+      "kid_summary": "风能吹落秋天的树叶，能吹开二月的春花。吹过江面能掀起千尺巨浪，吹进竹林能让万竿翠竹都斜着身子。"
+    }
+  ]
+}

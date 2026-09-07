@@ -241,6 +241,7 @@ struct PinyinView: View {
 }
 
 /// 建立「图片 → 示例词 → 拼音 → 发音」的关系
+/// 布局：大图在上，下方拼音字母与示例词左右并排（与自然卡片视觉统一）
 struct PinyinCard: View {
     @EnvironmentObject var settings: SettingsManager
     @EnvironmentObject var audio: AudioManager
@@ -249,33 +250,47 @@ struct PinyinCard: View {
     private var key: String { "pinyin-\(item.id)" }
 
     var body: some View {
-        VStack(spacing: 14) {
+        VStack(spacing: 20) {
             Spacer(minLength: 8)
 
             IllustrationView(identifier: item.image)
-                .frame(width: 160, height: 160)
-                .growCard(fill: .white.opacity(0.7), radius: 26)
+                .frame(width: 236, height: 236)
+                .growCard(fill: .white.opacity(0.7), radius: 28)
 
-            Text(item.exampleWord)
-                .font(.system(size: Theme.scaled(30, settings: settings), weight: .bold, design: .rounded))
-                .foregroundStyle(Theme.ink)
-
-            Text(item.exampleWordPinyin)
-                .font(.system(size: Theme.scaled(17, settings: settings), weight: .medium))
-                .foregroundStyle(Theme.inkSoft)
-
-            Button { speak() } label: {
-                VStack(spacing: 2) {
-                    Text(item.symbol)
-                        .font(.system(size: Theme.scaled(74, settings: settings), weight: .bold, design: .rounded))
-                        .foregroundStyle(Theme.vegetable)
-                    Text("\(item.type.displayName) \(item.symbol)")
-                        .font(.system(size: Theme.scaled(15, settings: settings), weight: .semibold))
-                        .foregroundStyle(Theme.inkSoft)
+            HStack(spacing: 22) {
+                // 左：拼音字母（点击发音）
+                Button { speak() } label: {
+                    VStack(spacing: 4) {
+                        Text(item.symbol)
+                            .font(.system(size: Theme.scaled(84, settings: settings), weight: .bold, design: .rounded))
+                            .foregroundStyle(Theme.vegetable)
+                        Text(item.type.displayName)
+                            .font(.system(size: Theme.scaled(14, settings: settings), weight: .semibold))
+                            .foregroundStyle(Theme.inkSoft)
+                    }
                 }
+                .buttonStyle(PressableButtonStyle(settings: settings))
+                .accessibilityHint("播放 \(item.type.displayName) \(item.symbol) 的发音")
+
+                // 分隔线
+                Rectangle()
+                    .fill(Theme.inkSoft.opacity(0.15))
+                    .frame(width: 1, height: 76)
+
+                // 右：示例词 + 读音
+                Button { speakWord() } label: {
+                    VStack(spacing: 4) {
+                        Text(item.exampleWord)
+                            .font(.system(size: Theme.scaled(34, settings: settings), weight: .bold, design: .rounded))
+                            .foregroundStyle(Theme.ink)
+                        Text(item.exampleWordPinyin)
+                            .font(.system(size: Theme.scaled(17, settings: settings), weight: .medium))
+                            .foregroundStyle(Theme.inkSoft)
+                    }
+                }
+                .buttonStyle(PressableButtonStyle(settings: settings))
+                .accessibilityHint("播放 \(item.exampleWord) 的发音")
             }
-            .buttonStyle(PressableButtonStyle(settings: settings))
-            .accessibilityHint("播放 \(item.type.displayName) \(item.symbol) 的发音")
 
             Spacer(minLength: 8)
             SpeakButton(text: item.speechContent, key: key, title: "普通话", style: .prominent)
@@ -288,6 +303,10 @@ struct PinyinCard: View {
 
     private func speak() {
         audio.speak(name: item.speechContent, language: .mandarin, key: key)
+    }
+
+    private func speakWord() {
+        audio.speak(name: item.exampleWord, language: .mandarin, key: "\(key)-word")
     }
 }
 

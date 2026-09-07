@@ -196,19 +196,19 @@ struct RecentSection: View {
                                 PoemDetailView(poemId: id)
                             }
                         } label: {
+                            // 无边框无底色：缩略图 + 名称，保持背景干净
                             VStack(spacing: 8) {
                                 IllustrationView(identifier: entry.illustration)
-                                    .frame(width: 44, height: 44)
-                                    .clipShape(RoundedRectangle(cornerRadius: 12, style: .continuous))
+                                    .frame(width: 58, height: 58)
+                                    .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+                                    .shadow(color: .black.opacity(0.06), radius: 4, y: 2)
                                 Text(entry.title)
                                     .font(.system(size: Theme.scaled(14, settings: settings), weight: .semibold))
                                     .foregroundStyle(Theme.ink)
                                     .lineLimit(1)
                             }
-                            .padding(.horizontal, 18)
-                            .padding(.vertical, 14)
-                            .frame(minWidth: 96, minHeight: 96)
-                            .glassCard(radius: 22)
+                            .frame(minWidth: 72, minHeight: 72)
+                            .contentShape(Rectangle())
                         }
                         .buttonStyle(PressableButtonStyle())
                     }

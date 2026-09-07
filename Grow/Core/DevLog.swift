@@ -28,6 +28,18 @@ enum DevLog {
     /// 全部开发记录（最新在前）
     static let all: [DevLogEntry] = [
         DevLogEntry(
+            version: "0.2.1",
+            date: "2026-09-07",
+            title: "视觉统一优化：卡片页去灰边 · 收藏移位 · 最近看过去框 · 拼音排版",
+            changes: [
+                "自然卡片浏览改为整页翻页（与数字/拼音页一致），去掉两侧露出的邻卡灰边。",
+                "卡片收藏按钮移到名称旁边，更好点更好找。",
+                "首页「最近看过」去掉白色小画框，改为干净缩略图 + 名称。",
+                "拼音卡片重排：示例图片放大，拼音字母与例词左右并排，视觉与其他模块统一。"
+            ],
+            isCurrent: true
+        ),
+        DevLogEntry(
             version: "0.2.0",
             date: "2026-09-07",
             title: "Phase 2/3 内容上新 · 真·液态玻璃（iOS 26）",
@@ -38,8 +50,7 @@ enum DevLog {
                 "数据架构整理：ContentItem 统一协议 + 年龄体系 + 内容关联，为后续能力复用打基础。",
                 "接入 iOS 26 真·液态玻璃：玻璃组件与底部标签条改用系统 glassEffect() 渲染（需 iOS 26 设备），iOS 17/18 自动回退原玻璃样式。",
                 "开发环境升级 Xcode 26.3 + iOS 26.3.1 SDK。"
-            ],
-            isCurrent: true
+            ]
         ),
         DevLogEntry(
             version: "0.1.7",

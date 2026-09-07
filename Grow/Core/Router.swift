@@ -16,9 +16,19 @@ final class Router: ObservableObject {
         case detail(String)
     }
 
+    /// 探索栈深链路由（DEBUG 启动参数用）
+    enum ExploreRoute: Hashable {
+        case natureDeck(NatureCategory)
+        case natureItem(String)
+        case poemDetail(String)
+        case pinyin(PinyinType)
+        case numbers
+    }
+
     @Published var tab: Tab
     @Published var naturePath: [NatureRoute] = []
     @Published var poemPath: [PoemRoute] = []
+    @Published var explorePath: [ExploreRoute] = []
     /// DEBUG 专用：启动直达设置页（--page=settings）
     @Published var showSettings = false
 
@@ -26,7 +36,7 @@ final class Router: ObservableObject {
         #if DEBUG
         let args = ProcessInfo.processInfo.arguments
         print("[Router] args = \(args)")
-        // 调试启动参数：--tab=nature --page=deck:fruit / item:fruit_apple / poem:poem_jingyesi
+        // 调试启动参数：--tab=explore --page=deck:fruit / item:fruit_apple / poem:poem_xxx / pinyin:initial / numbers / settings
         if let raw = Self.arg("--tab="), let t = Tab(rawValue: raw) {
             tab = t
         } else {
@@ -36,11 +46,20 @@ final class Router: ObservableObject {
             if page == "settings" {
                 showSettings = true
             } else if page.hasPrefix("deck:"), let cat = NatureCategory(rawValue: String(page.dropFirst(5))) {
-                naturePath = [.deck(cat)]
+                explorePath = [.natureDeck(cat)]
+                if tab == .home { tab = .explore }
             } else if page.hasPrefix("item:") {
-                naturePath = [.item(String(page.dropFirst(5)))]
+                explorePath = [.natureItem(String(page.dropFirst(5)))]
+                if tab == .home { tab = .explore }
             } else if page.hasPrefix("poem:") {
-                poemPath = [.detail(String(page.dropFirst(5)))]
+                explorePath = [.poemDetail(String(page.dropFirst(5)))]
+                if tab == .home { tab = .explore }
+            } else if page.hasPrefix("pinyin:"), let t = PinyinType(rawValue: String(page.dropFirst(7))) {
+                explorePath = [.pinyin(t)]
+                if tab == .home { tab = .explore }
+            } else if page == "numbers" {
+                explorePath = [.numbers]
+                if tab == .home { tab = .explore }
             }
         }
         #else

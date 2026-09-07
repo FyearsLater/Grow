@@ -216,9 +216,27 @@ struct FavoritesTabRoot: View {
 
 /// 探索：自然世界 / 古诗小世界 / 看图识字（§9，未来可继续加入英语、汉字等）
 struct ExploreTabRoot: View {
+    @EnvironmentObject var router: Router
+
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $router.explorePath) {
             ExploreRootView()
+                .navigationDestination(for: Router.ExploreRoute.self) { route in
+                    switch route {
+                    case .natureDeck(let category):
+                        NatureCardDeckView(category: category)
+                    case .natureItem(let id):
+                        if let item = ContentRepository.shared.natureItems.first(where: { $0.id == id }) {
+                            NatureDetailView(item: item)
+                        }
+                    case .poemDetail(let id):
+                        PoemDetailView(poemId: id)
+                    case .pinyin(let type):
+                        PinyinView(type: type)
+                    case .numbers:
+                        NumberView()
+                    }
+                }
         }
     }
 }

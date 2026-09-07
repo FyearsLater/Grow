@@ -62,7 +62,7 @@ struct CategoryCard: View {
     }
 }
 
-/// 分类下的大卡片浏览：左右滑动，能看到下一张卡的一部分
+/// 分类下的大卡片浏览：整页左右翻页（与数字/拼音页同一交互，无邻卡灰边）
 struct NatureCardDeckView: View {
     @EnvironmentObject var content: ContentRepository
     @EnvironmentObject var library: UserLibrary
@@ -81,25 +81,19 @@ struct NatureCardDeckView: View {
                     .foregroundStyle(Theme.inkSoft)
             } else {
                 VStack(spacing: 8) {
-                    // 横向滑动卡片，两侧露出下一张的一部分
-                    ScrollView(.horizontal) {
-                        HStack(spacing: 16) {
-                            ForEach(Array(items.enumerated()), id: \.element.id) { i, item in
-                                NavigationLink {
-                                    NatureDetailView(item: item)
-                                } label: {
-                                    NatureCardFace(item: item)
-                                }
-                                .buttonStyle(PressableButtonStyle())
-                                .frame(width: cardWidth)
+                    TabView(selection: $index) {
+                        ForEach(Array(items.enumerated()), id: \.element.id) { i, item in
+                            NavigationLink {
+                                NatureDetailView(item: item)
+                            } label: {
+                                NatureCardFace(item: item)
                             }
+                            .buttonStyle(PressableButtonStyle())
+                            .padding(.horizontal, 20)
+                            .tag(i)
                         }
-                        .scrollTargetLayout()
                     }
-                    .scrollTargetBehavior(.viewAligned)
-                    .scrollPosition(id: scrollPosition)
-                    .scrollIndicators(.hidden)
-                    .padding(.horizontal, sideInset)
+                    .tabViewStyle(.page(indexDisplayMode: .never))
 
                     // 页点
                     HStack(spacing: 8) {
@@ -125,27 +119,16 @@ struct NatureCardDeckView: View {
                 library.recordNatureVisit(first.id)
             }
         }
-    }
-
-    // scrollPosition 绑定
-    private var scrollPosition: Binding<String?> {
-        Binding(
-            get: { items.indices.contains(index) ? items[index].id : nil },
-            set: { newValue in
-                if let id = newValue, let i = items.firstIndex(where: { $0.id == id }) {
-                    index = i
-                    // 记录当前实际看到的卡片（之前误记了 first）
-                    library.recordNatureVisit(items[i].id)
-                }
+        .onChange(of: index) { _, newValue in
+            // 记录当前实际看到的卡片
+            if items.indices.contains(newValue) {
+                library.recordNatureVisit(items[newValue].id)
             }
-        )
+        }
     }
-
-    private var sideInset: CGFloat { UIScreen.main.bounds.width * 0.08 }
-    private var cardWidth: CGFloat { UIScreen.main.bounds.width * 0.78 }
 }
 
-/// 单张自然卡片正面：大插画 + 中文名 + 英文名 + 三语按钮
+/// 单张自然卡片正面：大插画 + 中文名（旁附收藏）+ 英文名 + 三语按钮
 struct NatureCardFace: View {
     @EnvironmentObject var settings: SettingsManager
     let item: NatureItem
@@ -158,9 +141,12 @@ struct NatureCardFace: View {
                 .padding(.top, 20)
 
             VStack(spacing: 4) {
-                Text(item.nameZh)
-                    .font(.system(size: Theme.scaled(32, settings: settings), weight: .bold, design: .rounded))
-                    .foregroundStyle(Theme.ink)
+                HStack(spacing: 10) {
+                    Text(item.nameZh)
+                        .font(.system(size: Theme.scaled(32, settings: settings), weight: .bold, design: .rounded))
+                        .foregroundStyle(Theme.ink)
+                    FavoriteButton(kind: .nature, id: item.id)
+                }
                 Text(item.nameEn)
                     .font(.system(size: Theme.scaled(18, settings: settings), weight: .semibold, design: .rounded))
                     .foregroundStyle(Theme.inkSoft)
@@ -170,12 +156,8 @@ struct NatureCardFace: View {
 
             Spacer(minLength: 0)
         }
-        .frame(width: UIScreen.main.bounds.width * 0.78)
+        .frame(maxWidth: .infinity)
         .frame(height: UIScreen.main.bounds.height * 0.52)
         .glassCard()
-        .overlay(alignment: .topTrailing) {
-            FavoriteButton(kind: .nature, id: item.id)
-                .padding(10)
-        }
     }
 }

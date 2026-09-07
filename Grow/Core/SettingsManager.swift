@@ -56,6 +56,9 @@ final class SettingsManager: ObservableObject {
     @Published var ageMode: AgeMode { didSet { persist() } }
     /// 拼图辅助：儿童一段时间没有操作时，轻微提示某个正确位置（§56 / §57）
     @Published var puzzleAssist: Bool { didSet { persist() } }
+    /// 发音引擎：false = 系统 TTS（AVSpeechSynthesizer，第一版方案，免下载）；
+    /// true = 开源自然语音（sherpa-onnx，需先下载语音包）
+    @Published var useNaturalVoice: Bool { didSet { persist() } }
 
     private let defaults = UserDefaults.standard
     private static let prefix = "grow.settings."
@@ -77,6 +80,8 @@ final class SettingsManager: ObservableObject {
         // 2–3 岁默认开启拼图辅助，4–6 岁默认关闭（§59 / §60）
         let age = Self.decode(AgeMode.self, key: "ageMode", fallback: .preschool)
         puzzleAssist = defaults.object(forKey: Self.prefix + "puzzleAssist") as? Bool ?? (age == .toddler)
+        // 默认关闭：沿用系统 TTS，开箱即用不依赖语音包下载
+        useNaturalVoice = defaults.object(forKey: Self.prefix + "useNaturalVoice") as? Bool ?? false
     }
 
     // MARK: - 派生系数（供 Theme 使用）
@@ -134,6 +139,7 @@ final class SettingsManager: ObservableObject {
         defaults.set(reduceMotion, forKey: p + "reduceMotion")
         defaults.set(ageMode.rawValue, forKey: p + "ageMode")
         defaults.set(puzzleAssist, forKey: p + "puzzleAssist")
+        defaults.set(useNaturalVoice, forKey: p + "useNaturalVoice")
     }
 
     /// 统一在值变化后调用

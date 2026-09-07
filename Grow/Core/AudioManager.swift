@@ -33,13 +33,24 @@ enum SpeechLanguage: String, Codable, CaseIterable, Identifiable {
         }
     }
 
-    /// 同语系 fallback 顺序：找不到精确匹配时按这个顺序回退
-    /// 国语：zh-CN → zh-TW（台湾普通话，仍是国语腔）→ zh-HK（最后兜底，保证能出声）
-    /// 粤语：zh-HK → zh-TW → zh-CN（尽力发声：没有粤语语音包时，
-    /// 优先借用台湾普通话，再退到任意中文语音，保证按钮永远可用、总能出声）
+    /// 系统 TTS 匹配用的语言码候选（按优先级，全部为「精确匹配」）。
+    /// ⚠️ iOS 17+ 起，内置粤语语音（Sinji）的 `language` 是 **yue-HK** 而不是 zh-HK
+    /// （仅 identifier 里仍写作 com.apple.voice.*.zh-HK.Sinji）。
+    /// 只认 zh-HK 会永远匹配不到内置粤语，表现为「粤语发不出声 / 听起来像国语」。
+    var candidateCodes: [String] {
+        switch self {
+        case .mandarin: return ["zh-CN"]
+        case .cantonese: return ["yue-HK", "zh-HK"]
+        case .english: return ["en-US"]
+        }
+    }
+
+    /// 同语系 fallback 顺序：精确匹配全部落空时才按这个顺序回退，保证按钮永远能出声
+    /// 国语：zh-CN → zh-TW（台湾普通话，仍是国语腔）
+    /// 粤语：yue-HK/zh-HK → zh-TW → zh-CN（内置粤语几乎总能命中，这里只是兜底）
     var fallbackLanguageCodes: [String] {
         switch self {
-        case .mandarin: return ["zh-TW", "zh-HK"]
+        case .mandarin: return ["zh-TW", "yue-HK"]
         case .cantonese: return ["zh-TW", "zh-CN"]
         case .english: return ["en-GB", "en-AU", "en-US"]
         }
@@ -158,10 +169,11 @@ final class AudioManager: NSObject, ObservableObject {
         }
     }
 
-    /// 系统是否安装了该语言的精确语音包（不含 fallback 回退）。
-    /// 用于设置页展示语音包状态：无精确粤语包时，「粤」会以回退语音发声（非标准粤语）。
+    /// 系统是否有该语言的精确语音（不含 fallback 回退）。
+    /// 粤语需同时认 yue-HK（iOS 17+ 内置）与 zh-HK（旧系统）。
     static func hasExactVoice(for language: SpeechLanguage) -> Bool {
-        AVSpeechSynthesisVoice.speechVoices().contains { $0.language == language.rawValue }
+        let all = AVSpeechSynthesisVoice.speechVoices()
+        return language.candidateCodes.contains { code in all.contains { $0.language == code } }
     }
 
     // MARK: - 自然对象发音
@@ -170,6 +182,16 @@ final class AudioManager: NSObject, ObservableObject {
     /// 引擎选择：已下载自然语音包 → 开源 TTS；未下载 → 弹窗引导（或按 promptIfMissing=false 静默回退系统语音）。
     /// - promptIfMissing: 用户主动点击朗读=true；游戏反馈等自动语音=false（不打断游戏）
     func speak(name: String, language: SpeechLanguage, key: String, onFinished: (() -> Void)? = nil, promptIfMissing: Bool = true) {
+        // 粤语独立处理：系统语音包常缺失，优先开源粤语模型，其次精确 zh-HK，都没有才引导下载
+        if language == .cantonese {
+            speakCantonese(text: name, key: key, onFinished: onFinished, promptIfMissing: promptIfMissing)
+            return
+        }
+        // 引擎开关关闭时（默认）：走第一版系统 TTS，不查语音包、不弹下载引导
+        guard SettingsManager.shared.useNaturalVoice else {
+            speakWithSystem(text: name, language: language, key: key, onFinished: onFinished)
+            return
+        }
         if naturalPlayer.isReady(for: language) {
             stop()
             self.onFinished = onFinished
@@ -196,6 +218,47 @@ final class AudioManager: NSObject, ObservableObject {
         speakWithSystem(text: name, language: language, key: key, onFinished: onFinished)
     }
 
+    /// 粤语发音优先级：
+    /// 1) 开关开启 + 开源粤语模型（音质最好）
+    /// 2) 系统内置粤语（iOS 17+ 为 yue-HK / Sinji，机器基本都有——此前匹配不到是标签 bug，已修）
+    /// 3) 开关关闭但系统无粤语 → 仍用已下载的开源模型（好过国语近似回退）
+    /// 4) 两者皆无：主动点击 → 引导下载；游戏内自动语音 → 近似回退，不打断
+    private func speakCantonese(text: String, key: String, onFinished: (() -> Void)?, promptIfMissing: Bool) {
+        let systemHasCantonese = Self.hasExactVoice(for: .cantonese)
+        let useNatural = SettingsManager.shared.useNaturalVoice && naturalPlayer.isReady(for: .cantonese)
+
+        if useNatural || (!systemHasCantonese && naturalPlayer.isReady(for: .cantonese)) {
+            stop()
+            self.onFinished = onFinished
+            playingKey = key
+            naturalPlayer.speak(
+                text: text,
+                language: .cantonese,
+                speed: Float(SettingsManager.shared.speechSpeed),
+                key: key
+            ) { [weak self] in
+                guard let self else { return }
+                if self.playingKey == key { self.playingKey = nil }
+                let cb = self.onFinished
+                self.onFinished = nil
+                cb?()
+            }
+            return
+        }
+        // 2) 系统内置粤语（yue-HK / zh-HK）
+        if systemHasCantonese {
+            speakWithSystem(text: text, language: .cantonese, key: key, onFinished: onFinished)
+            return
+        }
+        // 4) 都没有：主动点击 → 引导下载；游戏内自动语音 → 近似回退，不打断
+        if promptIfMissing {
+            stop()
+            VoicePackPromptCenter.shared.suggestDownload(language: .cantonese, sampleText: text)
+            return
+        }
+        speakWithSystem(text: text, language: .cantonese, key: key, onFinished: onFinished)
+    }
+
     /// 系统语音（AVSpeechSynthesizer）朗读——未安装自然语音包时的回退路径
     private func speakWithSystem(text: String, language: SpeechLanguage, key: String, onFinished: (() -> Void)?) {
         stop()
@@ -212,6 +275,15 @@ final class AudioManager: NSObject, ObservableObject {
 
     /// 播放古诗单句
     func speakPoemLine(_ text: String, key: String) {
+        // 粤语单句同样走粤语专用链路
+        if SettingsManager.shared.poemLanguage == .cantonese {
+            speakCantonese(text: text, key: key, onFinished: nil, promptIfMissing: true)
+            return
+        }
+        guard SettingsManager.shared.useNaturalVoice else {
+            speakPoemLineSystem(text, key: key)
+            return
+        }
         let lang = SettingsManager.shared.poemLanguage
         if naturalPlayer.isReady(for: lang) {
             stop()
@@ -244,7 +316,24 @@ final class AudioManager: NSObject, ObservableObject {
 
     /// 朗读整首古诗：逐句加入队列，句间按设置停顿，高亮当前句
     func speakPoem(_ poem: Poem) {
-        // 整首朗读是用户主动点击：缺自然语音包（非粤语）时先弹窗引导下载
+        // 粤语整首朗读：既无开源模型也无系统精确语音包 → 先引导下载，不用国语顶替
+        if SettingsManager.shared.poemLanguage == .cantonese,
+           !naturalPlayer.isReady(for: .cantonese),
+           !Self.hasExactVoice(for: .cantonese) {
+            VoicePackPromptCenter.shared.suggestDownload(language: .cantonese, sampleText: "《\(poem.title)》")
+            return
+        }
+        // 引擎开关关闭时（默认）：走第一版系统 TTS 逐句朗读，不弹下载引导
+        guard SettingsManager.shared.useNaturalVoice else {
+            stop()
+            guard !poem.lines.isEmpty else { return }
+            currentPoem = poem
+            poemLineQueue = poem.lines
+            speakingLineIndex = 0
+            playingKey = "poem-\(poem.id)"
+            speakNextPoemLine()
+            return
+        }
         let lang = SettingsManager.shared.poemLanguage
         if !naturalPlayer.isReady(for: lang), lang != .cantonese {
             VoicePackPromptCenter.shared.suggestDownload(language: lang, sampleText: "《\(poem.title)》")
@@ -265,8 +354,8 @@ final class AudioManager: NSObject, ObservableObject {
         let idx = (currentPoem?.lines.count ?? poemLineQueue.count) - poemLineQueue.count
         speakingLineIndex = idx
 
-        // 自然语音链：逐句合成播放，句间按设置停顿
-        if naturalPlayer.isReady(for: settings.poemLanguage) {
+        // 自然语音链：仅在引擎开关打开且语音包就绪时启用（默认关闭 → 走系统语音链）
+        if SettingsManager.shared.useNaturalVoice, naturalPlayer.isReady(for: settings.poemLanguage) {
             naturalPlayer.speak(
                 text: line.text,
                 language: settings.poemLanguage,
@@ -320,13 +409,14 @@ final class AudioManager: NSObject, ObservableObject {
     }
 
     /// 在系统所有 voice 中为指定语言选一个最匹配的：
-    /// 1) 若指定了朗读角色，优先按性别/质量匹配
-    /// 2) 优先 quality 最高的（enhanced > default）
-    /// 3) 若该语言完全无 voice，按 SpeechLanguage.fallbackLanguageCodes 顺序回退（同语系，不跨方言）
-    /// 4) 完全找不到则返回 nil（由 UI 禁用按钮）
+    /// 1) 按候选语言码精确匹配（粤语认 yue-HK / zh-HK 两个标签）
+    /// 2) 若指定了朗读角色，优先按性别/质量匹配
+    /// 3) 优先 quality 最高的（enhanced > default）
+    /// 4) 精确匹配落空，按 fallbackLanguageCodes 顺序回退（保证总能出声）
+    /// 5) 完全找不到则返回 nil（由 UI 禁用按钮）
     static func bestVoice(for language: SpeechLanguage, role: PoemVoiceRole? = nil) -> AVSpeechSynthesisVoice? {
         let all = AVSpeechSynthesisVoice.speechVoices()
-        let exact = all.filter { $0.language == language.rawValue }
+        let exact = all.filter { language.candidateCodes.contains($0.language) }
 
         if let role, !exact.isEmpty {
             let gendered = exact.filter { $0.gender == role.preferredGender }

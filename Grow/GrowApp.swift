@@ -198,6 +198,10 @@ struct VoicePackPromptModifier: ViewModifier {
                 message: Text("朗读「\(req.sampleText)」需要先在 设置 → 自然语音库 下载对应语音包（约 \(size)）。下载需要联网，建议在 Wi-Fi 下进行；下载一次后离线可用，发音远比系统语音自然。"),
                 primaryButton: .default(Text("去下载")) {
                     router.tab = .settings
+                    // 直接开始下载对应语音包，不用用户再手动找（支持断点续传）
+                    if let pack = VoicePack.all.first(where: { $0.languages.contains(req.language) }) {
+                        VoicePackManager.shared.download(pack)
+                    }
                 },
                 secondaryButton: .cancel(Text("暂不"))
             )

@@ -110,7 +110,7 @@ struct HomeView: View {
             .buttonStyle(GlassButtonStyle(settings: settings))
 
             NavigationLink {
-                PuzzleHomeView()
+                GameHomeView()
             } label: {
                 GlassEntryCard(module: .puzzle)
             }

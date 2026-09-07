@@ -153,11 +153,6 @@ struct GameLevelPickerView: View {
         .background(Theme.cream.ignoresSafeArea())
         .navigationTitle(definition?.title ?? module.title)
         .navigationBarTitleDisplayMode(.inline)
-        .onAppear {
-            if let def = definition {
-                GameFeedbackManager.shared.speakInstruction(def.description, gameId: def.id)
-            }
-        }
     }
 
     private var header: some View {

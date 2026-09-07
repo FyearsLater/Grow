@@ -44,18 +44,19 @@ struct WaveIndicator: View {
     }
 }
 
-/// 三语发音按钮组：一行三个，小巧不喧宾夺主
+/// 多语发音按钮组：默认一行三个，可通过 languages 参数限定显示语言
 struct LanguageButtonsRow: View {
     @ObservedObject var audio = AudioManager.shared
     @ObservedObject var settings = SettingsManager.shared
     let name: String        // 当前语言下的读法（MVP 中英同名即可，TTS 按 locale 读）
     let nameEn: String
     let itemKey: String     // 播放 key 前缀
+    var languages: [SpeechLanguage] = SpeechLanguage.allCases
     var onFinished: (() -> Void)? = nil
 
     var body: some View {
         HStack(spacing: 8) {
-            ForEach(SpeechLanguage.allCases) { lang in
+            ForEach(languages) { lang in
                 languageButton(lang)
             }
         }

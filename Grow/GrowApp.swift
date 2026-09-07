@@ -33,7 +33,7 @@ struct GrowApp: App {
     }
 }
 
-/// 底部导航：首页 / 探索 / 游戏 / 收藏（设置放在右上角 ⚙️，§8）
+/// 底部导航：首页 / 探索 / 收藏（设置放在右上角 ⚙️，§8）
 /// iOS 26+：原生 TabView 自动获得系统 Liquid Glass 标签条（需 iOS 26 SDK 编译）。
 /// iOS 17/18 回退：自定义悬浮玻璃胶囊。
 struct RootTabView: View {
@@ -43,7 +43,6 @@ struct RootTabView: View {
     private let items: [(tab: Router.Tab, title: String, icon: String)] = [
         (.home, "首页", "house.fill"),
         (.explore, "探索", "safari.fill"),
-        (.games, "游戏", "puzzlepiece.extension.fill"),
         (.favorites, "收藏", "heart.fill")
     ]
 
@@ -65,9 +64,6 @@ struct RootTabView: View {
             ExploreTabRoot()
                 .tabItem { Label("探索", systemImage: "safari.fill") }
                 .tag(Router.Tab.explore)
-            GameTabRoot()
-                .tabItem { Label("游戏", systemImage: "puzzlepiece.extension.fill") }
-                .tag(Router.Tab.games)
             FavoritesTabRoot()
                 .tabItem { Label("收藏", systemImage: "heart.fill") }
                 .tag(Router.Tab.favorites)
@@ -82,8 +78,6 @@ struct RootTabView: View {
                     .tag(Router.Tab.home)
                 ExploreTabRoot()
                     .tag(Router.Tab.explore)
-                GameTabRoot()
-                    .tag(Router.Tab.games)
                 FavoritesTabRoot()
                     .tag(Router.Tab.favorites)
             }
@@ -251,39 +245,3 @@ struct ExploreTabRoot: View {
     }
 }
 
-/// 游戏：趣味游戏中心（Phase 5）—— 拼图 / 配对 / 找相同 / 分类
-struct GameTabRoot: View {
-    @EnvironmentObject var router: Router
-
-    var body: some View {
-        NavigationStack(path: $router.gamesPath) {
-            GameHomeView()
-                .navigationDestination(for: Router.GameRoute.self) { route in
-                    switch route {
-                    case .home:
-                        GameHomeView()
-                    case .puzzleHome:
-                        PuzzleHomeView()
-                    case .puzzleGame(let puzzleId):
-                        if let item = PuzzleRepository.shared.puzzle(id: puzzleId) {
-                            PuzzleGameView(item: item)
-                        } else {
-                            PuzzleHomeView()
-                        }
-                    case .levelSelect(let type):
-                        GameLevelPickerView(type: type)
-                    case .matching(let level, let focus):
-                        MatchingGameView(level: level, focus: focus)
-                    case .findSame(let level, let focus):
-                        FindSameGameView(level: level, focus: focus)
-                    case .sorting(let level):
-                        SortingGameView(level: level)
-                    case .natureDetail(let id):
-                        if let item = ContentRepository.shared.natureItems.first(where: { $0.id == id }) {
-                            NatureDetailView(item: item)
-                        }
-                    }
-                }
-        }
-    }
-}

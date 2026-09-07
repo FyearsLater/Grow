@@ -4,7 +4,6 @@ import SwiftUI
 struct NatureDetailView: View {
     @EnvironmentObject var settings: SettingsManager
     @EnvironmentObject var audio: AudioManager
-    @EnvironmentObject var router: Router
     let item: NatureItem
 
     @State private var showMore = false
@@ -13,6 +12,7 @@ struct NatureDetailView: View {
     private var descriptionText: String {
         settings.prefersLongDescription ? item.descriptionLong : item.descriptionShort
     }
+    private var gameLevel: Int { settings.ageMode == .toddler ? 1 : 2 }
 
     var body: some View {
         ZStack {
@@ -38,11 +38,12 @@ struct NatureDetailView: View {
                             .foregroundStyle(Theme.inkSoft)
                     }
 
-                    // 三语发音（读完后自动继续朗读介绍）
+                    // 双语发音（国/粤；读完后自动继续朗读介绍）
                     LanguageButtonsRow(
                         name: item.nameZh,
                         nameEn: item.nameEn,
                         itemKey: "\(item.id)-detail",
+                        languages: [.mandarin, .cantonese],
                         onFinished: { speakDescription() }
                     )
 
@@ -112,7 +113,7 @@ struct NatureDetailView: View {
         .growCard(fill: .white.opacity(0.7))
     }
 
-    // MARK: - 玩一玩（拼一拼 / 找相同 / 找朋友，跨 Tab 跳转游戏中心）
+    // MARK: - 玩一玩（拼一拼 / 找相同 / 找朋友，从详情页直接 push 进游戏）
 
     private var playSection: some View {
         VStack(alignment: .leading, spacing: 12) {
@@ -122,14 +123,14 @@ struct NatureDetailView: View {
 
             let columns = Array(repeating: GridItem(.flexible(), spacing: 12), count: 3)
             LazyVGrid(columns: columns, spacing: 12) {
-                playButton(GameModule.puzzle, title: "拼一拼") {
-                    router.openNatureGame(natureId: item.id, game: .puzzle)
+                playLink(GameModule.puzzle, title: "拼一拼") {
+                    PuzzleHomeView()
                 }
-                playButton(GameModule.findSame, title: "找相同") {
-                    router.openNatureGame(natureId: item.id, game: .findSame)
+                playLink(GameModule.findSame, title: "找相同") {
+                    FindSameGameView(level: gameLevel, focus: item.id)
                 }
-                playButton(GameModule.matching, title: "找朋友") {
-                    router.openNatureGame(natureId: item.id, game: .matching)
+                playLink(GameModule.matching, title: "找朋友") {
+                    MatchingGameView(level: gameLevel, focus: item.id)
                 }
             }
         }
@@ -138,8 +139,8 @@ struct NatureDetailView: View {
         .growCard(fill: .white.opacity(0.7))
     }
 
-    private func playButton(_ module: GameModule, title: String, action: @escaping () -> Void) -> some View {
-        Button(action: action) {
+    private func playLink<Destination: View>(_ module: GameModule, title: String, @ViewBuilder destination: () -> Destination) -> some View {
+        NavigationLink(destination: destination()) {
             VStack(spacing: 6) {
                 GameModuleIcon(module: module, size: 32)
                 Text(title)

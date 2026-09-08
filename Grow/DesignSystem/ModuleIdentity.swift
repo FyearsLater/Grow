@@ -673,3 +673,100 @@ struct LearningTopicIcon: View {
         }
     }
 }
+
+// MARK: - 拼音单字母图标（按实际声母/韵母符号绘制，避免「q 显示成 b」之类错配）
+
+/// 与 LearningTopicIcon 同视觉系统，但绘制的是「具体某条拼音」的 symbol（如 q / ang），
+/// 而不是分类通用示例字（.initial 固定画 "b"）。用于探索页单条拼音发现卡。
+struct PinyinSymbolIcon: View {
+    let symbol: String
+    let type: PinyinType
+    var size: CGFloat = 56
+
+    /// 容器染色的柔和主题色（与 LearningTopicIcon 的 声母/韵母 一致）
+    private var tint: Color {
+        switch type {
+        case .initial: return Theme.animal
+        case .final: return Theme.plant
+        case .tone: return Theme.plant
+        }
+    }
+
+    /// 卡片文字的 Soft 3D 深色
+    private var deep: Color {
+        switch type {
+        case .initial: return Theme.deepBlue
+        case .final: return Theme.deepLilac
+        case .tone: return Theme.deepLilac
+        }
+    }
+
+    var body: some View {
+        SoftIconContainer(tint: tint, size: size) {
+            GeometryReader { geo in
+                let w = geo.size.width
+                ZStack {
+                    // 微倾的白色认知卡
+                    RoundedRectangle(cornerRadius: w * 0.14, style: .continuous)
+                        .fill(LinearGradient(colors: [.white, tint.opacity(0.30)],
+                                             startPoint: .top, endPoint: .bottom))
+                        .frame(width: w * 0.80, height: w * 0.80)
+                        .rotationEffect(.degrees(-5))
+                        .shadow(color: deep.opacity(0.20), radius: w * 0.05, y: w * 0.035)
+
+                    Text(symbol)
+                        .font(.system(size: symbol.count > 1 ? w * 0.28 : w * 0.44,
+                                      weight: .semibold, design: .rounded))
+                        .minimumScaleFactor(0.6)
+                        .foregroundStyle(
+                            LinearGradient(colors: [deep, deep.opacity(0.78)],
+                                           startPoint: .topLeading, endPoint: .bottomTrailing)
+                        )
+                        .rotationEffect(.degrees(-5))
+                }
+                .frame(width: geo.size.width, height: geo.size.height)
+            }
+        }
+    }
+}
+
+// MARK: - 数字单值图标（按实际数字绘制，避免「7 显示成 123」之类错配）
+
+/// 与 LearningTopicIcon 同视觉系统，但绘制「具体某个数字」而非分类通用示例 "123"。
+/// 用于探索页单条数字发现卡。
+struct NumberSymbolIcon: View {
+    let number: Int
+    var size: CGFloat = 56
+
+    /// 容器染色的柔和主题色（与 LearningTopicIcon 的 数字 一致）
+    private var tint: Color { Theme.fruit }
+    /// 卡片文字的 Soft 3D 深色
+    private var deep: Color { Theme.fruit }
+
+    var body: some View {
+        SoftIconContainer(tint: tint, size: size) {
+            GeometryReader { geo in
+                let w = geo.size.width
+                ZStack {
+                    // 微倾的白色认知卡
+                    RoundedRectangle(cornerRadius: w * 0.14, style: .continuous)
+                        .fill(LinearGradient(colors: [.white, tint.opacity(0.30)],
+                                             startPoint: .top, endPoint: .bottom))
+                        .frame(width: w * 0.80, height: w * 0.80)
+                        .rotationEffect(.degrees(-5))
+                        .shadow(color: deep.opacity(0.20), radius: w * 0.05, y: w * 0.035)
+
+                    Text("\(number)")
+                        .font(.system(size: w * 0.44, weight: .semibold, design: .rounded))
+                        .minimumScaleFactor(0.7)
+                        .foregroundStyle(
+                            LinearGradient(colors: [deep, deep.opacity(0.78)],
+                                           startPoint: .topLeading, endPoint: .bottomTrailing)
+                        )
+                        .rotationEffect(.degrees(-5))
+                }
+                .frame(width: geo.size.width, height: geo.size.height)
+            }
+        }
+    }
+}

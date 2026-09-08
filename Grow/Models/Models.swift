@@ -85,6 +85,35 @@ struct NatureItem: Codable, Identifiable, Equatable {
         case sizeGameSupported = "size_game_supported"
         case gameTags = "game_tags"
     }
+
+    // MARK: 容错解码（§十九：无法明确判断的属性一律 nil，单条脏数据不拖垮整文件）
+    //
+    // 关键点：color/shape/size 是枚举，若 JSON 写了非法原始值（如 "brown"/"round"），
+    // 合成的可选解码会向下抛出，导致整条 NatureItem 解码失败 → 整份 nature.json 解码失败 → 全模块清空。
+    // 这里用 .from(_:) 容错助手（未知值返回 nil、round→circle），保证单条脏数据不会污染整文件。
+    init(from decoder: Decoder) throws {
+        let c = try decoder.container(keyedBy: CodingKeys.self)
+        id = try c.decode(String.self, forKey: .id)
+        category = try c.decode(NatureCategory.self, forKey: .category)
+        nameZh = try c.decode(String.self, forKey: .nameZh)
+        nameEn = try c.decode(String.self, forKey: .nameEn)
+        descriptionShort = try c.decode(String.self, forKey: .descriptionShort)
+        descriptionLong = try c.decode(String.self, forKey: .descriptionLong)
+        illustration = try c.decode(String.self, forKey: .illustration)
+        sortOrder = try c.decode(Int.self, forKey: .sortOrder)
+        mandarinAudio = try c.decodeIfPresent(String.self, forKey: .mandarinAudio)
+        cantoneseAudio = try c.decodeIfPresent(String.self, forKey: .cantoneseAudio)
+        englishAudio = try c.decodeIfPresent(String.self, forKey: .englishAudio)
+        ageLevelRaw = try c.decodeIfPresent(String.self, forKey: .ageLevelRaw)
+        relatedIDs = try c.decodeIfPresent([String].self, forKey: .relatedIDs)
+        color = ColorDefinition.from(try c.decodeIfPresent(String.self, forKey: .color))
+        shape = ShapeDefinition.from(try c.decodeIfPresent(String.self, forKey: .shape))
+        size = SizeDefinition.from(try c.decodeIfPresent(String.self, forKey: .size))
+        countingAvailable = try c.decodeIfPresent(Bool.self, forKey: .countingAvailable)
+        countingRange = try c.decodeIfPresent([Int].self, forKey: .countingRange)
+        sizeGameSupported = try c.decodeIfPresent(Bool.self, forKey: .sizeGameSupported)
+        gameTags = try c.decodeIfPresent([String].self, forKey: .gameTags)
+    }
 }
 
 // MARK: - 认知属性便捷读取

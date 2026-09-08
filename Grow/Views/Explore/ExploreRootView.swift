@@ -170,10 +170,10 @@ struct ExploreRootView: View {
                 .frame(width: size, height: size)
                 .clipShape(RoundedRectangle(cornerRadius: size * 0.26, style: .continuous))
                 .shadow(color: .black.opacity(0.08), radius: 10, y: 5)
-        case .number:
-            LearningTopicIcon(topic: .numbers, size: size)
+        case .number(let item):
+            NumberSymbolIcon(number: item.number, size: size)
         case .pinyin(let item):
-            LearningTopicIcon(topic: item.type == .final ? .final : .initial, size: size)
+            PinyinSymbolIcon(symbol: item.symbol, type: item.type, size: size)
         case .game:
             GameModuleIcon(module: .puzzle, size: size)
         }

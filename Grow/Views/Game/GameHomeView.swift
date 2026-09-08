@@ -279,48 +279,56 @@ struct GameLevelPickerView: View {
             case .level1: return "2 组卡片"
             case .level2: return "3 组卡片"
             case .level3: return "3 组 · 长得更像"
+            case .level4: return "4 组 · 长得更像"
             }
         case .findSame:
             switch level {
             case .level1: return "2 个选项"
             case .level2: return "3 个选项"
             case .level3: return "4 个选项 · 长得更像"
+            case .level4: return "5 个选项 · 长得更像"
             }
         case .sorting:
             switch level {
             case .level1: return "每类 1 件"
             case .level2: return "每类 2 件"
             case .level3: return "每类 3 件"
+            case .level4: return "每类 4 件"
             }
         case .color:
             switch level {
             case .level1: return "2 个里找"
             case .level2: return "3 个里找"
             case .level3: return "4 个里找"
+            case .level4: return "5 个里找"
             }
         case .shape:
             switch level {
             case .level1: return "2 个里找"
             case .level2: return "3 个里找"
             case .level3: return "4 个里找"
+            case .level4: return "5 个里找"
             }
         case .ordering:
             switch level {
             case .level1: return "3 个物体"
             case .level2: return "2 轮练习"
             case .level3: return "3 轮练习"
+            case .level4: return "4 轮练习"
             }
         case .counting:
             switch level {
             case .level1: return "数 1–3"
             case .level2: return "数 1–3"
             case .level3: return "数 1–3"
+            case .level4: return "数 1–5"
             }
         case .spotDifference:
             switch level {
             case .level1: return "4 个里找不同"
             case .level2: return "5 个里找不同"
             case .level3: return "6 个里找不同"
+            case .level4: return "7 个里找不同"
             }
         default:
             return ""

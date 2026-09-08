@@ -149,6 +149,56 @@
       "piece_count": 16,
       "source_nature_item_id": "plant_sunflower",
       "sort_order": 4
+    },
+    {
+      "id": "puzzle_apple_25",
+      "title": "苹果",
+      "category": "水果",
+      "image": "img:fruit_apple",
+      "difficulty": "expert",
+      "piece_count": 25,
+      "source_nature_item_id": "fruit_apple",
+      "sort_order": 1
+    },
+    {
+      "id": "puzzle_panda_25",
+      "title": "熊猫",
+      "category": "动物",
+      "image": "img:animal_panda",
+      "difficulty": "expert",
+      "piece_count": 25,
+      "source_nature_item_id": "animal_panda",
+      "sort_order": 2
+    },
+    {
+      "id": "puzzle_tiger_25",
+      "title": "老虎",
+      "category": "动物",
+      "image": "img:animal_tiger",
+      "difficulty": "expert",
+      "piece_count": 25,
+      "source_nature_item_id": "animal_tiger",
+      "sort_order": 3
+    },
+    {
+      "id": "puzzle_sunflower_25",
+      "title": "向日葵",
+      "category": "植物",
+      "image": "img:plant_sunflower",
+      "difficulty": "expert",
+      "piece_count": 25,
+      "source_nature_item_id": "plant_sunflower",
+      "sort_order": 4
+    },
+    {
+      "id": "puzzle_dolphin_25",
+      "title": "海豚",
+      "category": "动物",
+      "image": "img:animal_dolphin",
+      "difficulty": "expert",
+      "piece_count": 25,
+      "source_nature_item_id": "animal_dolphin",
+      "sort_order": 5
     }
   ]
 }

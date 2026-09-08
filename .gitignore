@@ -18,3 +18,6 @@ xcuserdata/
 Grow.xcodeproj/XX*
 Grow.xcodeproj/XX*
 Vendor/
+
+# WorkBuddy project data (local-only, not for repo)
+.workbuddy/

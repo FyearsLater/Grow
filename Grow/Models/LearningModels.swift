@@ -117,6 +117,7 @@ enum PuzzleDifficulty: String, Codable, CaseIterable, Identifiable {
     case easy
     case medium
     case hard
+    case expert
 
     var id: String { rawValue }
 
@@ -126,6 +127,7 @@ enum PuzzleDifficulty: String, Codable, CaseIterable, Identifiable {
         case .easy: return 2
         case .medium: return 3
         case .hard: return 4
+        case .expert: return 5
         }
     }
 
@@ -136,6 +138,7 @@ enum PuzzleDifficulty: String, Codable, CaseIterable, Identifiable {
         case .easy: return "入门"
         case .medium: return "进阶"
         case .hard: return "挑战"
+        case .expert: return "大师"
         }
     }
 
@@ -144,6 +147,7 @@ enum PuzzleDifficulty: String, Codable, CaseIterable, Identifiable {
         case .easy: return "🌱"
         case .medium: return "🌿"
         case .hard: return "🌳"
+        case .expert: return "🏆"
         }
     }
 
@@ -153,15 +157,17 @@ enum PuzzleDifficulty: String, Codable, CaseIterable, Identifiable {
         case .easy: return nil
         case .medium: return .easy
         case .hard: return .medium
+        case .expert: return .hard
         }
     }
 
-    /// 游戏中心统一难度口径（4/9/16 片 → L1/L2/L3，仅用于展示与游戏结果记录）
+    /// 游戏中心统一难度口径（4/9/16/25 片 → L1/L2/L3/L4，仅用于展示与游戏结果记录）
     var gameLevel: GameDifficultyLevel {
         switch self {
         case .easy: return .level1
         case .medium: return .level2
         case .hard: return .level3
+        case .expert: return .level4
         }
     }
 }

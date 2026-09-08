@@ -125,6 +125,7 @@ struct PuzzleHomeView: View {
         case .easy:   return [Theme.vegetable.opacity(0.85), Theme.vegetable.opacity(0.55)]
         case .medium: return [Theme.animal.opacity(0.85), Theme.animal.opacity(0.55)]
         case .hard:   return [Theme.plant.opacity(0.85), Theme.plant.opacity(0.55)]
+        case .expert: return [Theme.fruit.opacity(0.85), Theme.fruit.opacity(0.55)]
         }
     }
 
@@ -134,6 +135,7 @@ struct PuzzleHomeView: View {
         case .easy:   return Theme.deepGreen
         case .medium: return Theme.deepBlue
         case .hard:   return Theme.deepLilac
+        case .expert: return Theme.deepTeal
         }
     }
 }

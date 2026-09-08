@@ -39,6 +39,7 @@ enum GameDifficultyLevel: Int, Codable, CaseIterable, Identifiable {
     case level1 = 1
     case level2 = 2
     case level3 = 3
+    case level4 = 4
 
     var id: Int { rawValue }
 
@@ -47,6 +48,7 @@ enum GameDifficultyLevel: Int, Codable, CaseIterable, Identifiable {
         case .level1: return "入门"
         case .level2: return "进阶"
         case .level3: return "挑战"
+        case .level4: return "大师"
         }
     }
 
@@ -55,7 +57,8 @@ enum GameDifficultyLevel: Int, Codable, CaseIterable, Identifiable {
         switch self {
         case .level1: return 2...2
         case .level2: return 3...4
-        case .level3: return 4...6
+        case .level3: return 4...5
+        case .level4: return 5...6
         }
     }
 }

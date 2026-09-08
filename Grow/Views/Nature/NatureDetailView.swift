@@ -113,24 +113,25 @@ struct NatureDetailView: View {
         .growCard(fill: .white.opacity(0.7))
     }
 
-    // MARK: - 玩一玩（拼一拼 / 找相同 / 找朋友，从详情页直接 push 进游戏）
+    // MARK: - 玩一玩（按内容属性动态生成，§七：不支持的游戏不显示）
 
     private var playSection: some View {
-        VStack(alignment: .leading, spacing: 12) {
+        let supported = GameContentResolver.shared.supportedGames(for: item)
+        return VStack(alignment: .leading, spacing: 12) {
             Text("玩一玩")
                 .font(.system(size: Theme.scaled(16, settings: settings), weight: .bold, design: .rounded))
                 .foregroundStyle(Theme.ink)
 
-            let columns = Array(repeating: GridItem(.flexible(), spacing: 12), count: 3)
-            LazyVGrid(columns: columns, spacing: 12) {
-                playLink(GameModule.puzzle, title: "拼一拼") {
-                    PuzzleHomeView()
-                }
-                playLink(GameModule.findSame, title: "找相同") {
-                    FindSameGameView(level: gameLevel, focus: item.id)
-                }
-                playLink(GameModule.matching, title: "找朋友") {
-                    MatchingGameView(level: gameLevel, focus: item.id)
+            if supported.isEmpty {
+                Text("这个内容暂时还没有关联的小游戏")
+                    .font(.system(size: Theme.scaled(13, settings: settings), weight: .medium))
+                    .foregroundStyle(Theme.inkSoft)
+            } else {
+                let columns = Array(repeating: GridItem(.flexible(), spacing: 12), count: 3)
+                LazyVGrid(columns: columns, spacing: 12) {
+                    ForEach(supported, id: \.self) { type in
+                        playLink(type)
+                    }
                 }
             }
         }
@@ -139,11 +140,13 @@ struct NatureDetailView: View {
         .growCard(fill: .white.opacity(0.7))
     }
 
-    private func playLink<Destination: View>(_ module: GameModule, title: String, @ViewBuilder destination: () -> Destination) -> some View {
-        NavigationLink(destination: destination()) {
+    /// 单游戏入口：图标 + 名称，按类型动态路由到对应游戏页（focus 带入当前内容）
+    private func playLink(_ type: GameType) -> some View {
+        let module = GameModule.from(type)
+        return NavigationLink(destination: gameDestination(for: type)) {
             VStack(spacing: 6) {
                 GameModuleIcon(module: module, size: 32)
-                Text(title)
+                Text(playTitle(for: type))
                     .font(.system(size: Theme.scaled(15, settings: settings), weight: .semibold, design: .rounded))
                     .foregroundStyle(Theme.ink)
                     .lineLimit(1)
@@ -161,6 +164,35 @@ struct NatureDetailView: View {
             )
         }
         .buttonStyle(PressableButtonStyle(settings: settings))
-        .accessibilityHint("去玩\(title)")
+        .accessibilityHint("去玩\(playTitle(for: type))")
+    }
+
+    @ViewBuilder
+    private func gameDestination(for type: GameType) -> some View {
+        switch type {
+        case .puzzle:        PuzzleHomeView()
+        case .findSame:      FindSameGameView(level: gameLevel, focus: item.id)
+        case .matching:      MatchingGameView(level: gameLevel, focus: item.id)
+        case .sorting:       SortingGameView(level: gameLevel)
+        case .color:         ColorGameView(level: gameLevel, focus: item.id)
+        case .shape:         ShapeGameView(level: gameLevel, focus: item.id)
+        case .ordering:      SizeOrderingGameView(level: gameLevel, focus: item.id)
+        case .counting:      CountingGameView(level: gameLevel, focus: item.id)
+        case .spotDifference: SpotDifferenceGameView(level: gameLevel, focus: item.id)
+        }
+    }
+
+    private func playTitle(for type: GameType) -> String {
+        switch type {
+        case .puzzle:        return "拼一拼"
+        case .findSame:      return "找相同"
+        case .matching:      return "找朋友"
+        case .sorting:       return "分一分"
+        case .color:         return "找颜色"
+        case .shape:         return "找形状"
+        case .ordering:      return "排一排"
+        case .counting:      return "数一数"
+        case .spotDifference: return "找不同"
+        }
     }
 }

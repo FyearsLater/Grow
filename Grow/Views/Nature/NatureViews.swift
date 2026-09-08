@@ -72,8 +72,14 @@ struct NatureCardDeckView: View {
     let category: NatureCategory
 
     @State private var index = 0
+    /// SmartShuffle 本轮顺序（§一：进入分类时生成一轮全排列，同轮不重复）
+    @State private var orderedIDs: [String] = []
 
-    private var items: [NatureItem] { content.items(in: category) }
+    private var poolIDs: [String] { content.items(in: category).map(\.id) }
+    private var items: [NatureItem] {
+        let source = orderedIDs.isEmpty ? poolIDs : orderedIDs
+        return source.compactMap { id in content.natureItems.first { $0.id == id } }
+    }
 
     var body: some View {
         ZStack {
@@ -117,14 +123,20 @@ struct NatureCardDeckView: View {
         .navigationTitle(category.displayName)
         .navigationBarTitleDisplayMode(.inline)
         .onAppear {
+            // 结束上一轮 → 生成新一轮（SmartShuffle 内部做同轮不重复 + 避免连续重复 + 最近避重）
+            RandomizationService.shared.finishRound(poolKey: category.rawValue)
+            orderedIDs = RandomizationService.shared.categoryRandom(poolKey: category.rawValue, allIDs: poolIDs)
+            index = 0
             if let first = items.first {
-                library.recordNatureVisit(first.id)
+                library.recordNatureVisit(first.id)                 // 最近浏览：按访问时间排序（与随机池分离，§一.5）
+                RandomizationService.shared.markSeen(poolKey: category.rawValue, id: first.id)
             }
         }
         .onChange(of: index) { _, newValue in
-            // 记录当前实际看到的卡片
+            // 记录当前实际看到的卡片（最近浏览 + 随机池避重，两者独立）
             if items.indices.contains(newValue) {
                 library.recordNatureVisit(items[newValue].id)
+                RandomizationService.shared.markSeen(poolKey: category.rawValue, id: items[newValue].id)
             }
         }
     }

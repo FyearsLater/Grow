@@ -64,8 +64,9 @@ struct GameHomeView: View {
             case .sorting:
                 NavigationLink { GameLevelPickerView(type: .sorting) } label: { entryCard(def, module: module) }
                     .buttonStyle(PressableButtonStyle(settings: settings))
-            default:
-                entryCard(def, module: module).opacity(0.5)
+            case .color, .shape, .ordering, .counting, .spotDifference:
+                NavigationLink { GameLevelPickerView(type: def.type) } label: { entryCard(def, module: module) }
+                    .buttonStyle(PressableButtonStyle(settings: settings))
             }
         }
     }
@@ -189,9 +190,37 @@ struct GameLevelPickerView: View {
                     rowLabel(level, detail: detailText(level), recommended: recommended)
                 }
                 .buttonStyle(PressableButtonStyle(settings: settings))
-            default:
-                rowLabel(level, detail: detailText(level), recommended: recommended)
-                    .opacity(0.5)
+            case .color:
+                NavigationLink { ColorGameView(level: level.rawValue) } label: {
+                    rowLabel(level, detail: detailText(level), recommended: recommended)
+                }
+                .buttonStyle(PressableButtonStyle(settings: settings))
+            case .shape:
+                NavigationLink { ShapeGameView(level: level.rawValue) } label: {
+                    rowLabel(level, detail: detailText(level), recommended: recommended)
+                }
+                .buttonStyle(PressableButtonStyle(settings: settings))
+            case .ordering:
+                NavigationLink { SizeOrderingGameView(level: level.rawValue) } label: {
+                    rowLabel(level, detail: detailText(level), recommended: recommended)
+                }
+                .buttonStyle(PressableButtonStyle(settings: settings))
+            case .counting:
+                NavigationLink { CountingGameView(level: level.rawValue) } label: {
+                    rowLabel(level, detail: detailText(level), recommended: recommended)
+                }
+                .buttonStyle(PressableButtonStyle(settings: settings))
+            case .spotDifference:
+                NavigationLink { SpotDifferenceGameView(level: level.rawValue) } label: {
+                    rowLabel(level, detail: detailText(level), recommended: recommended)
+                }
+                .buttonStyle(PressableButtonStyle(settings: settings))
+            case .puzzle:
+                // 拼图沿用原有难度结构（PuzzleHomeView 内部选难度）
+                NavigationLink { PuzzleHomeView() } label: {
+                    rowLabel(level, detail: detailText(level), recommended: recommended)
+                }
+                .buttonStyle(PressableButtonStyle(settings: settings))
             }
         }
     }
@@ -262,6 +291,36 @@ struct GameLevelPickerView: View {
             case .level1: return "每类 1 件"
             case .level2: return "每类 2 件"
             case .level3: return "每类 3 件"
+            }
+        case .color:
+            switch level {
+            case .level1: return "2 个里找"
+            case .level2: return "3 个里找"
+            case .level3: return "4 个里找"
+            }
+        case .shape:
+            switch level {
+            case .level1: return "2 个里找"
+            case .level2: return "3 个里找"
+            case .level3: return "4 个里找"
+            }
+        case .ordering:
+            switch level {
+            case .level1: return "3 个物体"
+            case .level2: return "2 轮练习"
+            case .level3: return "3 轮练习"
+            }
+        case .counting:
+            switch level {
+            case .level1: return "数 1–3"
+            case .level2: return "数 1–3"
+            case .level3: return "数 1–3"
+            }
+        case .spotDifference:
+            switch level {
+            case .level1: return "4 个里找不同"
+            case .level2: return "5 个里找不同"
+            case .level3: return "6 个里找不同"
             }
         default:
             return ""

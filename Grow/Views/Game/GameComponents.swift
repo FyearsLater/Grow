@@ -108,6 +108,49 @@ struct GameShakeEffect: GeometryEffect {
     }
 }
 
+/// 错误轻晃修饰器（Phase 6.1 共享版）
+/// 说明：FindSameGameView 里的 ShakeOnError 是文件私有，这里提供跨游戏复用的同名能力。
+struct GameShakeOnError: ViewModifier {
+    let shakeToken: Int
+    let reduceMotion: Bool
+    @State private var progress: CGFloat = 0
+
+    func body(content: Content) -> some View {
+        if reduceMotion {
+            content
+        } else {
+            content
+                .modifier(GameShakeEffect(progress: progress))
+                .onChange(of: shakeToken) { _, _ in
+                    progress = 0
+                    withAnimation(.easeInOut(duration: 0.4)) { progress = 1 }
+                }
+        }
+    }
+}
+
+// MARK: - 数量展示（数一数复用：同一素材重复 N 次，不新增图片）
+
+/// 把同一自然内容重复展示 count 次（§二十二：不生成重复图片）
+struct RepeatedItemView: View {
+    let item: NatureItem
+    let count: Int
+    var maxWidth: CGFloat = 300
+
+    private let columns = [GridItem(.adaptive(minimum: 54), spacing: 8)]
+
+    var body: some View {
+        LazyVGrid(columns: columns, spacing: 8) {
+            ForEach(0..<max(0, count), id: \.self) { _ in
+                IllustrationView(identifier: item.illustration)
+                    .aspectRatio(1, contentMode: .fit)
+                    .frame(minHeight: 44)
+            }
+        }
+        .frame(maxWidth: maxWidth)
+    }
+}
+
 // MARK: - 完成覆盖层（四游戏共用：成品大图 + 名称三语发音 + 再玩/下一项/认识一下）
 
 struct GameCompleteOverlay: View {

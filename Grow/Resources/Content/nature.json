@@ -11,7 +11,11 @@
       "cantonese_audio": null,
       "english_audio": null,
       "illustration": "img:fruit_apple",
-      "sort_order": 1
+      "sort_order": 1,
+      "color": "red",
+      "shape": "circle",
+      "counting_available": true,
+      "size_game_supported": true
     },
     {
       "id": "fruit_banana",
@@ -24,7 +28,11 @@
       "cantonese_audio": null,
       "english_audio": null,
       "illustration": "img:fruit_banana",
-      "sort_order": 2
+      "sort_order": 2,
+      "color": "yellow",
+      "shape": "long",
+      "counting_available": true,
+      "size_game_supported": true
     },
     {
       "id": "fruit_orange",
@@ -37,7 +45,11 @@
       "cantonese_audio": null,
       "english_audio": null,
       "illustration": "img:fruit_orange",
-      "sort_order": 3
+      "sort_order": 3,
+      "color": "orange",
+      "shape": "circle",
+      "counting_available": true,
+      "size_game_supported": true
     },
     {
       "id": "fruit_strawberry",
@@ -50,7 +62,11 @@
       "cantonese_audio": null,
       "english_audio": null,
       "illustration": "img:fruit_strawberry",
-      "sort_order": 4
+      "sort_order": 4,
+      "color": "red",
+      "shape": "circle",
+      "counting_available": true,
+      "size_game_supported": true
     },
     {
       "id": "fruit_watermelon",
@@ -63,7 +79,11 @@
       "cantonese_audio": null,
       "english_audio": null,
       "illustration": "img:fruit_watermelon",
-      "sort_order": 5
+      "sort_order": 5,
+      "color": "green",
+      "shape": "circle",
+      "counting_available": true,
+      "size_game_supported": true
     },
     {
       "id": "fruit_grapes",
@@ -76,7 +96,11 @@
       "cantonese_audio": null,
       "english_audio": null,
       "illustration": "img:fruit_grapes",
-      "sort_order": 6
+      "sort_order": 6,
+      "color": "purple",
+      "shape": "circle",
+      "counting_available": true,
+      "size_game_supported": true
     },
     {
       "id": "fruit_peach",
@@ -89,7 +113,11 @@
       "cantonese_audio": null,
       "english_audio": null,
       "illustration": "img:fruit_peach",
-      "sort_order": 7
+      "sort_order": 7,
+      "color": "pink",
+      "shape": "circle",
+      "counting_available": true,
+      "size_game_supported": true
     },
     {
       "id": "fruit_pear",
@@ -102,7 +130,11 @@
       "cantonese_audio": null,
       "english_audio": null,
       "illustration": "img:fruit_pear",
-      "sort_order": 8
+      "sort_order": 8,
+      "color": "yellow",
+      "shape": "circle",
+      "counting_available": true,
+      "size_game_supported": true
     },
     {
       "id": "fruit_pineapple",
@@ -115,7 +147,11 @@
       "cantonese_audio": null,
       "english_audio": null,
       "illustration": "img:fruit_pineapple",
-      "sort_order": 9
+      "sort_order": 9,
+      "color": "yellow",
+      "shape": "long",
+      "counting_available": true,
+      "size_game_supported": true
     },
     {
       "id": "fruit_kiwi",
@@ -128,7 +164,11 @@
       "cantonese_audio": null,
       "english_audio": null,
       "illustration": "img:fruit_kiwi",
-      "sort_order": 10
+      "sort_order": 10,
+      "color": "green",
+      "shape": "circle",
+      "counting_available": true,
+      "size_game_supported": true
     },
     {
       "id": "fruit_mango",
@@ -141,7 +181,11 @@
       "cantonese_audio": null,
       "english_audio": null,
       "illustration": "img:fruit_mango",
-      "sort_order": 11
+      "sort_order": 11,
+      "color": "yellow",
+      "shape": "long",
+      "counting_available": true,
+      "size_game_supported": true
     },
     {
       "id": "fruit_cherry",
@@ -154,7 +198,11 @@
       "cantonese_audio": null,
       "english_audio": null,
       "illustration": "img:fruit_cherry",
-      "sort_order": 12
+      "sort_order": 12,
+      "color": "red",
+      "shape": "circle",
+      "counting_available": true,
+      "size_game_supported": true
     },
     {
       "id": "veg_cabbage",
@@ -167,7 +215,11 @@
       "cantonese_audio": null,
       "english_audio": null,
       "illustration": "img:veg_cabbage",
-      "sort_order": 13
+      "sort_order": 13,
+      "color": "green",
+      "shape": "circle",
+      "counting_available": true,
+      "size_game_supported": true
     },
     {
       "id": "veg_carrot",
@@ -180,7 +232,11 @@
       "cantonese_audio": null,
       "english_audio": null,
       "illustration": "img:veg_carrot",
-      "sort_order": 14
+      "sort_order": 14,
+      "color": "orange",
+      "shape": "long",
+      "counting_available": true,
+      "size_game_supported": true
     },
     {
       "id": "veg_tomato",
@@ -193,7 +249,11 @@
       "cantonese_audio": null,
       "english_audio": null,
       "illustration": "img:veg_tomato",
-      "sort_order": 15
+      "sort_order": 15,
+      "color": "red",
+      "shape": "circle",
+      "counting_available": true,
+      "size_game_supported": true
     },
     {
       "id": "veg_cucumber",
@@ -206,7 +266,11 @@
       "cantonese_audio": null,
       "english_audio": null,
       "illustration": "img:veg_cucumber",
-      "sort_order": 16
+      "sort_order": 16,
+      "color": "green",
+      "shape": "long",
+      "counting_available": true,
+      "size_game_supported": true
     },
     {
       "id": "veg_potato",
@@ -219,7 +283,10 @@
       "cantonese_audio": null,
       "english_audio": null,
       "illustration": "img:veg_potato",
-      "sort_order": 17
+      "sort_order": 17,
+      "shape": "circle",
+      "counting_available": true,
+      "size_game_supported": true
     },
     {
       "id": "veg_corn",
@@ -232,7 +299,11 @@
       "cantonese_audio": null,
       "english_audio": null,
       "illustration": "img:veg_corn",
-      "sort_order": 18
+      "sort_order": 18,
+      "color": "yellow",
+      "shape": "long",
+      "counting_available": true,
+      "size_game_supported": true
     },
     {
       "id": "veg_pumpkin",
@@ -245,7 +316,11 @@
       "cantonese_audio": null,
       "english_audio": null,
       "illustration": "img:veg_pumpkin",
-      "sort_order": 19
+      "sort_order": 19,
+      "color": "orange",
+      "shape": "circle",
+      "counting_available": true,
+      "size_game_supported": true
     },
     {
       "id": "veg_eggplant",
@@ -258,7 +333,11 @@
       "cantonese_audio": null,
       "english_audio": null,
       "illustration": "img:veg_eggplant",
-      "sort_order": 20
+      "sort_order": 20,
+      "color": "purple",
+      "shape": "long",
+      "counting_available": true,
+      "size_game_supported": true
     },
     {
       "id": "veg_spinach",
@@ -271,7 +350,10 @@
       "cantonese_audio": null,
       "english_audio": null,
       "illustration": "img:veg_spinach",
-      "sort_order": 21
+      "sort_order": 21,
+      "color": "green",
+      "counting_available": true,
+      "size_game_supported": true
     },
     {
       "id": "veg_broccoli",
@@ -284,7 +366,10 @@
       "cantonese_audio": null,
       "english_audio": null,
       "illustration": "img:veg_broccoli",
-      "sort_order": 22
+      "sort_order": 22,
+      "color": "green",
+      "counting_available": true,
+      "size_game_supported": true
     },
     {
       "id": "veg_peas",
@@ -297,7 +382,11 @@
       "cantonese_audio": null,
       "english_audio": null,
       "illustration": "img:veg_peas",
-      "sort_order": 23
+      "sort_order": 23,
+      "color": "green",
+      "shape": "circle",
+      "counting_available": true,
+      "size_game_supported": true
     },
     {
       "id": "veg_onion",
@@ -310,7 +399,11 @@
       "cantonese_audio": null,
       "english_audio": null,
       "illustration": "img:veg_onion",
-      "sort_order": 24
+      "sort_order": 24,
+      "color": "purple",
+      "shape": "circle",
+      "counting_available": true,
+      "size_game_supported": true
     },
     {
       "id": "animal_cat",
@@ -323,7 +416,9 @@
       "cantonese_audio": null,
       "english_audio": null,
       "illustration": "img:animal_cat",
-      "sort_order": 25
+      "sort_order": 25,
+      "counting_available": true,
+      "size_game_supported": true
     },
     {
       "id": "animal_dog",
@@ -336,7 +431,9 @@
       "cantonese_audio": null,
       "english_audio": null,
       "illustration": "img:animal_dog",
-      "sort_order": 26
+      "sort_order": 26,
+      "counting_available": true,
+      "size_game_supported": true
     },
     {
       "id": "animal_rabbit",
@@ -349,7 +446,9 @@
       "cantonese_audio": null,
       "english_audio": null,
       "illustration": "img:animal_rabbit",
-      "sort_order": 27
+      "sort_order": 27,
+      "counting_available": true,
+      "size_game_supported": true
     },
     {
       "id": "animal_panda",
@@ -362,7 +461,9 @@
       "cantonese_audio": null,
       "english_audio": null,
       "illustration": "img:animal_panda",
-      "sort_order": 28
+      "sort_order": 28,
+      "counting_available": true,
+      "size_game_supported": true
     },
     {
       "id": "animal_tiger",
@@ -375,7 +476,9 @@
       "cantonese_audio": null,
       "english_audio": null,
       "illustration": "img:animal_tiger",
-      "sort_order": 29
+      "sort_order": 29,
+      "counting_available": true,
+      "size_game_supported": true
     },
     {
       "id": "animal_lion",
@@ -388,7 +491,9 @@
       "cantonese_audio": null,
       "english_audio": null,
       "illustration": "img:animal_lion",
-      "sort_order": 30
+      "sort_order": 30,
+      "counting_available": true,
+      "size_game_supported": true
     },
     {
       "id": "animal_elephant",
@@ -401,7 +506,9 @@
       "cantonese_audio": null,
       "english_audio": null,
       "illustration": "img:animal_elephant",
-      "sort_order": 31
+      "sort_order": 31,
+      "counting_available": true,
+      "size_game_supported": true
     },
     {
       "id": "animal_giraffe",
@@ -414,7 +521,9 @@
       "cantonese_audio": null,
       "english_audio": null,
       "illustration": "img:animal_giraffe",
-      "sort_order": 32
+      "sort_order": 32,
+      "counting_available": true,
+      "size_game_supported": true
     },
     {
       "id": "animal_zebra",
@@ -427,7 +536,9 @@
       "cantonese_audio": null,
       "english_audio": null,
       "illustration": "img:animal_zebra",
-      "sort_order": 33
+      "sort_order": 33,
+      "counting_available": true,
+      "size_game_supported": true
     },
     {
       "id": "animal_monkey",
@@ -440,7 +551,9 @@
       "cantonese_audio": null,
       "english_audio": null,
       "illustration": "img:animal_monkey",
-      "sort_order": 34
+      "sort_order": 34,
+      "counting_available": true,
+      "size_game_supported": true
     },
     {
       "id": "animal_bear",
@@ -453,7 +566,9 @@
       "cantonese_audio": null,
       "english_audio": null,
       "illustration": "img:animal_bear",
-      "sort_order": 35
+      "sort_order": 35,
+      "counting_available": true,
+      "size_game_supported": true
     },
     {
       "id": "animal_wolf",
@@ -466,7 +581,9 @@
       "cantonese_audio": null,
       "english_audio": null,
       "illustration": "img:animal_wolf",
-      "sort_order": 36
+      "sort_order": 36,
+      "counting_available": true,
+      "size_game_supported": true
     },
     {
       "id": "animal_dolphin",
@@ -479,7 +596,9 @@
       "cantonese_audio": null,
       "english_audio": null,
       "illustration": "img:animal_dolphin",
-      "sort_order": 37
+      "sort_order": 37,
+      "counting_available": true,
+      "size_game_supported": true
     },
     {
       "id": "animal_whale",
@@ -492,7 +611,9 @@
       "cantonese_audio": null,
       "english_audio": null,
       "illustration": "img:animal_whale",
-      "sort_order": 38
+      "sort_order": 38,
+      "counting_available": true,
+      "size_game_supported": true
     },
     {
       "id": "animal_shark",
@@ -505,7 +626,9 @@
       "cantonese_audio": null,
       "english_audio": null,
       "illustration": "img:animal_shark",
-      "sort_order": 39
+      "sort_order": 39,
+      "counting_available": true,
+      "size_game_supported": true
     },
     {
       "id": "animal_penguin",
@@ -518,7 +641,9 @@
       "cantonese_audio": null,
       "english_audio": null,
       "illustration": "img:animal_penguin",
-      "sort_order": 40
+      "sort_order": 40,
+      "counting_available": true,
+      "size_game_supported": true
     },
     {
       "id": "plant_sunflower",
@@ -531,7 +656,10 @@
       "cantonese_audio": null,
       "english_audio": null,
       "illustration": "img:plant_sunflower",
-      "sort_order": 41
+      "sort_order": 41,
+      "color": "yellow",
+      "counting_available": true,
+      "size_game_supported": true
     },
     {
       "id": "plant_rose",
@@ -544,7 +672,10 @@
       "cantonese_audio": null,
       "english_audio": null,
       "illustration": "img:plant_rose",
-      "sort_order": 42
+      "sort_order": 42,
+      "color": "red",
+      "counting_available": true,
+      "size_game_supported": true
     },
     {
       "id": "plant_lotus",
@@ -557,7 +688,10 @@
       "cantonese_audio": null,
       "english_audio": null,
       "illustration": "img:plant_lotus",
-      "sort_order": 43
+      "sort_order": 43,
+      "color": "pink",
+      "counting_available": true,
+      "size_game_supported": true
     },
     {
       "id": "plant_cherryblossom",
@@ -570,7 +704,10 @@
       "cantonese_audio": null,
       "english_audio": null,
       "illustration": "img:plant_cherryblossom",
-      "sort_order": 44
+      "sort_order": 44,
+      "color": "pink",
+      "counting_available": true,
+      "size_game_supported": true
     },
     {
       "id": "plant_bamboo",
@@ -583,7 +720,10 @@
       "cantonese_audio": null,
       "english_audio": null,
       "illustration": "img:plant_bamboo",
-      "sort_order": 45
+      "sort_order": 45,
+      "color": "green",
+      "counting_available": true,
+      "size_game_supported": true
     },
     {
       "id": "plant_pine",
@@ -596,7 +736,10 @@
       "cantonese_audio": null,
       "english_audio": null,
       "illustration": "img:plant_pine",
-      "sort_order": 46
+      "sort_order": 46,
+      "color": "green",
+      "counting_available": true,
+      "size_game_supported": true
     },
     {
       "id": "plant_ginkgo",
@@ -609,7 +752,10 @@
       "cantonese_audio": null,
       "english_audio": null,
       "illustration": "img:plant_ginkgo",
-      "sort_order": 47
+      "sort_order": 47,
+      "color": "yellow",
+      "counting_available": true,
+      "size_game_supported": true
     },
     {
       "id": "plant_lavender",
@@ -622,7 +768,10 @@
       "cantonese_audio": null,
       "english_audio": null,
       "illustration": "img:plant_lavender",
-      "sort_order": 48
+      "sort_order": 48,
+      "color": "purple",
+      "counting_available": true,
+      "size_game_supported": true
     },
     {
       "id": "plant_dandelion",
@@ -635,7 +784,10 @@
       "cantonese_audio": null,
       "english_audio": null,
       "illustration": "img:plant_dandelion",
-      "sort_order": 49
+      "sort_order": 49,
+      "color": "yellow",
+      "counting_available": true,
+      "size_game_supported": true
     },
     {
       "id": "plant_cactus",
@@ -648,7 +800,10 @@
       "cantonese_audio": null,
       "english_audio": null,
       "illustration": "img:plant_cactus",
-      "sort_order": 50
+      "sort_order": 50,
+      "color": "green",
+      "counting_available": true,
+      "size_game_supported": true
     },
     {
       "id": "plant_oak",
@@ -661,7 +816,10 @@
       "cantonese_audio": null,
       "english_audio": null,
       "illustration": "img:plant_oak",
-      "sort_order": 51
+      "sort_order": 51,
+      "color": "green",
+      "counting_available": true,
+      "size_game_supported": true
     },
     {
       "id": "plant_willow",
@@ -674,7 +832,10 @@
       "cantonese_audio": null,
       "english_audio": null,
       "illustration": "img:plant_willow",
-      "sort_order": 52
+      "sort_order": 52,
+      "color": "green",
+      "counting_available": true,
+      "size_game_supported": true
     },
     {
       "id": "fruit_coconut",
@@ -687,7 +848,10 @@
       "mandarin_audio": null,
       "cantonese_audio": null,
       "english_audio": null,
-      "sort_order": 53
+      "sort_order": 53,
+      "shape": "circle",
+      "counting_available": true,
+      "size_game_supported": true
     },
     {
       "id": "fruit_dragonfruit",
@@ -700,7 +864,11 @@
       "mandarin_audio": null,
       "cantonese_audio": null,
       "english_audio": null,
-      "sort_order": 54
+      "sort_order": 54,
+      "color": "pink",
+      "shape": "oval",
+      "counting_available": true,
+      "size_game_supported": true
     },
     {
       "id": "fruit_honeydew",
@@ -713,7 +881,11 @@
       "mandarin_audio": null,
       "cantonese_audio": null,
       "english_audio": null,
-      "sort_order": 55
+      "sort_order": 55,
+      "color": "green",
+      "shape": "circle",
+      "counting_available": true,
+      "size_game_supported": true
     },
     {
       "id": "fruit_mangosteen",
@@ -726,7 +898,11 @@
       "mandarin_audio": null,
       "cantonese_audio": null,
       "english_audio": null,
-      "sort_order": 56
+      "sort_order": 56,
+      "color": "purple",
+      "shape": "circle",
+      "counting_available": true,
+      "size_game_supported": true
     },
     {
       "id": "fruit_pomegranate",
@@ -739,7 +915,11 @@
       "mandarin_audio": null,
       "cantonese_audio": null,
       "english_audio": null,
-      "sort_order": 57
+      "sort_order": 57,
+      "color": "red",
+      "shape": "circle",
+      "counting_available": true,
+      "size_game_supported": true
     },
     {
       "id": "fruit_lychee",
@@ -752,7 +932,11 @@
       "mandarin_audio": null,
       "cantonese_audio": null,
       "english_audio": null,
-      "sort_order": 58
+      "sort_order": 58,
+      "color": "red",
+      "shape": "circle",
+      "counting_available": true,
+      "size_game_supported": true
     },
     {
       "id": "veg_pepper",
@@ -765,7 +949,10 @@
       "mandarin_audio": null,
       "cantonese_audio": null,
       "english_audio": null,
-      "sort_order": 59
+      "sort_order": 59,
+      "shape": "long",
+      "counting_available": true,
+      "size_game_supported": true
     },
     {
       "id": "veg_garlic",
@@ -778,7 +965,11 @@
       "mandarin_audio": null,
       "cantonese_audio": null,
       "english_audio": null,
-      "sort_order": 60
+      "sort_order": 60,
+      "color": "white",
+      "shape": "circle",
+      "counting_available": true,
+      "size_game_supported": true
     },
     {
       "id": "veg_ginger",
@@ -791,7 +982,9 @@
       "mandarin_audio": null,
       "cantonese_audio": null,
       "english_audio": null,
-      "sort_order": 61
+      "sort_order": 61,
+      "counting_available": true,
+      "size_game_supported": true
     },
     {
       "id": "veg_scallion",
@@ -804,7 +997,9 @@
       "mandarin_audio": null,
       "cantonese_audio": null,
       "english_audio": null,
-      "sort_order": 62
+      "sort_order": 62,
+      "counting_available": true,
+      "size_game_supported": true
     },
     {
       "id": "veg_mushroom",
@@ -817,7 +1012,9 @@
       "mandarin_audio": null,
       "cantonese_audio": null,
       "english_audio": null,
-      "sort_order": 63
+      "sort_order": 63,
+      "counting_available": true,
+      "size_game_supported": true
     },
     {
       "id": "veg_lotusroot",
@@ -830,7 +1027,11 @@
       "mandarin_audio": null,
       "cantonese_audio": null,
       "english_audio": null,
-      "sort_order": 64
+      "sort_order": 64,
+      "color": "white",
+      "shape": "circle",
+      "counting_available": true,
+      "size_game_supported": true
     },
     {
       "id": "animal_chicken",
@@ -843,7 +1044,9 @@
       "mandarin_audio": null,
       "cantonese_audio": null,
       "english_audio": null,
-      "sort_order": 65
+      "sort_order": 65,
+      "counting_available": true,
+      "size_game_supported": true
     },
     {
       "id": "animal_duck",
@@ -856,7 +1059,9 @@
       "mandarin_audio": null,
       "cantonese_audio": null,
       "english_audio": null,
-      "sort_order": 66
+      "sort_order": 66,
+      "counting_available": true,
+      "size_game_supported": true
     },
     {
       "id": "animal_goose",
@@ -869,7 +1074,10 @@
       "mandarin_audio": null,
       "cantonese_audio": null,
       "english_audio": null,
-      "sort_order": 67
+      "sort_order": 67,
+      "color": "white",
+      "counting_available": true,
+      "size_game_supported": true
     },
     {
       "id": "animal_fish",
@@ -882,7 +1090,9 @@
       "mandarin_audio": null,
       "cantonese_audio": null,
       "english_audio": null,
-      "sort_order": 68
+      "sort_order": 68,
+      "counting_available": true,
+      "size_game_supported": true
     },
     {
       "id": "animal_butterfly",
@@ -895,7 +1105,9 @@
       "mandarin_audio": null,
       "cantonese_audio": null,
       "english_audio": null,
-      "sort_order": 69
+      "sort_order": 69,
+      "counting_available": true,
+      "size_game_supported": true
     },
     {
       "id": "animal_bee",
@@ -908,7 +1120,10 @@
       "mandarin_audio": null,
       "cantonese_audio": null,
       "english_audio": null,
-      "sort_order": 70
+      "sort_order": 70,
+      "color": "yellow",
+      "counting_available": true,
+      "size_game_supported": true
     },
     {
       "id": "animal_dragonfly",
@@ -921,7 +1136,9 @@
       "mandarin_audio": null,
       "cantonese_audio": null,
       "english_audio": null,
-      "sort_order": 71
+      "sort_order": 71,
+      "counting_available": true,
+      "size_game_supported": true
     },
     {
       "id": "animal_ant",
@@ -934,7 +1151,9 @@
       "mandarin_audio": null,
       "cantonese_audio": null,
       "english_audio": null,
-      "sort_order": 72
+      "sort_order": 72,
+      "counting_available": true,
+      "size_game_supported": true
     },
     {
       "id": "plant_plumblossom",
@@ -947,7 +1166,10 @@
       "mandarin_audio": null,
       "cantonese_audio": null,
       "english_audio": null,
-      "sort_order": 73
+      "sort_order": 73,
+      "color": "pink",
+      "counting_available": true,
+      "size_game_supported": true
     },
     {
       "id": "plant_chrysanthemum",
@@ -960,7 +1182,10 @@
       "mandarin_audio": null,
       "cantonese_audio": null,
       "english_audio": null,
-      "sort_order": 74
+      "sort_order": 74,
+      "color": "yellow",
+      "counting_available": true,
+      "size_game_supported": true
     },
     {
       "id": "plant_orchid",
@@ -973,7 +1198,10 @@
       "mandarin_audio": null,
       "cantonese_audio": null,
       "english_audio": null,
-      "sort_order": 75
+      "sort_order": 75,
+      "color": "purple",
+      "counting_available": true,
+      "size_game_supported": true
     },
     {
       "id": "plant_jasmine",
@@ -986,7 +1214,10 @@
       "mandarin_audio": null,
       "cantonese_audio": null,
       "english_audio": null,
-      "sort_order": 76
+      "sort_order": 76,
+      "color": "white",
+      "counting_available": true,
+      "size_game_supported": true
     },
     {
       "id": "plant_osmanthus",
@@ -999,7 +1230,10 @@
       "mandarin_audio": null,
       "cantonese_audio": null,
       "english_audio": null,
-      "sort_order": 77
+      "sort_order": 77,
+      "color": "yellow",
+      "counting_available": true,
+      "size_game_supported": true
     },
     {
       "id": "plant_peachblossom",
@@ -1012,7 +1246,10 @@
       "mandarin_audio": null,
       "cantonese_audio": null,
       "english_audio": null,
-      "sort_order": 78
+      "sort_order": 78,
+      "color": "pink",
+      "counting_available": true,
+      "size_game_supported": true
     }
   ]
 }

@@ -8,13 +8,25 @@ enum GameType: String, Codable, CaseIterable {
     case matching                                       // 配对（详情页入口叫「找朋友」）
     case findSame                                       // 找相同
     case sorting                                        // 分类
-    case color, shape, ordering, spotDifference         // 占位（本期不上）
+    case color, shape, ordering, counting, spotDifference  // Phase 6.1 新增 5 个游戏
 
     /// 对应游戏中心图标（GameIcons.GameModule）
     var isPlayable: Bool {
         switch self {
-        case .puzzle, .matching, .findSame, .sorting: return true
-        case .color, .shape, .ordering, .spotDifference: return false
+        case .puzzle, .matching, .findSame, .sorting,
+             .color, .shape, .ordering, .counting, .spotDifference:
+            return true
+        }
+    }
+
+    /// 是否依赖内容认知属性（无对应属性的内容不参与 —— §七「不支持的游戏不显示」）
+    var requiresContentAttribute: Bool {
+        switch self {
+        case .color: return true      // 需要 color
+        case .shape: return true      // 需要 shape
+        case .ordering: return true   // 需要 sizeGameSupported
+        case .counting: return true   // 需要 countingAvailable
+        default: return false
         }
     }
 }

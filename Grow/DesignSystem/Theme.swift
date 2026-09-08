@@ -33,6 +33,18 @@ enum Theme {
     static let deepBlue  = Color(red: 0.32, green: 0.50, blue: 0.68)
     static let deepLilac = Color(red: 0.51, green: 0.43, blue: 0.67)
 
+    // Phase 6.1 新增 5 个小游戏主题色（低饱和，与既有四色同档）
+    static let softCoral = Color(red: 0.95, green: 0.72, blue: 0.66)   // 找颜色
+    static let deepCoral = Color(red: 0.78, green: 0.45, blue: 0.40)
+    static let softTeal  = Color(red: 0.66, green: 0.84, blue: 0.82)   // 找形状
+    static let deepTeal  = Color(red: 0.32, green: 0.60, blue: 0.58)
+    static let softAmber = Color(red: 0.96, green: 0.84, blue: 0.62)   // 排一排
+    static let deepAmber = Color(red: 0.75, green: 0.58, blue: 0.28)
+    static let softPlum  = Color(red: 0.86, green: 0.74, blue: 0.86)   // 数一数
+    static let deepPlum  = Color(red: 0.58, green: 0.42, blue: 0.62)
+    static let softAqua  = Color(red: 0.72, green: 0.86, blue: 0.92)   // 找不同
+    static let deepAqua  = Color(red: 0.34, green: 0.58, blue: 0.70)
+
     // 首页背景：极轻渐变，营造空间感（§13）
     static let homeBgTop    = Color(red: 0.99, green: 0.98, blue: 0.95)
     static let homeBgBottom = Color(red: 0.93, green: 0.95, blue: 0.94)

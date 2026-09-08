@@ -51,6 +51,22 @@ struct NatureItem: Codable, Identifiable, Equatable {
     /// JSON 可选：关联内容 id（ContentItem，缺省由 Repository 派生）
     let relatedIDs: [String]?
 
+    // MARK: Phase 6.1 认知属性（全部可选；无法判断的填 nil —— §十九）
+    /// 颜色（统一 ColorDefinition）
+    let color: ColorDefinition?
+    /// 形状（统一 ShapeDefinition）
+    let shape: ShapeDefinition?
+    /// 大小档位（仅大小排序用，不代表真实尺寸）
+    let size: SizeDefinition?
+    /// 是否可用于「数一数」数量游戏
+    let countingAvailable: Bool?
+    /// 数量训练区间 [min, max]，缺省 1–3
+    let countingRange: [Int]?
+    /// 是否支持「排一排」大小排序游戏（同一素材生成大/中/小，不新增图片）
+    let sizeGameSupported: Bool?
+    /// 游戏标签（供 GameContentResolver 过滤，如 "counting" / "sorting"）
+    let gameTags: [String]?
+
     enum CodingKeys: String, CodingKey {
         case id, category, illustration
         case nameZh = "name_zh"
@@ -63,6 +79,29 @@ struct NatureItem: Codable, Identifiable, Equatable {
         case sortOrder = "sort_order"
         case ageLevelRaw = "age_level"
         case relatedIDs = "related_content_ids"
+        case color, shape, size
+        case countingAvailable = "counting_available"
+        case countingRange = "counting_range"
+        case sizeGameSupported = "size_game_supported"
+        case gameTags = "game_tags"
+    }
+}
+
+// MARK: - 认知属性便捷读取
+
+extension NatureItem {
+    /// 是否可参与数量游戏（缺省 false）
+    var supportsCounting: Bool { countingAvailable ?? false }
+
+    /// 数量训练区间（缺省 1–3）
+    var countingBounds: ClosedRange<Int> { CountingRange.resolve(countingRange) }
+
+    /// 是否可参与大小排序游戏（缺省 false）
+    var supportsSizeGame: Bool { sizeGameSupported ?? false }
+
+    /// 是否带指定游戏标签
+    func hasGameTag(_ tag: String) -> Bool {
+        gameTags?.contains(tag) ?? false
     }
 }
 

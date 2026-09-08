@@ -31,6 +31,46 @@
       "icon": "sorting",
       "description": "把物品放进对应的筐",
       "sort_order": 4
+    },
+    {
+      "id": "color",
+      "type": "color",
+      "title": "找颜色",
+      "icon": "color",
+      "description": "找出红色、黄色、蓝色、绿色",
+      "sort_order": 5
+    },
+    {
+      "id": "shape",
+      "type": "shape",
+      "title": "找形状",
+      "icon": "shape",
+      "description": "认认圆形、方形和三角形",
+      "sort_order": 6
+    },
+    {
+      "id": "ordering",
+      "type": "ordering",
+      "title": "排一排",
+      "icon": "ordering",
+      "description": "从大到小排一排",
+      "sort_order": 7
+    },
+    {
+      "id": "counting",
+      "type": "counting",
+      "title": "数一数",
+      "icon": "counting",
+      "description": "数一数有几个",
+      "sort_order": 8
+    },
+    {
+      "id": "spotdifference",
+      "type": "spotDifference",
+      "title": "找不同",
+      "icon": "spotDifference",
+      "description": "找出不一样的那一个",
+      "sort_order": 9
     }
   ],
   "levels": [
@@ -130,6 +170,96 @@
       "configuration": {
         "category_pairs": [{ "category_a": "animal", "category_b": "plant" }]
       }
+    },
+    {
+      "game_id": "color",
+      "level": 1,
+      "content_ids": [],
+      "configuration": { "rounds": 3, "option_count": 2 }
+    },
+    {
+      "game_id": "color",
+      "level": 2,
+      "content_ids": [],
+      "configuration": { "rounds": 4, "option_count": 3 }
+    },
+    {
+      "game_id": "color",
+      "level": 3,
+      "content_ids": [],
+      "configuration": { "rounds": 4, "option_count": 4 }
+    },
+    {
+      "game_id": "shape",
+      "level": 1,
+      "content_ids": [],
+      "configuration": { "rounds": 3, "option_count": 2 }
+    },
+    {
+      "game_id": "shape",
+      "level": 2,
+      "content_ids": [],
+      "configuration": { "rounds": 4, "option_count": 3 }
+    },
+    {
+      "game_id": "shape",
+      "level": 3,
+      "content_ids": [],
+      "configuration": { "rounds": 4, "option_count": 4 }
+    },
+    {
+      "game_id": "ordering",
+      "level": 1,
+      "content_ids": [],
+      "configuration": { "rounds": 1, "option_count": 3 }
+    },
+    {
+      "game_id": "ordering",
+      "level": 2,
+      "content_ids": [],
+      "configuration": { "rounds": 2, "option_count": 3 }
+    },
+    {
+      "game_id": "ordering",
+      "level": 3,
+      "content_ids": [],
+      "configuration": { "rounds": 3, "option_count": 3 }
+    },
+    {
+      "game_id": "counting",
+      "level": 1,
+      "content_ids": [],
+      "configuration": { "rounds": 3, "option_count": 2 }
+    },
+    {
+      "game_id": "counting",
+      "level": 2,
+      "content_ids": [],
+      "configuration": { "rounds": 4, "option_count": 3 }
+    },
+    {
+      "game_id": "counting",
+      "level": 3,
+      "content_ids": [],
+      "configuration": { "rounds": 4, "option_count": 3 }
+    },
+    {
+      "game_id": "spotdifference",
+      "level": 1,
+      "content_ids": [],
+      "configuration": { "rounds": 3, "option_count": 4 }
+    },
+    {
+      "game_id": "spotdifference",
+      "level": 2,
+      "content_ids": [],
+      "configuration": { "rounds": 3, "option_count": 5 }
+    },
+    {
+      "game_id": "spotdifference",
+      "level": 3,
+      "content_ids": [],
+      "configuration": { "rounds": 3, "option_count": 6, "same_category_distractors": true }
     }
   ]
 }

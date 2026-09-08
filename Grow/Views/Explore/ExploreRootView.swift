@@ -133,7 +133,7 @@ struct ExploreRootView: View {
     private func makeDiscovery(excluding current: Discovery? = nil) -> Discovery? {
         for _ in 0..<6 {
             let makers: [() -> Discovery?] = [
-                { content.natureItems.randomElement().map { .nature($0) } },
+                { RandomizationService.shared.shuffle(content.natureItems).first.map { .nature($0) } },
                 { content.poems.randomElement().map { .poem($0) } },
                 { learning.numbers.randomElement().map { .number($0) } },
                 { learning.pinyins.randomElement().map { .pinyin($0) } },
